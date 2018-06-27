@@ -147,7 +147,7 @@ long freq_amt(long samplePeriod, long goalPeriod) {
     float lo_amt_f = sqrt((float) lo_cos*lo_cos + (float) lo_sin*lo_sin);
     float hi_amt_f = sqrt((float) hi_cos*hi_cos + (float) hi_sin*hi_sin);
     lo_amt = lo_amt_f;
-    hi_amt = hi_amt_f*10;
+    hi_amt = hi_amt_f;
     //lo_amt = lo_cos;// + lo_sin;
     //hi_amt = hi_cos;// + hi_sin;
 }

@@ -1,6 +1,6 @@
-#include "tinah.h"
-#include <stdint.h>
 #include <algorithm>
+#include <stdint.h>
+#include "tinah.h"
 
 #define min std::min
 #define max std::max
@@ -36,7 +36,7 @@ void setup() {
     }
 }
 
-long sin_t(int16_t x) {
+int32_t sin_t(int16_t x) {
     // x is in 1/4096th's of a full revolution
     int16_t section = (x>>10)&(3);
     int16_t mod = x&1023;
@@ -50,7 +50,7 @@ long sin_t(int16_t x) {
     return -sin_vals[1023-mod];
 }
 
-long cos_t(int16_t x) {
+int32_t cos_t(int16_t x) {
     x += 4095;
     int16_t section = (x>>10)&(3);
     int16_t mod = x&1023;
@@ -64,15 +64,16 @@ long cos_t(int16_t x) {
     return sin_vals[mod];
 }
 
-long lo_amt = 0, hi_amt = 0, min_read, max_read;
+int32_t lo_amt = 0, hi_amt = 0, min_read, max_read;
 
-long ins[10];
+int32_t ins[10];
+int8_t rands[9] = {1,0,-1,0,0,1,0,-1,0};
 
 int16_t had;
 
-long diff_cnt = 0;
+int32_t diff_cnt = 0;
 // in 
-void freq_amt(long samplePeriod, long goalPeriod) {
+int32_t freq_amt(int32_t samplePeriod, int32_t goalPeriod) {
     uint8_t analog_reference = 1;
     min_read = 1023;
     max_read = 0;
@@ -86,34 +87,43 @@ void freq_amt(long samplePeriod, long goalPeriod) {
     float hi_freq = 10;
     int16_t lo_ang_delta = int(lo_freq/sample_rate*4096); // in revolutions
     int16_t hi_ang_delta = int(hi_freq/sample_rate*4096); // in revolutions
+	//
+	//
     had = lo_ang_delta;
-    long lo_cos = 0;
-    long hi_cos = 0;
-    long lo_sin = 0;
-    long hi_sin = 0;
-    long lo_ang = 0;
-    long hi_ang = 0;
+    int32_t lo_cos = 0;
+    int32_t hi_cos = 0;
+    int32_t lo_sin = 0;
+    int32_t hi_sin = 0;
+    int32_t lo_ang = 0;
+    int32_t hi_ang = 0;
+	//
     ADMUX = (analog_reference << 6) | ir_pin;
     sbi(ADCSRA, ADSC);
-    int16_t s_count = 400;
-    long avg = 0;
+    //int16_t s_count = 89;
+    int16_t s_count = 99;
+    int32_t avg = 0;
     for(int16_t it=0;it<s_count;++it) {
         while(bit_is_set(ADCSRA, ADSC)) ++skipped;
         int16_t lo_byte = ADCL;
         int16_t hi_byte = ADCH;
         avg += (hi_byte<<8) | lo_byte;
+		//
 
         ADMUX = (analog_reference << 6) | ir_pin;
         sbi(ADCSRA, ADSC);
     }
-    avg /= s_count;
+    avg = (avg+(s_count>>1))/s_count;
+	//avg = avg/s_count;
+	//
     int16_t s_count_ten = s_count/10;
     for(int16_t it=0;it<s_count;++it) {
         while(bit_is_set(ADCSRA, ADSC)) ++skipped;
         int16_t lo_byte = ADCL;
         int16_t hi_byte = ADCH;
-        long tval = (hi_byte<<8) | lo_byte;
+        int32_t tval = (hi_byte<<8) | lo_byte;
         tval -= avg;
+		//tval = tval + rands[it%9];
+		//
 
         ADMUX = (analog_reference << 6) | ir_pin;
         sbi(ADCSRA, ADSC);
@@ -126,6 +136,7 @@ void freq_amt(long samplePeriod, long goalPeriod) {
 
         lo_cos += tval*cos_t(lo_ang);
         lo_sin += tval*sin_t(lo_ang);
+		//
         if(tval*cos_t(lo_ang) < 0) {
             ++diff_cnt;
         }
@@ -143,7 +154,11 @@ void freq_amt(long samplePeriod, long goalPeriod) {
     float lo_amt_f = sqrt((float) lo_cos*lo_cos + (float) lo_sin*lo_sin);
     float hi_amt_f = sqrt((float) hi_cos*hi_cos + (float) hi_sin*hi_sin);
     lo_amt = lo_amt_f;
-    hi_amt = hi_amt_f*10;
+    hi_amt = hi_amt_f;
+	int32_t favg = (lo_amt+hi_amt);
+	/*
+	lo_amt += favg/500;
+	hi_amt += favg/500; */
     //lo_amt = lo_cos;// + lo_sin;
     //hi_amt = hi_cos;// + hi_sin;
 }
@@ -154,32 +169,54 @@ int16_t my_analog_read(int16_t ir_pin)
     ADMUX = (analog_reference << 6) | ir_pin;
     sbi(ADCSRA, ADSC);
 
-        for(int16_t i=0;i<1000;++i);
-  
-        while(bit_is_set(ADCSRA, ADSC));
-        int16_t lo_byte = ADCL;
-        int16_t hi_byte = ADCH;
-        long tval = (hi_byte<<8) | lo_byte;
+	for(int16_t i=0;i<1000;++i);
 
-        return tval;
+	while(bit_is_set(ADCSRA, ADSC));
+	int16_t lo_byte = ADCL;
+	int16_t hi_byte = ADCH;
+	int32_t tval = (hi_byte<<8) | lo_byte;
+
+	return tval;
+}
+
+
+void pr() {
+	int sample_cnt = 10;
+	int mv = 0;
+	for(int n=0;n<10000;++n) {
+		double mn = 0.5, mx = 12;
+		double f = (mx-mn)/10000*n+mn;
+		TINAH::wave_freq = f;
+		int32_t lo_tot = 0, hi_tot = 0;
+		for(int16_t i=0;i<sample_cnt;++i) {
+			freq_amt(0, 0);
+			lo_tot += lo_amt/sample_cnt;
+			hi_tot += hi_amt/sample_cnt;
+		}
+		//std::cout << lo_tot << " " << hi_tot << std::endl;
+		std::cout << f << "," << ((float) hi_tot/lo_tot) << "," << ((float) lo_tot/hi_tot) << "," << sqrt((float) hi_tot*hi_tot + (float) lo_tot*lo_tot)/10000 << std::endl;
+	}
 }
 
 
 //void loop() {
 int main() {
+	setup();
+	pr();
 
-    int16_t val = my_analog_read(ir_pin);
+	/*
+	int16_t val = my_analog_read(ir_pin);
 
-    //unsigned long start = micros();
-    long lo_tot = 0;
-    long hi_tot = 0;
+    //unsigned int32_t start = micros();
+    int32_t lo_tot = 0;
+    int32_t hi_tot = 0;
     int16_t sample_cnt = 10;
     for(int16_t i=0;i<sample_cnt;++i) {
         freq_amt(0,0);
         lo_tot += lo_amt/sample_cnt;
         hi_tot += hi_amt/sample_cnt;
     }
-    //unsigned long fin = micros();
+    //unsigned int32_t fin = micros();
 
     LCD.clear();
     LCD.setCursor(0, 0);
@@ -189,6 +226,7 @@ int main() {
     LCD.setCursor(0, 1);
     LCD.print(hi_tot);
     delay(300);
+	*/
     /*
     LCD.clear();
     LCD.setCursor(0, 0);
@@ -238,8 +276,8 @@ int main() {
     LCD.print(",");
     LCD.print(cos_t(1024));
     delay(1000); */
-    LCD.clear();
+    //LCD.clear();
     delay(100);
-    return 0;
+	return 0;
 }
 

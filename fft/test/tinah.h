@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <iostream>
 #include <string>
+#include <cassert>
 
 const int ADCSRA = 0;
 const int ADSC = 0;
@@ -10,20 +11,21 @@ const int ADPS0 = 1;
 const int ADPS1 = 2;
 const int ADPS2 = 3;
 
-int8_t ADCL = 1;
-int8_t ADCH = 2;
+uint8_t ADCL = 0;
+uint8_t ADCH = 0;
 
 namespace TINAH {
-    double sin_loc = 0;
+    double sin_loc = 1;
     double offset = 50;
     double amplitude = 20;
-    double wave_freq = 1; // kHz
+    double wave_freq = 1.2; // kHz
     //int8_t ADCSRA_VAL = 0;
     double PI = 3.14159265358979;
     uint8_t REGS[100];
 
+
     int get_prescaler() {
-        return 1<<REGS[ADCSRA];
+        return 1<<((REGS[ADCSRA] >> ADPS0) & 7);
     }
 
     double get_frequency() { // kHz
@@ -34,7 +36,7 @@ namespace TINAH {
         sin_loc += 2*PI*wave_freq/get_frequency();
     }
     int16_t get_val() {
-        return (int) (sin(sin_loc)*1024);
+        return (int) (sin(sin_loc)*amplitude + offset);
     }
 
 };
@@ -54,7 +56,7 @@ void sbi(int a, int b) {
 
 void cbi(int a, int b) {
     const static int all = (1<<8) - 1;
-    TINAH::REGS[a] &= (all^b);
+    TINAH::REGS[a] &= (all^(1<<b));
 }
 
 bool bit_is_set(int a, int b) {
@@ -64,7 +66,8 @@ bool bit_is_set(int a, int b) {
         int16_t val = TINAH::get_val();
         TINAH::increment_sin();
         ADCL = val & 255;
-        ADCH = (val >> 8) & 255;
+        ADCH = (val>>8) & 255;
+		//assert((ADCL | (ADCH<<8)) < 1024);
     }
     return (TINAH::REGS[a] & (1<<b)) != 0;
 }
