@@ -1,11 +1,11 @@
 #include <Arduino.h>
 #include <MotorBase.h>
 #include <OLED_I2C.h>
+#include <PIDScreen.h>
+#include <MyOLED.h>
 
 MotorBase motor;
 extern uint8_t SmallFont[];
-
-OLED oled(PB7, PB6, 8);
 
 const unsigned int K_P = 3;
 const unsigned int K_I = 2;
@@ -49,6 +49,11 @@ void setup() {
     //     pinMode(x, INPUT);
     // }
 
+    pidScreen.begin();
+    k_p = pidScreen.vals[0];
+    k_i = pidScreen.vals[1];
+    k_d = pidScreen.vals[2];
+    base_speed = pidScreen.vals[3];
 }
 
 void loop() {
@@ -60,17 +65,18 @@ void loop() {
         oled.print("D:", 0, 20);
         oled.print("S:", 0, 30);
         oled.print("E:", 0, 40);
-        oled.printNumI(k_p, 10, 0);
-        oled.printNumI(k_i, 10, 10);
-        oled.printNumI(k_d, 10, 20);
-        oled.printNumI(base_speed, 10, 30);
-        oled.printNumI(previous_error, 10, 40);
+        oled.printNumI(k_p, 20, 0);
+        oled.printNumI(k_i, 20, 10);
+        oled.printNumI(k_d, 20, 20);
+        oled.printNumI(base_speed, 20, 30);
+        oled.printNumI(previous_error, 20, 40);
+        oled.update();
     }
-  
-  
+
+
     float now = millis();
     delta_t = now - previous_time;
-    
+
     float sensor_left_reading = analogRead(SENSOR_LEFT);
     float sensor_right_reading = analogRead(SENSOR_RIGHT);
 
@@ -91,9 +97,9 @@ void loop() {
         error = 5 * previous_error;
         }
     }
-  
+
     float p = k_p * error;
-    
+
     i = k_i * error * now + i;
     if(i > MAX_INTEGRAL_VALUE){
         i = MAX_INTEGRAL_VALUE;
@@ -101,9 +107,9 @@ void loop() {
     else if(i < -MAX_INTEGRAL_VALUE){
         i = -MAX_INTEGRAL_VALUE;
     }
-    
+
     float d = 0;
-    
+
     if(error == previous_error){
         counter++;
     }
