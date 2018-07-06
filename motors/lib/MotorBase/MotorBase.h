@@ -20,5 +20,5 @@ public:
     constexpr static int8_t size();
     static void speed(const int8_t&);
     static void stop(const int8_t&);
-    static void speed(const int8_t&, const int16_t&);
+    static void speed(const int8_t&, int16_t);
 };

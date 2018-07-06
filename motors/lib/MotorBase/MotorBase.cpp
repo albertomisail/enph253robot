@@ -15,7 +15,7 @@ void MotorBase::stop(const int8_t& motorNum) {
     analogWrite(highPwmPins[motorNum], 0);
     analogWrite(lowPwmPins[motorNum], 0);
 }
-void MotorBase::speed(const int8_t& motorNum, const int16_t& velocity) {
+void MotorBase::speed(const int8_t& motorNum, int16_t velocity) {
     if(velocity > 0) {
         if(velocity > 255){
             velocity = 255;
