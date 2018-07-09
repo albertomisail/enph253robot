@@ -4,6 +4,16 @@
 #include <PIDScreen.h>
 #include <MyOLED.h>
 
+/**
+ * PID values determined from lab jul 6:
+ *
+ * P:
+ * I:
+ * D:
+ *
+ *
+ */
+
 MotorBase motor;
 extern uint8_t SmallFont[];
 
@@ -12,12 +22,12 @@ const unsigned int K_I = 2;
 const unsigned int K_D = 4;
 const unsigned int B_S = 6;
 
-const unsigned int SENSOR_LEFT = 0;
-const unsigned int SENSOR_RIGHT =1;
+const unsigned int SENSOR_LEFT = PA4;
+const unsigned int SENSOR_RIGHT = PA5;
 const unsigned int MOTOR_LEFT = 0;
 const unsigned int MOTOR_RIGHT = 1;
-const int THRESHOLD_LEFT = 100;
-const int THRESHOLD_RIGHT = 100;
+/*const */int THRESHOLD_LEFT = 100;
+/*const */int THRESHOLD_RIGHT = 100;
 const int MAX_INTEGRAL_VALUE = 5;
 
 int base_speed = 255;
@@ -54,11 +64,21 @@ void setup() {
     k_i = pidScreen.vals[1];
     k_d = pidScreen.vals[2];
     base_speed = pidScreen.vals[3];
+    THRESHOLD_LEFT = pidScreen.vals[4]<<4;
+    THRESHOLD_RIGHT= pidScreen.vals[5]<<4;
 }
 
 void loop() {
     // put your main code here, to run repeatedly:
-     if(loop_counter % 1000 == 0){
+
+
+    float now = millis();
+    delta_t = now - previous_time;
+
+    float sensor_left_reading = analogRead(SENSOR_LEFT);
+    float sensor_right_reading = analogRead(SENSOR_RIGHT);
+
+    if(loop_counter % 1000 == 0){
         oled.clrScr();
         oled.print("P:", 0, 0);
         oled.print("I:", 0, 10);
@@ -70,15 +90,12 @@ void loop() {
         oled.printNumI(k_d, 20, 20);
         oled.printNumI(base_speed, 20, 30);
         oled.printNumI(previous_error, 20, 40);
+        oled.print("L: ", 0, 50);
+        oled.print("R: ", 40, 50);
+        oled.printNumI((int) sensor_left_reading, 20, 50);
+        oled.printNumI((int) sensor_right_reading, 20, 50);
         oled.update();
     }
-
-
-    float now = millis();
-    delta_t = now - previous_time;
-
-    float sensor_left_reading = analogRead(SENSOR_LEFT);
-    float sensor_right_reading = analogRead(SENSOR_RIGHT);
 
     if(sensor_left_reading >= THRESHOLD_LEFT && sensor_right_reading >= THRESHOLD_RIGHT){
         error = 0;
