@@ -14,7 +14,6 @@
  *
  */
 
-MotorBase motor;
 extern uint8_t SmallFont[];
 
 const unsigned int K_P = 3;
@@ -71,7 +70,6 @@ void setup() {
 void loop() {
     // put your main code here, to run repeatedly:
 
-
     float now = millis();
     delta_t = now - previous_time;
 
@@ -91,9 +89,9 @@ void loop() {
         oled.printNumI(base_speed, 20, 30);
         oled.printNumI(previous_error, 20, 40);
         oled.print("L: ", 0, 50);
-        oled.print("R: ", 40, 50);
-        oled.printNumI((int) sensor_left_reading, 20, 50);
-        oled.printNumI((int) sensor_right_reading, 20, 50);
+        oled.print("R: ", 50, 50);
+        oled.printNumI((int) sensor_left_reading, 15, 50);
+        oled.printNumI((int) sensor_right_reading, 65, 50);
         oled.update();
     }
 
