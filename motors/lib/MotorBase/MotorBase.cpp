@@ -51,7 +51,7 @@ void MotorBase::speed(const int8_t& motorNum, int16_t velocity) {
         analogWriteLog(highPwmPins[motorNum], 0);
         analogWriteLog(lowPwmPins[motorNum], -velocity);
     }
-    oled.update();
+    //oled.update();
     /*
     if(speeds[motorNum] != 0
     && (speeds[motorNum] > 0) != (velocity > 0)

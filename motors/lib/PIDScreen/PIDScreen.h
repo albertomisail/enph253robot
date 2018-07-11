@@ -84,5 +84,5 @@ void PIDScreen<N>::handleField(const int& index) {
 	}
 }
 
-//extern PIDScreen<6> pidScreen({"P: ", "I: ", "D: ", "BS:", "L: ", "R: "});
-extern PIDScreen<1> pidScreen({"BS:"});
+extern PIDScreen<6> pidScreen({"P: ", "I: ", "D: ", "BS:", "L: ", "R: "});
+//extern PIDScreen<1> pidScreen({"BS:"});

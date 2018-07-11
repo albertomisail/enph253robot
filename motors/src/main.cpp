@@ -59,15 +59,13 @@ void setup() {
     //     pinMode(x, INPUT);
     // }
 
-    //pidScreen.begin();
-    /*
+    pidScreen.begin();
     k_p = pidScreen.vals[0];
     k_i = pidScreen.vals[1];
     k_d = pidScreen.vals[2];
     base_speed = pidScreen.vals[3];
     THRESHOLD_LEFT = pidScreen.vals[4]<<4;
     THRESHOLD_RIGHT= pidScreen.vals[5]<<4;
-    */
     //base_speed = pidScreen.vals[0];
 }
 
@@ -75,6 +73,7 @@ void loop() {
     /*oled.print("HI", 0, 0);
     oled.update(); */
 
+/*
     oled.clrScr();
     int val = (analogRead(POT_PIN)>>3)-255;
     oled.printNumI(val, 0, 0);
@@ -82,21 +81,21 @@ void loop() {
     motor.speed(0, val);
     motor.speed(1, val);
 
-    delay(15);
+    delay(15); */
 
     // put your main code here, to run repeatedly:
     /*
     oled.clrScr();
     oled.printNumI(pval, 0, 0);
     oled.update(); */
-    /*
+
     float now = millis();
     delta_t = now - previous_time;
 
     float sensor_left_reading = analogRead(SENSOR_LEFT);
     float sensor_right_reading = analogRead(SENSOR_RIGHT);
 
-    if(loop_counter % 1000 == 0){
+    if(loop_counter % 100 == 0){
         oled.clrScr();
         oled.print("P:", 0, 0);
         oled.print("I:", 0, 10);
@@ -160,5 +159,6 @@ void loop() {
 
     previous_error = error;
     previous_time = now;
-    loop_counter++; */
+    loop_counter++;
+    delay(10);
 }
