@@ -1,20 +1,23 @@
 #include "MotorBase.h"
 
 MotorBase::MotorBase() {
+    init();
+}
+constexpr int8_t MotorBase::size() {
+    return (sizeof highPwmPins);
+}
+void MotorBase::init() {
     for(const auto& x : highPwmPins) {
         pinMode(x, OUTPUT);
-        digitalWrite(x, 0);
+        analogWrite(x, 0);
     }
     for(const auto& x : lowPwmPins) {
         pinMode(x, OUTPUT);
-        digitalWrite(x, 0);
+        analogWrite(x, 0);
     }
     for(int i = 0;i<sizeof highPwmPins;++i) {
         speeds[i] = 0;
     }
-}
-constexpr int8_t MotorBase::size() {
-    return (sizeof highPwmPins);
 }
 void MotorBase::stop(const int8_t& motorNum) {
     analogWrite(highPwmPins[motorNum], 0);
@@ -33,7 +36,6 @@ void analogWriteLog(int pin, int val)
     //printColumn++;
 }
 void MotorBase::speed(const int8_t& motorNum, int16_t velocity) {
-    /*
     printColumn = 0;
     //oled.clrScr();
     if(velocity > 0) {
@@ -50,7 +52,7 @@ void MotorBase::speed(const int8_t& motorNum, int16_t velocity) {
         analogWriteLog(lowPwmPins[motorNum], -velocity);
     }
     oled.update();
-    */
+    /*
     if(speeds[motorNum] != 0
     && (speeds[motorNum] > 0) != (velocity > 0)
     && velocity != 0) {
@@ -81,7 +83,7 @@ void MotorBase::speed(const int8_t& motorNum, int16_t velocity) {
         delay(10);
     }
     analogWrite(nonzeroPin, abs(velocity));
-    speeds[motorNum] = velocity;
+    speeds[motorNum] = velocity; */
 }
 
 MotorBase motor;

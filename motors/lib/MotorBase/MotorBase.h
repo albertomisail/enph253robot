@@ -7,8 +7,8 @@
  *
  */
 
-constexpr int8_t highPwmPins[] = {PA0, PA2};
-constexpr int8_t lowPwmPins[] = {PA1, PA3};
+constexpr int8_t highPwmPins[] = {PA2, PA6};
+constexpr int8_t lowPwmPins[] = {PA3, PA7};
 
 static_assert(sizeof highPwmPins == sizeof lowPwmPins);
 
@@ -20,6 +20,7 @@ public:
     MotorBase();
     constexpr static int8_t size();
     void stop(const int8_t&);
+    void init();
     void speed(const int8_t&, int16_t);
 };
 

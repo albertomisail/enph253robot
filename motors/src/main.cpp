@@ -48,6 +48,7 @@ int last_g = 0;
 float i = 0;
 
 void setup() {
+    motor.init();
     // put your setup code here, to run once:
     oled.begin();
     oled.setFont(SmallFont);
@@ -79,6 +80,7 @@ void loop() {
     oled.printNumI(val, 0, 0);
     oled.update();
     motor.speed(0, val);
+    motor.speed(1, val);
 
     delay(15);
 
