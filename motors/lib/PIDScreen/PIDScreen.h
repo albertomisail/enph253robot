@@ -4,7 +4,7 @@
 #include <utility>
 
 constexpr uint8_t GO_BTN_PIN = PB13;
-constexpr uint8_t POT_PIN = PB1;
+constexpr uint8_t POT_PIN = PB0;
 
 template <int N>
 class PIDScreen {
@@ -84,4 +84,5 @@ void PIDScreen<N>::handleField(const int& index) {
 	}
 }
 
-extern PIDScreen<6> pidScreen({"P: ", "I: ", "D: ", "BS:", "L: ", "R: "});
+//extern PIDScreen<6> pidScreen({"P: ", "I: ", "D: ", "BS:", "L: ", "R: "});
+extern PIDScreen<1> pidScreen({"BS:"});

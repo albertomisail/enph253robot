@@ -1,5 +1,6 @@
 #pragma once
 #include <Arduino.h>
+#include <MyOLED.h>
 
 /**
  * TODO: Move these motor pin listings into constants.h
