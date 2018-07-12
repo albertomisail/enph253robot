@@ -11,6 +11,7 @@ void MotorBase::init() {
         pinMode(x, OUTPUT);
         analogWrite(x, 0);
     }
+    delay(20);
     for(const auto& x : lowPwmPins) {
         pinMode(x, OUTPUT);
         analogWrite(x, 0);
