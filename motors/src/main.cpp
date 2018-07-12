@@ -48,6 +48,7 @@ int last_g = 0;
 float i = 0;
 
 void setup() {
+<<<<<<< HEAD
     motor.init();
     // put your setup code here, to run once:
     oled.begin();
@@ -67,6 +68,8 @@ void setup() {
     THRESHOLD_LEFT = pidScreen.vals[4]<<4;
     THRESHOLD_RIGHT= pidScreen.vals[5]<<4;
     //base_speed = pidScreen.vals[0];
+=======
+>>>>>>> 63b8f3b... Menu system dev
 }
 
 void loop() {
@@ -84,6 +87,7 @@ void loop() {
     delay(15); */
 
     // put your main code here, to run repeatedly:
+<<<<<<< HEAD
     /*
     oled.clrScr();
     oled.printNumI(pval, 0, 0);
@@ -162,4 +166,10 @@ void loop() {
     previous_time = now;
     loop_counter++;
     delay(10);
+=======
+    for(int i=0;i<4;++i) {
+        motor.speed(0, min(255, max(-255, i*256-512)));
+        delay(500);
+    }
+>>>>>>> 63b8f3b... Menu system dev
 }
