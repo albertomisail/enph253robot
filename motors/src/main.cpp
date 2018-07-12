@@ -89,81 +89,77 @@ void loop() {
     oled.printNumI(pval, 0, 0);
     oled.update(); */
 
-    // float now = millis();
-    // delta_t = now - previous_time;
-    //
-    // float sensor_left_reading = analogRead(SENSOR_LEFT);
-    // float sensor_right_reading = analogRead(SENSOR_RIGHT);
-    //
-    // if(loop_counter % 100 == 0){
-    //     oled.clrScr();
-    //     oled.print("P:", 0, 0);
-    //     oled.print("I:", 0, 10);
-    //     oled.print("D:", 0, 20);
-    //     oled.print("S:", 0, 30);
-    //     oled.print("E:", 0, 40);
-    //     oled.printNumI(k_p, 20, 0);
-    //     oled.printNumI(k_i, 20, 10);
-    //     oled.printNumI(k_d, 20, 20);
-    //     oled.printNumI(base_speed, 20, 30);
-    //     oled.printNumI(previous_error, 20, 40);
-    //     oled.print("L: ", 0, 50);
-    //     oled.print("R: ", 50, 50);
-    //     oled.printNumI((int) sensor_left_reading, 15, 50);
-    //     oled.printNumI((int) sensor_right_reading, 65, 50);
-    //     oled.update();
-    // }
-    //
-    // if(sensor_left_reading >= THRESHOLD_LEFT && sensor_right_reading >= THRESHOLD_RIGHT){
-    //     error = 0;
-    // }
-    // else if(sensor_left_reading >= THRESHOLD_LEFT && sensor_right_reading < THRESHOLD_RIGHT){
-    //     error = 1;
-    // }
-    // else if(sensor_left_reading < THRESHOLD_LEFT && sensor_right_reading >= THRESHOLD_RIGHT){
-    //     error = -1;
-    // }
-    // else{
-    //     if(previous_error == 5 || previous_error == -5){
-    //     error = previous_error;
-    //     }
-    //     else{
-    //     error = 5 * previous_error;
-    //     }
-    // }
-    //
-    // float p = k_p * error;
-    //
-    // i = k_i * error * now + i;
-    // if(i > MAX_INTEGRAL_VALUE){
-    //     i = MAX_INTEGRAL_VALUE;
-    // }
-    // else if(i < -MAX_INTEGRAL_VALUE){
-    //     i = -MAX_INTEGRAL_VALUE;
-    // }
-    //
-    // float d = 0;
-    //
-    // if(error == previous_error){
-    //     counter++;
-    // }
-    // else{
-    //     counter = 1;
-    // }
-    // d = k_d * (error - previous_error) / (delta_t * counter);
-    //
-    // int g = (int) (p + i + d);
-    //
-    // motor.speed(MOTOR_LEFT, -base_speed - g);
-    // motor.speed(MOTOR_RIGHT, base_speed - g);
-    //
-    // previous_error = error;
-    // previous_time = now;
-    // loop_counter++;
-    // delay(10);
-    oled.clrScr();
-    oled.print("bla", 0, 10);
-    delay(2000);
-    oled.clrScr();
-    oled.print("blu", 0, 10);
+    float now = millis();
+    delta_t = now - previous_time;
+
+    float sensor_left_reading = analogRead(SENSOR_LEFT);
+    float sensor_right_reading = analogRead(SENSOR_RIGHT);
+
+    if(loop_counter % 100 == 0){
+        oled.clrScr();
+        oled.print("P:", 0, 0);
+        oled.print("I:", 0, 10);
+        oled.print("D:", 0, 20);
+        oled.print("S:", 0, 30);
+        oled.print("E:", 0, 40);
+        oled.printNumI(k_p, 20, 0);
+        oled.printNumI(k_i, 20, 10);
+        oled.printNumI(k_d, 20, 20);
+        oled.printNumI(base_speed, 20, 30);
+        oled.printNumI(previous_error, 20, 40);
+        oled.print("L: ", 0, 50);
+        oled.print("R: ", 50, 50);
+        oled.printNumI((int) sensor_left_reading, 15, 50);
+        oled.printNumI((int) sensor_right_reading, 65, 50);
+        oled.update();
+    }
+    if(sensor_left_reading >= THRESHOLD_LEFT && sensor_right_reading >= THRESHOLD_RIGHT){
+        error = 0;
+    }
+    else if(sensor_left_reading >= THRESHOLD_LEFT && sensor_right_reading < THRESHOLD_RIGHT){
+        error = 1;
+    }
+    else if(sensor_left_reading < THRESHOLD_LEFT && sensor_right_reading >= THRESHOLD_RIGHT){
+        error = -1;
+    }
+    else{
+        if(previous_error == 5 || previous_error == -5){
+        error = previous_error;
+        }
+        else{
+        error = 5 * previous_error;
+        }
+    }
+
+    float p = k_p * error;
+
+    i = k_i * error * now + i;
+    if(i > MAX_INTEGRAL_VALUE){
+        i = MAX_INTEGRAL_VALUE;
+    }
+    else if(i < -MAX_INTEGRAL_VALUE){
+        i = -MAX_INTEGRAL_VALUE;
+    }
+
+    float d = 0;
+
+    if(error == previous_error){
+        counter++;
+    }
+    else{
+        counter = 1;
+    }
+
+    d = k_d * (error - previous_error) / (delta_t * counter);
+
+
+    int g = (int) (p + i + d);
+
+    motor.speed(MOTOR_LEFT, -base_speed - g);
+    motor.speed(MOTOR_RIGHT, base_speed - g);
+
+    previous_error = error;
+    previous_time = now;
+    loop_counter++;
+    delay(10);
 }

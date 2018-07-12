@@ -7,8 +7,8 @@
  *
  */
 
-constexpr int8_t highPwmPins[] = {PB6, PA6};
-constexpr int8_t lowPwmPins[] = {PB7, PA7};
+constexpr int8_t highPwmPins[] = {PB8, PA6};
+constexpr int8_t lowPwmPins[] = {PB9, PA7};
 
 static_assert(sizeof highPwmPins == sizeof lowPwmPins);
 
