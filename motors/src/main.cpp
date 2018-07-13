@@ -23,10 +23,12 @@ const unsigned int B_S = 6;
 
 const unsigned int SENSOR_LEFT = PA4;
 const unsigned int SENSOR_RIGHT = PA5;
+const unsigned int SENSOR_EXTRA = PA2;
 const unsigned int MOTOR_LEFT = 0;
 const unsigned int MOTOR_RIGHT = 1;
 /*const */int THRESHOLD_LEFT = 100;
 /*const */int THRESHOLD_RIGHT = 100;
+          int THRESHOLD_EXTRA = 100;
 const int MAX_INTEGRAL_VALUE = 5;
 
 int base_speed = 255;
@@ -38,6 +40,7 @@ float previous_time = 0;
 
 unsigned int counter = 1;
 unsigned int loop_counter = 0;
+uint8_t consec = 0;
 
 int k_i, k_d = 0;
 int k_p =92;
@@ -52,6 +55,7 @@ void setup() {
     // put your setup code here, to run once:
     oled.begin();
     oled.setFont(SmallFont);
+    pinMode(SENSOR_EXTRA, INPUT);
     // for(const auto& x : trig_pin) {
     //     pinMode(x, OUTPUT);
     // }
@@ -66,53 +70,55 @@ void setup() {
     base_speed = pidScreen.vals[3];
     THRESHOLD_LEFT = pidScreen.vals[4]<<4;
     THRESHOLD_RIGHT= pidScreen.vals[5]<<4;
+    THRESHOLD_EXTRA = pidScreen.vals[6]<<4;
     //base_speed = pidScreen.vals[0];
 }
 
 void loop() {
-    /*oled.print("HI", 0, 0);
-    oled.update(); */
-
-/*
-    oled.clrScr();
-    int val = (analogRead(POT_PIN)>>3)-255;
-    oled.printNumI(val, 0, 0);
-    oled.update();
-    motor.speed(0, val);
-    motor.speed(1, val);
-
-    delay(15); */
-
-    // put your main code here, to run repeatedly:
-    /*
-    oled.clrScr();
-    oled.printNumI(pval, 0, 0);
-    oled.update(); */
 
     float now = millis();
     delta_t = now - previous_time;
 
     float sensor_left_reading = analogRead(SENSOR_LEFT);
     float sensor_right_reading = analogRead(SENSOR_RIGHT);
+    float sensor_extra_reading = analogRead(SENSOR_EXTRA);
 
     if(loop_counter % 100 == 0){
         oled.clrScr();
-        oled.print("P:", 0, 0);
-        oled.print("I:", 0, 10);
-        oled.print("D:", 0, 20);
-        oled.print("S:", 0, 30);
-        oled.print("E:", 0, 40);
+        oled.print(const_cast<char*>("P:"), 0, 0);
+        oled.print(const_cast<char*>("I:"), 0, 10);
+        oled.print(const_cast<char*>("D:"), 0, 20);
+        oled.print(const_cast<char*>("S:"), 0, 30);
+        oled.print(const_cast<char*>("E:"), 0, 40);
         oled.printNumI(k_p, 20, 0);
         oled.printNumI(k_i, 20, 10);
         oled.printNumI(k_d, 20, 20);
         oled.printNumI(base_speed, 20, 30);
         oled.printNumI(previous_error, 20, 40);
-        oled.print("L: ", 0, 50);
-        oled.print("R: ", 50, 50);
+        oled.print(const_cast<char*>("L: "), 0, 50);
+        oled.print(const_cast<char*>("R: "), 50, 50);
         oled.printNumI((int) sensor_left_reading, 15, 50);
         oled.printNumI((int) sensor_right_reading, 65, 50);
+        oled.printNumI((int) sensor_extra_reading, 90, 50);
         oled.update();
     }
+    if(sensor_extra_reading > THRESHOLD_LEFT
+    && sensor_left_reading > THRESHOLD_LEFT
+    && sensor_right_reading > THRESHOLD_RIGHT)
+    {
+        if(++consec > 1) {
+            motor.speed(MOTOR_LEFT, 255);
+            motor.speed(MOTOR_RIGHT, -255);
+            delay(100);
+            motor.speed(MOTOR_LEFT, 0);
+            motor.speed(MOTOR_RIGHT, 0);
+            oled.print(const_cast<char*>("EDGE"), 50, 0);
+            oled.update();
+            while(true);
+        }
+    }
+
+
     if(sensor_left_reading >= THRESHOLD_LEFT && sensor_right_reading >= THRESHOLD_RIGHT){
         error = 0;
     }
@@ -161,5 +167,5 @@ void loop() {
     previous_error = error;
     previous_time = now;
     loop_counter++;
-    delay(10);
+    delay(5);
 }

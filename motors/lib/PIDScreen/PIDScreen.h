@@ -37,7 +37,7 @@ void PIDScreen<N>::begin() {
 		oled.printNumI(0, 21, i*10, 4);
 		++i;
 	}
-	for(int i=0;i<fields.size();++i) {
+	for(int i=0;i<static_cast<int>(fields.size());++i) {
 		handleField(i);
 	}
 }
@@ -84,5 +84,5 @@ void PIDScreen<N>::handleField(const int& index) {
 	}
 }
 
-extern PIDScreen<6> pidScreen({"P: ", "I: ", "D: ", "BS:", "L: ", "R: "});
+extern PIDScreen<7> pidScreen({"P: ", "I: ", "D: ", "BS:", "L: ", "R: ", "E: "});
 //extern PIDScreen<1> pidScreen({"BS:"});
