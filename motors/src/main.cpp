@@ -102,9 +102,9 @@ void loop() {
         oled.printNumI((int) sensor_extra_reading, 90, 50);
         oled.update();
     }
-    if(sensor_extra_reading > THRESHOLD_LEFT
-    && sensor_left_reading > THRESHOLD_LEFT
-    && sensor_right_reading > THRESHOLD_RIGHT)
+    if(sensor_extra_reading > THRESHOLD_EXTRA
+    && sensor_left_reading > THRESHOLD_EXTRA
+    && sensor_right_reading > THRESHOLD_EXTRA)
     {
         if(++consec > 1) {
             motor.speed(MOTOR_LEFT, 255);
