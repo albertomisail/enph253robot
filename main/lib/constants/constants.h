@@ -1,15 +1,14 @@
 #pragma once
-#include <Arduino.h>
+#include <MenuItem.h>
 
-constexpr int8_t highPwmPins[] = {PB8, PA6};
-constexpr int8_t lowPwmPins[] = {PB9, PA7};
-
-static_assert(sizeof lowPwmPins == sizeof highPwmPins);
-
-constexpr int8_t oledPins[] = {PB7, PB6};
-constexpr int8_t trigPins[] = {PB12};
-constexpr int8_t echoPins[] = {PB13};
-
-static_assert(sizeof trigPins == sizeof echoPins);
-
-constexpr uint8_t ir_pin = 4;
+class Constants {
+public:
+    static MenuItem PROPORTIONAL;//("P", 0, 256, 40);
+    static MenuItem INTEGRAL;//("I", 0, 20, 0);
+    static MenuItem DERIVATIVE;//("D", 0, 40, 5);
+    static MenuItem BASE_SPEED;//("BS", 0, 256, 150);
+    static MenuItem LEFT_THRESHOLD;//("LT", 0, 4096, 1024);
+    static MenuItem RIGHT_THRESHOLD;//("RT", 0, 4096, 1024);
+    const static uint8_t POT_PIN = PB0;
+    const static uint8_t GO_BTN_PIN = PB12;
+};
