@@ -38,4 +38,12 @@ public:
     constexpr static int8_t buttonSwitchPin = PB13;
 
     constexpr static uint8_t IR_BEACON_PIN = PA0;
+
+    constexpr static uint8_t clawLift = PB13;
+    constexpr static uint8_t otherLift = PB13;
+    constexpr static uint8_t potentiometerClaw = PB13;
+    constexpr static uint8_t potentiometerOther = PB13;
+    constexpr static uint8_t voltageUp = PB13;
+    constexpr static uint8_t voltageDown = PB13;
+    constexpr static uint8_t speedLift = PB13;
 };

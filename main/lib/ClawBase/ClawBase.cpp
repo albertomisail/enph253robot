@@ -38,3 +38,5 @@ void ClawBase::pickEwok(){
     // add zipline arm
     ClawBase::buttonSwitch = false;
 }
+
+ClawBase claw;
