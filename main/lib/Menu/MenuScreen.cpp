@@ -14,11 +14,11 @@ void MenuScreen::positionMenuItems()
     for(int i=0;i<MenuItem::menuItemCount+1;++i)
     {
         uint8_t len = strlen(getName(i));
-        if(currentx + len*CHAR_WIDTH > WIDTH) {
+        if(currentx + len*CHAR_WIDTH+NUM_WIDTH > WIDTH) {
             currentx = 0, currenty += LINE_HEIGHT;
         }
         xpos[i] = currentx, ypos[i] = currenty;
-        oled.print(getName(i), currentx, currenty);
+        npos[i] = currentx+CHAR_WIDTH*len+5;
         currentx += len*CHAR_WIDTH;
     }
 }
@@ -30,6 +30,10 @@ void MenuScreen::initializeMenuScreen() const
     for(int i=0;i<MenuItem::menuItemCount+1;++i)
     {
         oled.print(getName(i), xpos[i], ypos[i]);
+        if(MenuItem::menuItemCount != i)
+        {
+            oled.printNumI(MenuItem::menuItems[i]->getVal(), npos[i], ypos[i]);
+        }
     }
     oled.update();
 }
@@ -47,9 +51,13 @@ void MenuScreen::run()
         if(choice != currentMenuItem) {
             oled.invertText(false);
             oled.print(getName(currentMenuItem), xpos[currentMenuItem], ypos[currentMenuItem]);
+            oled.printNumI(MenuItem::menuItems[currentMenuItem]->getVal(),
+                           npos[currentMenuItem], ypos[currentMenuItem]);
             oled.invertText(true);
             currentMenuItem = choice;
             oled.print(getName(currentMenuItem), xpos[currentMenuItem], ypos[currentMenuItem]);
+            oled.printNumI(MenuItem::menuItems[currentMenuItem]->getVal(),
+                           npos[currentMenuItem], ypos[currentMenuItem]);
             oled.update();
         }
 

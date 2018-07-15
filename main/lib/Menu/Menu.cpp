@@ -30,5 +30,7 @@ void Menu::writeEEPROM() {
 void Menu::run() {
     MenuScreen menuScreen;
     // Preload eeprom values into Constants
+    loadEEPROM();
     menuScreen.run();
+    writeEEPROM();
 }
