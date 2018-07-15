@@ -27,4 +27,12 @@ public:
     constexpr static int8_t infraredLeds[] = {};
     constexpr static int8_t infraredReceiver = ;
     constexpr static int8_t infraredThreshold = ;
+
+    constexpr static int8_t clawArm = ;
+    constexpr static int8_t claw = ;
+    constexpr static int8_t angleOut = ;
+    constexpr static int8_t angleIn = ;
+    constexpr static int8_t angleOpen = ;
+    constexpr static int8_t angleClose = ;
+    constexpr static int8_t buttonSwitchPin = ;
 };
