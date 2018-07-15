@@ -1,16 +1,5 @@
 #include "UltrasoundBase.h"
 
-class UltrasoundBase {
-private:
-    float distances[sizeof highPwmPins];
-
-public:
-    UltrasoundBase();
-    constexpr static int8_t size();
-    void init();
-    void measureDistance(const int8_t&);
-};
-
 UltrasoundBase::UltrasoundBase() {
     init();
 }

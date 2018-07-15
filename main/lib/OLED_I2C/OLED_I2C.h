@@ -21,6 +21,7 @@
 */
 #pragma once
 #include <Arduino.h>
+#include <constants.h>
 
 #ifndef OLED_I2C_h
 #define OLED_I2C_h

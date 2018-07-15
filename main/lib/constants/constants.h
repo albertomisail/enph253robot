@@ -11,3 +11,5 @@ constexpr int8_t trigPins[] = {PB12};
 constexpr int8_t echoPins[] = {PB13};
 
 static_assert(sizeof trigPins == sizeof echoPins);
+
+constexpr uint8_t ir_pin = 4;

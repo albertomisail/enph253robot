@@ -860,4 +860,4 @@ void OLED::_writeByte(uint8_t value)
 	shiftOut(_sda_pin, _scl_pin, MSBFIRST, value);
 }
 
-OLED oled;
+OLED oled(oledPins[0], oledPins[1], 8);

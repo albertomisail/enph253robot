@@ -1,6 +1,9 @@
 #pragma once
 #include <hcsr04.h>
+// https://github.com/bbkbarbar/Arduino-HC-SR04-library/blob/master/hcsr04.h
+// If it does not work try https://playground.arduino.cc/Code/NewPing
 #include <Arduino.h>
+#include <constants.h>
 
 class UltrasoundBase {
 private:
