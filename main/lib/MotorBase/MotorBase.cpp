@@ -42,8 +42,7 @@ void MotorBase::stop(const int8_t& motorNum) {
     speeds[motorNum] = 0;
 }
 void MotorBase::shut_dowm(){
-    int8_t size = MotorBase::size();
-    for(int8_t i = 0; i < size; i++){
+    for(int8_t i = 0; i < MotorBase::size(); i++){
         MotorBase::stop(i);
     }
 }

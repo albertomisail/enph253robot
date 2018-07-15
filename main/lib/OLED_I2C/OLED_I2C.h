@@ -19,6 +19,8 @@
   The license applies to all part of the library including the 
   examples and tools supplied with the library.
 */
+#pragma once
+#include <Arduino.h>
 
 #ifndef OLED_I2C_h
 #define OLED_I2C_h
@@ -160,3 +162,5 @@ class OLED
 };
 
 #endif
+
+extern OLED oled;
