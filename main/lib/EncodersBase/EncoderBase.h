@@ -2,7 +2,7 @@
 #include <Encoder.h>
 // https://github.com/PaulStoffregen/Encoder/releases/tag/1.4.1
 #include <Arduino.h>
-#include <constants.h>
+#include <Constants.h>
 
 class EncoderBase{
     private:

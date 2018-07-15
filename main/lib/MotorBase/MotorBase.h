@@ -1,5 +1,6 @@
 #pragma once
 #include <Arduino.h>
+#include <Constants.h>
 
 class MotorBase {
 private:
