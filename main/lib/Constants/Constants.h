@@ -18,9 +18,13 @@ public:
     constexpr static int8_t trigPins[] = {PB12};
     constexpr static int8_t echoPins[] = {PB13};
 
-    constexpr int8_t highPwmPins[] = {PB8, PA6};
-    constexpr int8_t lowPwmPins[] = {PB9, PA7};
+    constexpr static int8_t highPwmPins[] = {PB8, PA6};
+    constexpr static int8_t lowPwmPins[] = {PB9, PA7};
 
-    constexpr int8_t leftEncoderPins[] = {};
-    constexpr int8_t rightEncoderPins[] = {};
+    constexpr static int8_t leftEncoderPins[] = {};
+    constexpr static int8_t rightEncoderPins[] = {};
+
+    constexpr static int8_t infraredLeds[] = {};
+    constexpr static int8_t infraredReceiver = ;
+    constexpr static int8_t infraredThreshold = ;
 };
