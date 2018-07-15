@@ -24,15 +24,18 @@ public:
     constexpr static int8_t leftEncoderPins[] = {};
     constexpr static int8_t rightEncoderPins[] = {};
 
-    constexpr static int8_t infraredLeds[] = {};
-    constexpr static int8_t infraredReceiver = ;
-    constexpr static int8_t infraredThreshold = ;
+    // TODO: Assign real pin values
+    constexpr static int8_t infraredLeds[] = {PB13};
+    constexpr static int8_t infraredReceiver = PB13;
+    constexpr static int8_t infraredThreshold = PB13;
 
-    constexpr static int8_t clawArm = ;
-    constexpr static int8_t claw = ;
-    constexpr static int8_t angleOut = ;
-    constexpr static int8_t angleIn = ;
-    constexpr static int8_t angleOpen = ;
-    constexpr static int8_t angleClose = ;
-    constexpr static int8_t buttonSwitchPin = ;
+    constexpr static int8_t clawArm = PB13;
+    constexpr static int8_t claw = PB13;
+    constexpr static int8_t angleOut = PB13;
+    constexpr static int8_t angleIn = PB13;
+    constexpr static int8_t angleOpen = PB13;
+    constexpr static int8_t angleClose = PB13;
+    constexpr static int8_t buttonSwitchPin = PB13;
+
+    constexpr static uint8_t IR_BEACON_PIN = PA0;
 };

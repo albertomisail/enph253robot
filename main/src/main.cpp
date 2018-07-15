@@ -2,9 +2,10 @@
 #include <EEPROM.h>
 #include <OLED_I2C.h>
 #include "Constants.h"
+#include <FFT.h>
 
 void setup() {
-    Constants cstns();
+    fft.init();
     // put your setup code here, to run once:
 }
 
