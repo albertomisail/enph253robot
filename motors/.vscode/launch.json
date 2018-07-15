@@ -1,0 +1,31 @@
+// AUTOMATICALLY GENERATED FILE. PLEASE DO NOT MODIFY IT MANUALLY
+
+// PIO Unified Debugger
+//
+// Documentation: http://docs.platformio.org/page/plus/debugging.html
+// Configuration: http://docs.platformio.org/page/projectconf/section_env_debug.html
+
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "platformio-debug",
+            "request": "launch",
+            "name": "PIO Debug",
+            "executable": "d:/Google Drive/UBC/2 year/ENPH 253/Robot/enph253robot/motors/.pioenvs/bluepill_f103c8/firmware.elf",
+            "toolchainBinDir": "C:/Users/ALBERTO/.platformio/packages/toolchain-gccarmnoneeabi/bin",
+            "svdPath": "C:/Users/ALBERTO/.platformio/platforms/ststm32/misc/svd/STM32F103xx.svd",
+            "preLaunchTask": "PlatformIO: Pre-Debug",
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+            "type": "platformio-debug",
+            "request": "launch",
+            "name": "PIO Debug (Skip Pre-Debug)",
+            "executable": "d:/Google Drive/UBC/2 year/ENPH 253/Robot/enph253robot/motors/.pioenvs/bluepill_f103c8/firmware.elf",
+            "toolchainBinDir": "C:/Users/ALBERTO/.platformio/packages/toolchain-gccarmnoneeabi/bin",
+            "svdPath": "C:/Users/ALBERTO/.platformio/platforms/ststm32/misc/svd/STM32F103xx.svd",
+            "internalConsoleOptions": "openOnSessionStart"
+        }
+    ]
+}
