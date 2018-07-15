@@ -2,6 +2,7 @@
 #include <Arduino.h>
 #include <Constants.h>
 #include "MenuItem.h"
+#include <OLED_I2C.h>
 
 class MenuScreen {
 public:

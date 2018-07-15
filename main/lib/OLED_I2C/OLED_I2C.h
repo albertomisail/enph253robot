@@ -1,11 +1,11 @@
 /*
   OLED_I2C.h - Arduino/chipKit library support for 128x64 pixel SSD1306 OLEDs
   Copyright (C)2015 Rinky-Dink Electronics, Henning Karlsen. All right reserved
-  
+
   This library has been made to make it easy to use 128x64 pixel OLED displays
   based on the SSD1306 controller chip with an Arduino or a chipKit.
 
-  You can always find the latest version of the library at 
+  You can always find the latest version of the library at
   http://www.RinkyDinkElectronics.com/
 
   This library is free software; you can redistribute it and/or
@@ -16,12 +16,12 @@
   will allow commercial use. This includes using the library,
   modified or not, as a tool to sell products.
 
-  The license applies to all part of the library including the 
+  The license applies to all part of the library including the
   examples and tools supplied with the library.
 */
 #pragma once
 #include <Arduino.h>
-#include <constants.h>
+#include <Constants.h>
 
 #ifndef OLED_I2C_h
 #define OLED_I2C_h

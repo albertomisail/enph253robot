@@ -1,11 +1,11 @@
 /*
   OLED_I2C.cpp - Arduino/chipKit library support for 128x64 pixel SSD1306 OLEDs
   Copyright (C)2015 Rinky-Dink Electronics, Henning Karlsen. All right reserved
-  
+
   This library has been made to make it easy to use 128x64 pixel OLED displays
   based on the SSD1306 controller chip with an Arduino or a chipKit.
 
-  You can always find the latest version of the library at 
+  You can always find the latest version of the library at
   http://www.RinkyDinkElectronics.com/
 
   This library is free software; you can redistribute it and/or
@@ -16,7 +16,7 @@
   will allow commercial use. This includes using the library,
   modified or not, as a tool to sell products.
 
-  The license applies to all part of the library including the 
+  The license applies to all part of the library including the
   examples and tools supplied with the library.
 */
 
@@ -38,14 +38,14 @@
 #endif
 
 OLED::OLED(uint8_t data_pin, uint8_t sclk_pin, uint8_t rst_pin)
-{ 
+{
 	_sda_pin = data_pin;
 	_scl_pin = sclk_pin;
 	_rst_pin = rst_pin;
 }
 
 OLED::OLED(uint8_t data_pin, uint8_t sclk_pin)
-{ 
+{
 	_sda_pin = data_pin;
 	_scl_pin = sclk_pin;
 	_rst_pin = RST_NOT_IN_USE;
@@ -214,7 +214,7 @@ void OLED::printNumI(long num, int x, int y, int length, char filler)
 	char st[27];
 	boolean neg=false;
 	int c=0, f=0;
-  
+
 	if (num==0)
 	{
 		if (length!=0)
@@ -237,7 +237,7 @@ void OLED::printNumI(long num, int x, int y, int length, char filler)
 			neg=true;
 			num=-num;
 		}
-	  
+
 		while (num>0)
 		{
 			buf[c]=48+(num % 10);
@@ -245,12 +245,12 @@ void OLED::printNumI(long num, int x, int y, int length, char filler)
 			num=(num-(num % 10))/10;
 		}
 		buf[c]=0;
-	  
+
 		if (neg)
 		{
 			st[0]=45;
 		}
-	  
+
 		if (length>(c+neg))
 		{
 			for (int i=0; i<(length-c-neg); i++)
@@ -435,7 +435,7 @@ void OLED::drawLine(int x1, int y1, int x2, int y2)
 	int tmp;
 	double delta, tx, ty;
 	double m, b, dx, dy;
-	
+
 	if (((x2-x1)<0))
 	{
 		tmp=x1;
@@ -525,7 +525,7 @@ void OLED::clrLine(int x1, int y1, int x2, int y2)
 	int tmp;
 	double delta, tx, ty;
 	double m, b, dx, dy;
-	
+
 	if (((x2-x1)<0))
 	{
 		tmp=x1;
@@ -722,15 +722,15 @@ void OLED::drawCircle(int x, int y, int radius)
 	int x1 = 0;
 	int y1 = radius;
 	char ch, cl;
-	
+
 	setPixel(x, y + radius);
 	setPixel(x, y - radius);
 	setPixel(x + radius, y);
 	setPixel(x - radius, y);
- 
+
 	while(x1 < y1)
 	{
-		if(f >= 0) 
+		if(f >= 0)
 		{
 			y1--;
 			ddF_y += 2;
@@ -738,7 +738,7 @@ void OLED::drawCircle(int x, int y, int radius)
 		}
 		x1++;
 		ddF_x += 2;
-		f += ddF_x;    
+		f += ddF_x;
 		setPixel(x + x1, y + y1);
 		setPixel(x - x1, y + y1);
 		setPixel(x + x1, y - y1);
@@ -758,15 +758,15 @@ void OLED::clrCircle(int x, int y, int radius)
 	int x1 = 0;
 	int y1 = radius;
 	char ch, cl;
-	
+
 	clrPixel(x, y + radius);
 	clrPixel(x, y - radius);
 	clrPixel(x + radius, y);
 	clrPixel(x - radius, y);
- 
+
 	while(x1 < y1)
 	{
-		if(f >= 0) 
+		if(f >= 0)
 		{
 			y1--;
 			ddF_y += 2;
@@ -774,7 +774,7 @@ void OLED::clrCircle(int x, int y, int radius)
 		}
 		x1++;
 		ddF_x += 2;
-		f += ddF_x;    
+		f += ddF_x;
 		clrPixel(x + x1, y + y1);
 		clrPixel(x - x1, y + y1);
 		clrPixel(x + x1, y - y1);
@@ -802,7 +802,7 @@ void OLED::drawBitmap(int x, int y, uint8_t* bitmap, int sx, int sy)
 			else
 				clrPixel(x+cx, y+cy);
 		}
-	}      
+	}
 }
 
 // Private
@@ -860,4 +860,4 @@ void OLED::_writeByte(uint8_t value)
 	shiftOut(_sda_pin, _scl_pin, MSBFIRST, value);
 }
 
-OLED oled(oledPins[0], oledPins[1], 8);
+OLED oled(Constants::oledPins[0], Constants::oledPins[1], 8);

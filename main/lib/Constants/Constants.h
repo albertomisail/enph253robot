@@ -9,9 +9,6 @@ public:
     static MenuItem BASE_SPEED;//("BS", 0, 256, 150);
     static MenuItem LEFT_THRESHOLD;//("LT", 0, 4096, 1024);
     static MenuItem RIGHT_THRESHOLD;//("RT", 0, 4096, 1024);
-    constexpr static uint8_t POT_PIN = PB0;
-    constexpr static uint8_t GO_BTN_PIN = PB12;
-    constexpr static int8_t oledPins[] = {PB7, PB6};
-    constexpr static int8_t trigPins[] = {PB12};
-    constexpr static int8_t echoPins[] = {PB13};
+    const static uint8_t POT_PIN = PB0;
+    const static uint8_t GO_BTN_PIN = PB12;
 };

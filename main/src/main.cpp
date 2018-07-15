@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <EEPROM.h>
+#include <OLED_I2C.h>
 #include "Constants.h"
 
 void setup() {
