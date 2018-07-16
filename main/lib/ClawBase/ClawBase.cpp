@@ -1,13 +1,13 @@
 #include "ClawBase.h"
 
 ClawBase::ClawBase(){
-    ClawBase::init();
+    //ClawBase::init();
 }
 
 void ClawBase::init(){
     (ClawBase::arm).attach(Constants::clawArm);
     (ClawBase::arm).write(Constants::angleOut);
-    (ClawBase::claw).attach(Constants::claw);
+    (ClawBase::claw).attach(Constants::CLAW_PIN);
     (ClawBase::claw).write(Constants::angleClose);
     ClawBase::buttonSwitch = true;
     ClawBase::bridge = true;
@@ -16,15 +16,19 @@ void ClawBase::init(){
 void ClawBase::deployBridge(){
     ClawBase::bridge = false;
     ClawBase::buttonSwitch = false;
-    (ClawBase::arm).write(Constants::angleOpen);
-    delay(20);
-    (ClawBase::arm).write(Constants::angleClose);
+    //claw.write(Constants::angleOpen);
+    arm.write(Constants::angleOut);
+    delay(1000);
+    arm.write(Constants::angleIn);
+    //claw.write(Constants::angleClose);
 }
 
+/*
+TODO: fix pickEwok
 void ClawBase::pickEwok(){
     int step = (Constants::angleOpen - Constants::angleClose) / 5;
     (ClawBase::claw).write(Constants::angleOpen);
-    ZiplineLiftBase::dropClaw();
+    //ziplineLift.dropClaw();
     while(!buttonSwitch || (ClawBase::claw).read() <= Constants::angleClose ){
         (ClawBase::claw).write((ClawBase::claw).read() - step);
         buttonSwitch = digitalRead(Constants::buttonSwitchPin);
@@ -35,8 +39,9 @@ void ClawBase::pickEwok(){
         delay(20);
         (ClawBase::arm).write(Constants::angleOut);
     } else{(ClawBase::claw).write(Constants::angleOpen);}
-    ZiplineLiftBase::liftClaw();
+    //ziplineLift.liftClaw();
     ClawBase::buttonSwitch = false;
 }
+*/
 
 ClawBase claw;

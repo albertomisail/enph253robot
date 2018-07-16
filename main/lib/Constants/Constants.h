@@ -27,12 +27,12 @@ public:
     constexpr static int8_t infraredReceiver = PB13;
     constexpr static int16_t infraredThreshold = 10;
 
-    constexpr static int8_t clawArm = PB13;
-    constexpr static int8_t claw = PB13;
-    constexpr static int8_t angleOut = PB13;
-    constexpr static int8_t angleIn = PB13;
-    constexpr static int8_t angleOpen = PB13;
-    constexpr static int8_t angleClose = PB13;
+    constexpr static int8_t clawArm = PB1;
+    constexpr static int8_t CLAW_PIN = PB0;
+    constexpr static int8_t angleOut = 0;
+    constexpr static int8_t angleIn = 140;
+    constexpr static int8_t angleOpen = 20;
+    constexpr static int16_t angleClose = 150;
     constexpr static int8_t buttonSwitchPin = PB13;
 
     constexpr static uint8_t IR_BEACON_PIN = PA0;

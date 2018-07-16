@@ -1,6 +1,9 @@
 #include "Constants.h"
 
 
+constexpr int8_t Constants::highPwmPins[];
+constexpr int8_t Constants::lowPwmPins[];
+
 MenuItem Constants::PROPORTIONAL("P", 0, 256, 40);
 MenuItem Constants::INTEGRAL("I", 0, 20, 0);
 MenuItem Constants::DERIVATIVE("D", 0, 40, 5);

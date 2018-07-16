@@ -25,3 +25,7 @@ void testEncoder() {
         delay(1);
     }
 }
+
+void testClawOnly() {
+    claw.deployBridge();
+}

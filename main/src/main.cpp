@@ -7,7 +7,7 @@
 //#include <InfraredBase.h>
 //#include <EncoderBase.h>
 //#include <Encoder.h>
-//#include <ClawBase.h>
+#include <ClawBase.h>
 #include <UltrasoundBase.h>
 //#include <ZiplineLiftBase.h>
 #include "testAll.h"
@@ -19,7 +19,9 @@ void setup() {
     oled.begin();
     oled.setFont(SmallFont);
     // put your setup code here, to run once:
-    ultrasound.init();
+    // ultrasound.init();
+    claw.init();
+    pinMode(LED_BUILTIN, OUTPUT);
 }
 
 void loop() {
@@ -28,5 +30,26 @@ void loop() {
     //oled.update();
     //delay(200);
     //testUltrasound();
-    testEncoder();
+    /*
+    for(int i=0;i<5;++i)
+    {
+        digitalWrite(LED_BUILTIN, HIGH);
+        delay(500);
+        digitalWrite(LED_BUILTIN, LOW);
+        delay(400);
+    }*/
+
+/*
+    oled.clrScr();
+    oled.print("HI", 0, 0);
+    oled.update();
+    delay(1000); */
+    //testEncoder();
+    // testClawOnly();
+    oled.print("..", 0, 0);
+    oled.update();
+    delay(1000);
+    oled.clrScr();
+    oled.update();
+    delay(1000);
 }

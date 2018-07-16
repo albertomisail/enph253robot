@@ -4,6 +4,8 @@
 #include <UltrasoundBase.h>
 #include <Encoder.h>
 #include <hcsr04.h>
+#include <ClawBase.h>
 
 void testUltrasound();
 void testEncoder();
+void testClawOnly();

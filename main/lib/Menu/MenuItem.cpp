@@ -1,6 +1,7 @@
 #include "MenuItem.h"
 
 int MenuItem::menuItemCount = 0;
+MenuItem* MenuItem::menuItems[MAX_MENU_ITEMS];
 
 int16_t MenuItem::getVal()
 {
