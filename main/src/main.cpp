@@ -6,6 +6,7 @@
 #include <Menu.h>
 #include <InfraredBase.h>
 //#include <EncoderBase.h>
+#include <Encoder.h>
 #include <ClawBase.h>
 #include <UltrasoundBase.h>
 #include <ZiplineLiftBase.h>

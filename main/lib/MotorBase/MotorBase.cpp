@@ -18,7 +18,7 @@ void MotorBase::init() {
         pinMode(x, OUTPUT);
         analogWrite(x, 0);
     }
-    for(int i = 0;i<sizeof Constants::highPwmPins;++i) {
+    for(int i = 0;i<static_cast<int>(sizeof Constants::highPwmPins);++i) {
         speeds[i] = 0;
     }
 }
