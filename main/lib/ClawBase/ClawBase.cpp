@@ -24,7 +24,7 @@ void ClawBase::deployBridge(){
 void ClawBase::pickEwok(){
     int step = (Constants::angleOpen - Constants::angleClose) / 5;
     (ClawBase::claw).write(Constants::angleOpen);
-    //Lower arm
+    ZiplineLiftBase::dropClaw();
     while(!buttonSwitch || (ClawBase::claw).read() <= Constants::angleClose ){
         (ClawBase::claw).write((ClawBase::claw).read() - step);
         buttonSwitch = digitalRead(Constants::buttonSwitchPin);
@@ -35,7 +35,7 @@ void ClawBase::pickEwok(){
         delay(20);
         (ClawBase::arm).write(Constants::angleOut);
     } else{(ClawBase::claw).write(Constants::angleOpen);}
-    // add zipline arm
+    ZiplineLiftBase::liftClaw();
     ClawBase::buttonSwitch = false;
 }
 
