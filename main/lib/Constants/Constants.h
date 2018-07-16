@@ -20,7 +20,7 @@ public:
     constexpr static int8_t highPwmPins[] = {PB8, PA6};
     constexpr static int8_t lowPwmPins[] = {PB9, PA7};
 
-    constexpr static int16_t ENCODER_POLL_TIME = 5; // milliseconds
+    constexpr static int16_t ENCODER_POLL_TIME = 2; // milliseconds
 
     // TODO: Assign real pin values
     constexpr static int8_t infraredLeds[] = {PB13};

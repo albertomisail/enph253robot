@@ -12,6 +12,7 @@ void testUltrasound() {
     delay(200);
 }
 
+
 void testEncoder() {
     Encoder enc(PB13);
     for(int i=0;;++i) {

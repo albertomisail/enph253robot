@@ -13,7 +13,7 @@ private:
     static int8_t lastState[MAX_ENCODERS];
     static uint8_t pinCount;
     static uint32_t lastPoll;
-    uint8_t ind = 0;
+    int8_t ind = 0;
 public:
     Encoder(const uint8_t& pin);
     ~Encoder();
