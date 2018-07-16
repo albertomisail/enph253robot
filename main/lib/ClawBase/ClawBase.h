@@ -13,6 +13,8 @@ class ClawBase{
     public:
         ClawBase();
         void init();
-}
+        void deployBridge();
+        void pickEwok();
+};
 
 extern ClawBase claw;

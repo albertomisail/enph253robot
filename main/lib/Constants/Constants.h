@@ -27,7 +27,7 @@ public:
     // TODO: Assign real pin values
     constexpr static int8_t infraredLeds[] = {PB13};
     constexpr static int8_t infraredReceiver = PB13;
-    constexpr static int8_t infraredThreshold = PB13;
+    constexpr static int16_t infraredThreshold = 10;
 
     constexpr static int8_t clawArm = PB13;
     constexpr static int8_t claw = PB13;

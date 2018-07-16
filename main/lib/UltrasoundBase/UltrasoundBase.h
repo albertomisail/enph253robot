@@ -7,8 +7,8 @@
 
 class UltrasoundBase {
 private:
-    HCSR04 sensors[sizeof highPwmPins];
-    float distances[sizeof highPwmPins];
+    HCSR04 sensors[sizeof Constants::trigPins];
+    float distances[sizeof Constants::trigPins];
 
 public:
     UltrasoundBase();

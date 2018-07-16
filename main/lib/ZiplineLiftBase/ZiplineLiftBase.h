@@ -16,6 +16,6 @@ class ZiplineLiftBase{
         void dropClaw();
         void liftOther();
         void dropOther();
-}
+};
 
 extern ZiplineLiftBase ziplineLift;

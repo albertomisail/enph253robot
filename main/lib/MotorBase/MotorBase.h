@@ -4,7 +4,7 @@
 
 class MotorBase {
 private:
-    int16_t speeds[sizeof highPwmPins];
+    int16_t speeds[sizeof Constants::highPwmPins];
 
 public:
     MotorBase();

@@ -5,27 +5,27 @@ InfraredBase::InfraredBase(){
 }
 void InfraredBase::init(){
     for(int i = 0; i < InfraredBase::size(); i++){
-        pinMode(infraredLeds[i], OUTPUT);
+        pinMode(Constants::infraredLeds[i], OUTPUT);
     }
-    pinMode(infraredReceiver, INPUT);
+    pinMode(Constants::infraredReceiver, INPUT);
 }
-constexpr static int8_t InfraredBase::size(){
-    return sizeof infraredLeds;
+constexpr int8_t InfraredBase::size(){
+    return sizeof Constants::infraredLeds;
 }
 int InfraredBase::makeMeasurement(){
-    int base = analogRead(infraredReceiver);
-    for(int i = 0; i < InfraredBase::size(); i++){
-        digitalWrite(infraredLeds[i], HIGH);
+    int base = analogRead(Constants::infraredReceiver);
+    for(int i = 0; i < size(); i++){
+        digitalWrite(Constants::infraredLeds[i], HIGH);
     }
     delay(50);
-    for(int i = 0; i < InfraredBase::size(); i++){
-        digitalWrite(infraredLeds[i], LOW);
+    for(int i = 0; i < size(); i++){
+        digitalWrite(Constants::infraredLeds[i], LOW);
     }
-    int after = analogRead(infraredReceiver);
+    int after = analogRead(Constants::infraredReceiver);
     return after - base;
 }
 bool InfraredBase::objectDetected(){
-    if(infraredThreshold > InfraredBase::makeMeasurement){
+    if(Constants::infraredThreshold > makeMeasurement()){
         return false;
     }else{
         return true;
