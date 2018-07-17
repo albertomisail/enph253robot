@@ -5,7 +5,8 @@ ClawBase::ClawBase(){
 }
 
 void ClawBase::init(){
-    (ClawBase::arm).attach(Constants::clawArm);
+    //(ClawBase::arm).attach(Constants::CLAW_ARM_PIN);
+    (ClawBase::arm).attach(Constants::CLAW_ARM_PIN);
     (ClawBase::arm).write(Constants::angleOut);
     (ClawBase::claw).attach(Constants::CLAW_PIN);
     (ClawBase::claw).write(Constants::angleClose);
@@ -16,11 +17,11 @@ void ClawBase::init(){
 void ClawBase::deployBridge(){
     ClawBase::bridge = false;
     ClawBase::buttonSwitch = false;
-    //claw.write(Constants::angleOpen);
-    arm.write(Constants::angleOut);
-    delay(1000);
+    claw.write(Constants::angleOpen);
     arm.write(Constants::angleIn);
-    //claw.write(Constants::angleClose);
+    delay(1000);
+    arm.write(Constants::angleOut);
+    claw.write(Constants::angleClose);
 }
 
 /*

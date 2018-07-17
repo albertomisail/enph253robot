@@ -19,7 +19,7 @@ void MenuScreen::positionMenuItems()
         }
         xpos[i] = currentx, ypos[i] = currenty;
         npos[i] = currentx+CHAR_WIDTH*len+5;
-        currentx += len*CHAR_WIDTH;
+        currentx += len*CHAR_WIDTH+NUM_WIDTH;
     }
 }
 
@@ -40,24 +40,46 @@ void MenuScreen::initializeMenuScreen() const
 
 void MenuScreen::run()
 {
+    positionMenuItems();
     initializeMenuScreen();
+
+    delay(1000);
+    oled.clrScr();
+    oled.printNumI(MenuItem::menuItemCount, 0, 0);
+    oled.print(Constants::PROPORTIONAL.getName(), 0, 10);
+    oled.update();
+    delay(4000);
+    oled.clrScr();
+    initializeMenuScreen();
+
     int8_t lastButtonState = -1;
     int8_t buttonState = -1;
-    uint8_t potFactor = 4096/MenuItem::menuItemCount+1;
+    uint8_t potFactor = 4096/(MenuItem::menuItemCount+1);
     while(true)
     {
         int16_t potValue = analogRead(Constants::POT_PIN);
-        uint8_t choice = potValue/potFactor;
+        uint8_t choice = min(potValue*(MenuItem::menuItemCount+1)/4096, MenuItem::menuItemCount);
+
+        oled.invertText(false);
+        oled.clrRect(0, 50, 100, 60);
+        oled.printNumI(potValue, 0, 50);
+        oled.printNumI(choice, 50, 50);
+        oled.update();
+
         if(choice != currentMenuItem) {
             oled.invertText(false);
             oled.print(getName(currentMenuItem), xpos[currentMenuItem], ypos[currentMenuItem]);
-            oled.printNumI(MenuItem::menuItems[currentMenuItem]->getVal(),
-                           npos[currentMenuItem], ypos[currentMenuItem]);
+            if(currentMenuItem != MenuItem::menuItemCount) {
+                oled.printNumI(MenuItem::menuItems[currentMenuItem]->getVal(),
+                               npos[currentMenuItem], ypos[currentMenuItem]);
+            }
             oled.invertText(true);
             currentMenuItem = choice;
             oled.print(getName(currentMenuItem), xpos[currentMenuItem], ypos[currentMenuItem]);
-            oled.printNumI(MenuItem::menuItems[currentMenuItem]->getVal(),
-                           npos[currentMenuItem], ypos[currentMenuItem]);
+            if(currentMenuItem != MenuItem::menuItemCount) {
+                oled.printNumI(MenuItem::menuItems[currentMenuItem]->getVal(),
+                               npos[currentMenuItem], ypos[currentMenuItem]);
+            }
             oled.update();
         }
 
@@ -89,6 +111,13 @@ bool MenuScreen::processMenuItem(int i)
         potValue = analogRead(Constants::POT_PIN);
         buttonState = digitalRead(Constants::GO_BTN_PIN);
         int16_t convertedValue = potValue*(menuItem->getMax()-menuItem->getMin())/4096 + menuItem->getMin();
+        for(int i=0;i<100;++i)
+        {
+            for(int j=10;j<20;++j)
+            {
+                oled.clrPixel(i, j);
+            }
+        }
         oled.printNumI(convertedValue, 0, 10);
         oled.update();
 

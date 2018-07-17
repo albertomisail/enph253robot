@@ -7,7 +7,7 @@
 class MenuScreen {
 public:
     const uint8_t WIDTH = 100, HEIGHT=60, LINE_HEIGHT = 10, CHAR_WIDTH = 7;
-    const uint8_t NUM_WIDTH = 28;
+    const uint8_t NUM_WIDTH = 35;
     char* DONE_MESSAGE = "DONE";
 private:
     char* getName(int i) const;

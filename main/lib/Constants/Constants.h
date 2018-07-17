@@ -9,8 +9,11 @@ public:
     static MenuItem BASE_SPEED;//("BS", 0, 256, 150);
     static MenuItem LEFT_THRESHOLD;//("LT", 0, 4096, 1024);
     static MenuItem RIGHT_THRESHOLD;//("RT", 0, 4096, 1024);
+    static MenuItem EDGE_THRESHOLD;//("RT", 0, 4096, 1024);
 
-    constexpr static uint8_t POT_PIN = PB0;
+    static void init();
+
+    constexpr static uint8_t POT_PIN = PB1;
     constexpr static uint8_t GO_BTN_PIN = PB12;
 
     constexpr static int8_t oledPins[] = {PB7, PB6};
@@ -27,11 +30,11 @@ public:
     constexpr static int8_t infraredReceiver = PB13;
     constexpr static int16_t infraredThreshold = 10;
 
-    constexpr static int8_t clawArm = PB1;
+    constexpr static int8_t CLAW_ARM_PIN = PA7;
     constexpr static int8_t CLAW_PIN = PB0;
-    constexpr static int8_t angleOut = 0;
-    constexpr static int8_t angleIn = 140;
-    constexpr static int8_t angleOpen = 20;
+    constexpr static int16_t angleOut = 45;
+    constexpr static int16_t angleIn = 0;
+    constexpr static int16_t angleOpen = 20;
     constexpr static int16_t angleClose = 150;
     constexpr static int8_t buttonSwitchPin = PB13;
 

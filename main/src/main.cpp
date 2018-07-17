@@ -3,7 +3,7 @@
 #include <OLED_I2C.h>
 //#include "Constants.h"
 //#include <FFT.h>
-//#include <Menu.h>
+#include <Menu.h>
 //#include <InfraredBase.h>
 //#include <EncoderBase.h>
 //#include <Encoder.h>
@@ -16,6 +16,7 @@ extern uint8_t SmallFont[];
 
 void setup() {
     //fft.init();
+    Constants::init();
     oled.begin();
     oled.setFont(SmallFont);
     // put your setup code here, to run once:
@@ -45,11 +46,14 @@ void loop() {
     oled.update();
     delay(1000); */
     //testEncoder();
-    // testClawOnly();
+    //delay(15000);
+    /*
+    testClawOnly();
     oled.print("..", 0, 0);
     oled.update();
     delay(1000);
     oled.clrScr();
     oled.update();
-    delay(1000);
+    delay(1000); */
+    testMenu();
 }

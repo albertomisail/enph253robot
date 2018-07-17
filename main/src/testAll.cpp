@@ -29,3 +29,8 @@ void testEncoder() {
 void testClawOnly() {
     claw.deployBridge();
 }
+
+void testMenu() {
+    Menu m;
+    m.run();
+}

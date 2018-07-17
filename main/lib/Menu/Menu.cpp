@@ -2,7 +2,7 @@
 
 Menu::Menu() {}
 
-int16_t readEEPROMValue(int i)
+int16_t Menu::readEEPROMValue(int i)
 {
     int16_t top = EEPROM.read(i*2);
     int16_t bot = EEPROM.read(i*2+1);
@@ -10,9 +10,13 @@ int16_t readEEPROMValue(int i)
 }
 
 void Menu::loadEEPROM() {
-    for(int i=0;i<MenuItem::menuItemCount;++i)
+    int16_t hasBeenSet = readEEPROMValue(MenuItem::menuItemCount);
+    if(hasBeenSet == MARKED_WRITTEN)
     {
-        MenuItem::menuItems[i]->setVal(readEEPROMValue(i));
+        for(int i=0;i<MenuItem::menuItemCount;++i)
+        {
+            MenuItem::menuItems[i]->setVal(readEEPROMValue(i));
+        }
     }
 }
 
@@ -24,6 +28,11 @@ void Menu::writeEEPROM() {
             EEPROM.write(i*2+1, (MenuItem::menuItems[i]->getVal())&255);
             EEPROM.write(i*2, (MenuItem::menuItems[i]->getVal())>>8);
         }
+    }
+    if(readEEPROMValue(MenuItem::size()) != MARKED_WRITTEN)
+    {
+        EEPROM.write(MenuItem::size()*2+1, MARKED_WRITTEN&255);
+        EEPROM.write(MenuItem::size()*2, MARKED_WRITTEN>>8);
     }
 }
 
