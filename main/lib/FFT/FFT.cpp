@@ -1,5 +1,13 @@
 #include "FFT.h"
 
+
+constexpr float FFT::sampleRate; // to be set later
+constexpr float FFT::loFreq, FFT::hiFreq;
+constexpr int16_t FFT::loAngDelta;
+constexpr int16_t FFT::hiAngDelta;
+constexpr uint8_t FFT::sampleCount;
+constexpr int8_t FFT::sinVals[];
+
 // Define cbi, sbi macros if not defined already (clear bit, set bit)
 #ifndef cbi
 template<typename T, typename U>
@@ -83,10 +91,11 @@ void FFT::init() {
 
 inline int32_t FFT::sampleFrequency(const int16_t& ang_delta,
                                     const int16_t& times,
-                                    const int16_t& baseline) const {
+                                    const int16_t& baseline) {
     int32_t sinAmt=0, cosAmt=0;
     setupSample();
     int16_t ang = 0;
+    sampleTime = micros();
     for(int it=0;it<times;++it)
     {
         int16_t sampleValue = waitForSample();
@@ -94,11 +103,12 @@ inline int32_t FFT::sampleFrequency(const int16_t& ang_delta,
         sinAmt += ((sampleValue-baseline)>>2)*sin_t(ang);
         ang += ang_delta;
     }
+    sampleTime = micros()-sampleTime;
     waitForSample();
     return (int32_t) sqrt((float)sinAmt*sinAmt + (float)cosAmt*cosAmt);
 }
 
-FFTPair FFT::sample() const {
+FFTPair FFT::sample() {
     FFTPair ans;
     // Must disable interrupts during sampling to avoid unpredictable
     // sampling intervals

@@ -6,8 +6,13 @@
 #include <hcsr04.h>
 #include <ClawBase.h>
 #include <Menu.h>
+#include <LineFollower.h>
+#include <FFT.h>
 
 void testUltrasound();
 void testEncoder();
 void testClawOnly();
 void testMenu();
+void testLineFollow();
+void testPWM();
+void testFFT();

@@ -13,15 +13,15 @@ public:
 
     static void init();
 
-    constexpr static uint8_t POT_PIN = PB1;
-    constexpr static uint8_t GO_BTN_PIN = PB12;
+    constexpr static uint8_t POT_PIN = PA0;
+    constexpr static uint8_t GO_BTN_PIN = PB13;
 
-    constexpr static int8_t oledPins[] = {PB7, PB6};
+    constexpr static int8_t oledPins[] = {PB11, PB10};
 
     constexpr static int8_t trigPins[] = {PB12}; constexpr static int8_t echoPins[] = {PB13};
 
-    constexpr static int8_t highPwmPins[] = {PB8, PA6};
-    constexpr static int8_t lowPwmPins[] = {PB9, PA7};
+    constexpr static int8_t highPwmPins[] = {PB8, PB0};
+    constexpr static int8_t lowPwmPins[] = {PB9, PB1};
 
     constexpr static int16_t ENCODER_POLL_TIME = 2; // milliseconds
 
@@ -30,8 +30,8 @@ public:
     constexpr static int8_t infraredReceiver = PB13;
     constexpr static int16_t infraredThreshold = 10;
 
-    constexpr static int8_t CLAW_ARM_PIN = PA7;
-    constexpr static int8_t CLAW_PIN = PB0;
+    constexpr static int8_t CLAW_ARM_PIN = PA6;
+    constexpr static int8_t CLAW_PIN = PA7;
     constexpr static int16_t angleOut = 45;
     constexpr static int16_t angleIn = 0;
     constexpr static int16_t angleOpen = 20;
@@ -47,4 +47,12 @@ public:
     constexpr static uint8_t voltageUp = PB13;
     constexpr static uint8_t voltageDown = PB13;
     constexpr static uint8_t speedLift = PB13;
+
+    constexpr static uint8_t LEFT_QRD_PIN = PA4;
+    constexpr static uint8_t RIGHT_QRD_PIN = PA5;
+    constexpr static uint8_t EDGE_QRD_PIN = PA2;
+
+    constexpr static uint8_t MOTOR_LEFT = 0;
+    constexpr static uint8_t MOTOR_RIGHT = 1;
+    constexpr static int16_t LINE_FOLLOW_POLL_TIME = 5; // millis
 };

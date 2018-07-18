@@ -42,16 +42,6 @@ void MenuScreen::run()
 {
     positionMenuItems();
     initializeMenuScreen();
-
-    delay(1000);
-    oled.clrScr();
-    oled.printNumI(MenuItem::menuItemCount, 0, 0);
-    oled.print(Constants::PROPORTIONAL.getName(), 0, 10);
-    oled.update();
-    delay(4000);
-    oled.clrScr();
-    initializeMenuScreen();
-
     int8_t lastButtonState = -1;
     int8_t buttonState = -1;
     uint8_t potFactor = 4096/(MenuItem::menuItemCount+1);
@@ -59,13 +49,6 @@ void MenuScreen::run()
     {
         int16_t potValue = analogRead(Constants::POT_PIN);
         uint8_t choice = min(potValue*(MenuItem::menuItemCount+1)/4096, MenuItem::menuItemCount);
-
-        oled.invertText(false);
-        oled.clrRect(0, 50, 100, 60);
-        oled.printNumI(potValue, 0, 50);
-        oled.printNumI(choice, 50, 50);
-        oled.update();
-
         if(choice != currentMenuItem) {
             oled.invertText(false);
             oled.print(getName(currentMenuItem), xpos[currentMenuItem], ypos[currentMenuItem]);

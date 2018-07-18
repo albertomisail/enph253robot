@@ -15,14 +15,19 @@
 extern uint8_t SmallFont[];
 
 void setup() {
-    //fft.init();
+    oled.begin();
+    oled.setFont(SmallFont);
+    /*
+    fft.init();
     Constants::init();
     oled.begin();
     oled.setFont(SmallFont);
+    lineFollower.init();
     // put your setup code here, to run once:
     // ultrasound.init();
     claw.init();
     pinMode(LED_BUILTIN, OUTPUT);
+    */
 }
 
 void loop() {
@@ -55,5 +60,11 @@ void loop() {
     oled.clrScr();
     oled.update();
     delay(1000); */
-    testMenu();
+    //testMenu();
+    //testLineFollow();
+    //testLineFollow();
+    //delay(1000);
+    //testFFT();
+    oled.print("!!", 0, 0);
+    oled.update();
 }
