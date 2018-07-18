@@ -28,6 +28,8 @@ void setup() {
     claw.init();
     pinMode(LED_BUILTIN, OUTPUT);
     */
+    //pinMode(PB6, OUTPUT);
+    //pinMode(PB7, OUTPUT);
 }
 
 void loop() {
@@ -65,6 +67,7 @@ void loop() {
     //testLineFollow();
     //delay(1000);
     //testFFT();
-    oled.print("!!", 0, 0);
-    oled.update();
+    //oled.print("!!", 0, 0);
+    //oled.update();
+    testEncoders();
 }

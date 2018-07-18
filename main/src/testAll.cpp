@@ -95,7 +95,7 @@ void testEncoders()
             motor.speed(Constants::MOTOR_RIGHT, Constants::BASE_SPEED.getVal());
             oled.clrScr();
             oled.printNumI(encLeft.getPosition(), 0, 0);
-            oled.printNumI(encRight.getPosition(), 0, 0);
+            oled.printNumI(encRight.getPosition(), 0, 10);
             oled.update();
         }
     }

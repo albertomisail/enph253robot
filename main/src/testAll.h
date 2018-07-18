@@ -16,3 +16,4 @@ void testMenu();
 void testLineFollow();
 void testPWM();
 void testFFT();
+void testEncoders();
