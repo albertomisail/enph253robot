@@ -17,19 +17,18 @@ extern uint8_t SmallFont[];
 void setup() {
     oled.begin();
     oled.setFont(SmallFont);
-    /*
-    fft.init();
+    //fft.init();
     Constants::init();
-    oled.begin();
-    oled.setFont(SmallFont);
+    //oled.begin();
+    //oled.setFont(SmallFont);
     lineFollower.init();
     // put your setup code here, to run once:
     // ultrasound.init();
-    claw.init();
-    pinMode(LED_BUILTIN, OUTPUT);
-    */
+    //claw.init();
+    //pinMode(LED_BUILTIN, OUTPUT);
     //pinMode(PB6, OUTPUT);
     //pinMode(PB7, OUTPUT);
+    //pinMode(PA1, INPUT);
 }
 
 void loop() {
@@ -63,11 +62,11 @@ void loop() {
     oled.update();
     delay(1000); */
     //testMenu();
-    //testLineFollow();
+    testLineFollow();
     //testLineFollow();
     //delay(1000);
     //testFFT();
     //oled.print("!!", 0, 0);
     //oled.update();
-    testEncoders();
+    //testEncoders();
 }

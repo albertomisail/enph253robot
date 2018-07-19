@@ -51,6 +51,7 @@ public:
     constexpr static uint8_t LEFT_QRD_PIN = PA4;
     constexpr static uint8_t RIGHT_QRD_PIN = PA5;
     constexpr static uint8_t EDGE_QRD_PIN = PA2;
+    constexpr static uint8_t QRD_POWER_PIN = PB4;
 
     constexpr static uint8_t MOTOR_LEFT = 0;
     constexpr static uint8_t MOTOR_RIGHT = 1;

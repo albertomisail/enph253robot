@@ -6,6 +6,7 @@ int8_t Encoder::lastState[Encoder::MAX_ENCODERS] = {-1, -1, -1, -1};
 int8_t Encoder::encoderPinCnt[Encoder::MAX_ENCODERS] = {0, 0, 0, 0};
 int16_t Encoder::distances[Encoder::MAX_ENCODERS] = {0, 0, 0, 0};
 uint32_t Encoder::lastPoll = 0;
+constexpr uint8_t Encoder::MAX_ENCODERS;
 
 Encoder::Encoder(const uint8_t& pin) {
     ind = -1;

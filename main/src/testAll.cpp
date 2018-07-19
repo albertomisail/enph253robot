@@ -41,7 +41,7 @@ void testLineFollow() {
     Encoder enc(PB14);
     for(int i=0;lineFollower.poll();++i) {
         enc.poll();
-        if(i%100 == 0)
+        if(i%200 == 0)
         {
             oled.clrScr();
             oled.print("L:", 0, 0);
@@ -84,18 +84,26 @@ void testFFT() {
 
 void testEncoders()
 {
+
+
     Encoder encLeft(PB14);
     Encoder encRight(PB15);
+    uint8_t OTHER_PIN = PA1;
 
     int32_t before = millis();
-    for(int i=0;millis() - before < 10000;++i) {
+    int32_t b, a;
+    for(int32_t i=0;millis() - before < 10000;++i) {
+        b=a;
+        a = micros();
         Encoder::poll();
-        if(i%100 == 0) {
+        if(i%10000 == 0) {
             motor.speed(Constants::MOTOR_LEFT, -Constants::BASE_SPEED.getVal());
             motor.speed(Constants::MOTOR_RIGHT, Constants::BASE_SPEED.getVal());
             oled.clrScr();
             oled.printNumI(encLeft.getPosition(), 0, 0);
             oled.printNumI(encRight.getPosition(), 0, 10);
+            oled.printNumI(analogRead(OTHER_PIN), 0, 20);
+            oled.printNumI(a-b, 0, 30);
             oled.update();
         }
     }

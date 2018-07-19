@@ -3,6 +3,7 @@
 void LineFollower::init()
 {
     motor.init();
+    pinMode(Constants::QRD_POWER_PIN, OUTPUT);
 }
 
 void LineFollower::start() {
@@ -28,6 +29,14 @@ bool LineFollower::poll()
     sensorLeftReading = analogRead(Constants::LEFT_QRD_PIN);
     sensorRightReading = analogRead(Constants::RIGHT_QRD_PIN);
     sensorEdgeReading = analogRead(Constants::EDGE_QRD_PIN);
+
+    digitalWrite(Constants::QRD_POWER_PIN, HIGH);
+
+    //sensorLeftReading -= analogRead(Constants::LEFT_QRD_PIN);
+    //sensorRightReading -= analogRead(Constants::RIGHT_QRD_PIN);
+    //sensorEdgeReading -= analogRead(Constants::EDGE_QRD_PIN);
+
+    //digitalWrite(Constants::QRD_POWER_PIN, LOW);
 
     if(sensorLeftReading > Constants::EDGE_THRESHOLD.getVal()
     && sensorRightReading > Constants::EDGE_THRESHOLD.getVal()
