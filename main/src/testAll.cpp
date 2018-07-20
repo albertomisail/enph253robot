@@ -82,8 +82,7 @@ void testFFT() {
     delay(50);
 }
 
-void testEncoders()
-{
+void testEncoders(){
 
 
     Encoder encLeft(PB14);
@@ -190,4 +189,16 @@ void testLFandReverse() {
     oled.print("WAIT", 0, 0);
     oled.update();
     delay(10000);
+}
+
+void testPickingUpEwok(){
+    infrared.init();
+    claw.init();
+    oled.clrScr();
+    while(!infrared.objectDetected()){
+        delay(100);
+    }
+    oled.print('SAW SOMETHING', 0, 0);
+    claw.pickEwok();
+    delay(500);
 }

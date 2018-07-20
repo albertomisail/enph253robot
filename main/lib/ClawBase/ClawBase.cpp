@@ -44,5 +44,22 @@ void ClawBase::pickEwok(){
     ClawBase::buttonSwitch = false;
 }
 */
+void ClawBase::pickEwok(){
+    int step = (Constants::angleOpen - Constants::angleClose) / 5;
+    (ClawBase::claw).write(Constants::angleOpen);
+    //ziplineLift.dropClaw();
+    while(!buttonSwitch || (ClawBase::claw).read() <= Constants::angleClose ){
+        (ClawBase::claw).write((ClawBase::claw).read() - step);
+        buttonSwitch = digitalRead(Constants::buttonSwitchPin);
+    }
+    if(buttonSwitch){
+        (ClawBase::arm).write(Constants::angleIn);
+        (ClawBase::claw).write(Constants::angleOpen);
+        delay(20);
+        (ClawBase::arm).write(Constants::angleOut);
+    } else{(ClawBase::claw).write(Constants::angleOpen);}
+    //ziplineLift.liftClaw();
+    ClawBase::buttonSwitch = false;
+}
 
 ClawBase claw;

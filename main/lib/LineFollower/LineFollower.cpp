@@ -5,6 +5,9 @@ void LineFollower::init()
     motor.init();
     pinMode(Constants::QRD_POWER_PIN, OUTPUT);
     digitalWrite(Constants::QRD_POWER_PIN, LOW);
+    pinMode(Constants::LEFT_QRD_PIN, INPUT);
+    pinMode(Constants::RIGHT_QRD_PIN, INPUT);
+    pinMode(Constants::EDGE_QRD_PIN, INPUT);
 }
 
 void LineFollower::start() {

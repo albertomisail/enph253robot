@@ -8,6 +8,7 @@
 #include <Menu.h>
 #include <LineFollower.h>
 #include <FFT.h>
+#include <InfraredBase.h>
 
 void testUltrasound();
 void testEncoder();
@@ -18,3 +19,4 @@ void testPWM();
 void testFFT();
 void testEncoders();
 void testLFandReverse();
+void testPickingUpEwok();
