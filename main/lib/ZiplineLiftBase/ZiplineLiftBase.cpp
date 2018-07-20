@@ -1,59 +1,66 @@
 #include "ZiplineLiftBase.h"
 
-const uint8_t TBD_CONST = 0;
-// TODO: Replace TBD_CONST with real values... They may all be different values
+const uint16_t ERR_THR = 50;
+// TODO: Replace ERR_THR with real values... They may all be different values
 
 ZiplineLiftBase::ZiplineLiftBase(){
     ZiplineLiftBase::init();
 }
 void ZiplineLiftBase::init(){
-    pinMode(Constants::potentiometerClaw, OUTPUT);
-    pinMode(Constants::potentiometerOther, OUTPUT);
-    ZiplineLiftBase::positionClawLift = TBD_CONST;
-    ZiplineLiftBase::positionOtherLift = TBD_CONST;
-    ZiplineLiftBase::liftClaw();
-    ZiplineLiftBase::dropOther();
+    pinMode(Constants::potFront, INPUT);
+    pinMode(Constants::potBack, INPUT);
+    pinMode(Constants::frontLift, OUTPUT);
+    pinMode(Constants::backLift, OUTPUT);
+    ZiplineLiftBase::positionFrontLift = analogRead(Constants::potFront);
+    ZiplineLiftBase::positionBackLift = analogRead(Constants::potBack);
+    ZiplineLiftBase::liftFront();
+    ZiplineLiftBase::dropFront();
 }
-void ZiplineLiftBase::moveLift(const uint& numberOfMotor, const uint& position){
-    if(numberOfMotor == Constants::clawLift){
-        if(positionClawLift < position){
-            // TODO: add threshold
-            while((positionClawLift-position)*(positionClawLift-position) > TBD_CONST){
-                motor.speed(numberOfMotor, Constants::speedLift);
-                ZiplineLiftBase::positionClawLift = analogRead(Constants::potentiometerClaw);
-            }
-        }else{
-            while((positionClawLift-position)*(positionClawLift-position) > TBD_CONST){
-                motor.speed(numberOfMotor, -Constants::speedLift);
-                ZiplineLiftBase::positionClawLift = analogRead(Constants::potentiometerClaw);
+void ZiplineLiftBase::moveLift(const uint8_t& motorPin, const uint16_t& position){
+    if(motorPin == Constants::frontLift){
+        if (ZiplineLiftBase::positionFrontLift <= Constants::voltageUpFront || ZiplineLiftBase::positionFrontLift >= Constants::voltageDownFront) {
+            if(positionFrontLift < position){
+                // TODO: add threshold
+                // Might have to be careful with the squaring. If the difference is larger than 256 it will overflow 16 bit. 
+                while(abs(positionFrontLift-position) > ERR_THR){
+                    motor.speed(motorPin, Constants::speedLift);
+                    ZiplineLiftBase::positionFrontLift = analogRead(Constants::potFront);
+                }
+            }else{
+                while(abs(positionFrontLift-position) > ERR_THR){
+                    motor.speed(motorPin, -Constants::speedLift);
+                    ZiplineLiftBase::positionFrontLift = analogRead(Constants::potFront);
+                }
             }
         }
     }else{
-       if(positionOtherLift < position){
-            // TODO: add threshold
-            while((positionOtherLift-position)*(positionOtherLift-position) > TBD_CONST){
-                motor.speed(numberOfMotor, Constants::speedLift);
-                ZiplineLiftBase::positionOtherLift = analogRead(Constants::potentiometerOther);
-            }
-        }else{
-            while((positionOtherLift-position)*(positionOtherLift-position) > TBD_CONST){
-                motor.speed(numberOfMotor, -Constants::speedLift);
-                ZiplineLiftBase::positionOtherLift = analogRead(Constants::potentiometerOther);
+        if (ZiplineLiftBase::positionBackLift <= Constants::voltageUpBack || ZiplineLiftBase::positionBackLift >= Constants::voltageDownBack) {
+            if(positionBackLift < position){
+                // TODO: add threshold
+                while(abs(positionBackLift-position) > ERR_THR){
+                    motor.speed(motorPin, Constants::speedLift);
+                    ZiplineLiftBase::positionBackLift = analogRead(Constants::potBack);
+                }
+            }else{
+                while(abs(positionBackLift-position) > ERR_THR){
+                    motor.speed(motorPin, -Constants::speedLift);
+                    ZiplineLiftBase::positionBackLift = analogRead(Constants::potBack);
+                }
             }
         }
     }
 }
-void ZiplineLiftBase::liftClaw(){
-    ZiplineLiftBase::moveLift(Constants::clawLift, Constants::voltageUp);
+void ZiplineLiftBase::liftFront(){
+    ZiplineLiftBase::moveLift(Constants::frontLift, Constants::voltageUpFront);
 }
-void ZiplineLiftBase::dropClaw(){
-    ZiplineLiftBase::moveLift(Constants::clawLift, Constants::voltageDown);
+void ZiplineLiftBase::dropFront(){
+    ZiplineLiftBase::moveLift(Constants::frontLift, Constants::voltageDownFront);
 }
-void ZiplineLiftBase::liftOther(){
-    ZiplineLiftBase::moveLift(Constants::clawLift, Constants::voltageUp);
+void ZiplineLiftBase::liftBack(){
+    ZiplineLiftBase::moveLift(Constants::backLift, Constants::voltageUpBack);
 }
-void ZiplineLiftBase::dropOther(){
-    ZiplineLiftBase::moveLift(Constants::clawLift, Constants::voltageDown);
+void ZiplineLiftBase::dropBack(){
+    ZiplineLiftBase::moveLift(Constants::backLift, Constants::voltageDownBack);
 }
 
  ZiplineLiftBase ziplineLift;

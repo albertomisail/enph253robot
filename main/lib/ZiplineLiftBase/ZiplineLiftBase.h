@@ -5,17 +5,17 @@
 
 class ZiplineLiftBase{
     private:
-        uint8_t positionClawLift;
-        uint8_t positionOtherLift;
+        uint16_t positionFrontLift;
+        uint16_t positionBackLift;
 
     public:
         ZiplineLiftBase();
         void init();
-        void moveLift(const uint& numberOfMotor, const uint& position);
-        void liftClaw();
-        void dropClaw();
-        void liftOther();
-        void dropOther();
+        void moveLift(const uint8_t& motorPin, const uint16_t& position);
+        void liftFront();
+        void dropFront();
+        void liftBack();
+        void dropBack();
 };
 
 extern ZiplineLiftBase ziplineLift;
