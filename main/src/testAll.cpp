@@ -198,7 +198,7 @@ void testPickingUpEwok(){
     while(!infrared.objectDetected()){
         delay(100);
     }
-    oled.print('SAW SOMETHING', 0, 0);
+    oled.print("SAW SOMETHING", 0, 0);
     claw.pickEwok();
     delay(500);
 }
