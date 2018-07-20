@@ -56,4 +56,9 @@ public:
     constexpr static uint8_t MOTOR_LEFT = 0;
     constexpr static uint8_t MOTOR_RIGHT = 1;
     constexpr static int16_t LINE_FOLLOW_POLL_TIME = 5; // millis
+
+    constexpr static int16_t CORRECTION_SPEED = 150;
+
+    constexpr static uint8_t LEFT_ENC_PIN = PB14;
+    constexpr static uint8_t RIGHT_ENC_PIN = PB15;
 };

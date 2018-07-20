@@ -4,6 +4,7 @@ void LineFollower::init()
 {
     motor.init();
     pinMode(Constants::QRD_POWER_PIN, OUTPUT);
+    digitalWrite(Constants::QRD_POWER_PIN, LOW);
 }
 
 void LineFollower::start() {
@@ -20,17 +21,31 @@ bool LineFollower::isMoving() const {
 bool LineFollower::poll()
 {
     if(movingState == false) return false;
-
     int32_t now = millis();
+    if(state == 0) {
+        if(now-previousTime < 1) return movingState;
+        sensorLeftReadingAmb = analogRead(Constants::LEFT_QRD_PIN);
+        sensorRightReadingAmb = analogRead(Constants::RIGHT_QRD_PIN);
+        sensorEdgeReadingAmb = analogRead(Constants::EDGE_QRD_PIN);
+
+        digitalWrite(Constants::QRD_POWER_PIN, HIGH);
+        state = 1;
+        previousTime = now;
+        return movingState;
+    }
+
     deltaT = now - previousTime;
 
     if(deltaT < Constants::LINE_FOLLOW_POLL_TIME) return true;
 
-    sensorLeftReading = analogRead(Constants::LEFT_QRD_PIN);
-    sensorRightReading = analogRead(Constants::RIGHT_QRD_PIN);
-    sensorEdgeReading = analogRead(Constants::EDGE_QRD_PIN);
+    sensorLeftReadingPow = analogRead(Constants::LEFT_QRD_PIN);
+    sensorRightReadingPow = analogRead(Constants::RIGHT_QRD_PIN);
+    sensorEdgeReadingPow = analogRead(Constants::EDGE_QRD_PIN);
+    digitalWrite(Constants::QRD_POWER_PIN, LOW);
 
-    digitalWrite(Constants::QRD_POWER_PIN, HIGH);
+    sensorLeftReading = abs(sensorLeftReadingAmb-sensorLeftReadingPow);
+    sensorRightReading = abs(sensorRightReadingAmb-sensorRightReadingPow);
+    sensorEdgeReading = abs(sensorEdgeReadingAmb-sensorEdgeReadingPow);
 
     //sensorLeftReading -= analogRead(Constants::LEFT_QRD_PIN);
     //sensorRightReading -= analogRead(Constants::RIGHT_QRD_PIN);
@@ -38,9 +53,9 @@ bool LineFollower::poll()
 
     //digitalWrite(Constants::QRD_POWER_PIN, LOW);
 
-    if(sensorLeftReading > Constants::EDGE_THRESHOLD.getVal()
-    && sensorRightReading > Constants::EDGE_THRESHOLD.getVal()
-    && sensorEdgeReading > Constants::EDGE_THRESHOLD.getVal()) {
+    if(sensorLeftReading < Constants::EDGE_THRESHOLD.getVal()
+    && sensorRightReading < Constants::EDGE_THRESHOLD.getVal()
+    && sensorEdgeReading < Constants::EDGE_THRESHOLD.getVal()) {
         if(++consec > 1) {
             motor.speed(Constants::MOTOR_LEFT, 255);
             motor.speed(Constants::MOTOR_RIGHT, -255);
@@ -85,12 +100,13 @@ bool LineFollower::poll()
 
     g = p+i+d;
 
-    motor.speed(Constants::MOTOR_LEFT, -Constants::BASE_SPEED.getVal()+g);
+    motor.speed(Constants::MOTOR_LEFT, Constants::BASE_SPEED.getVal()-g);
     motor.speed(Constants::MOTOR_RIGHT, Constants::BASE_SPEED.getVal()+g);
 
     previousError = error;
     previousTime = now;
 
+    state = 0;
     return true;
 }
 

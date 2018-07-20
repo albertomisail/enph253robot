@@ -10,6 +10,8 @@ MenuItem Constants::EDGE_THRESHOLD;
 
 constexpr int8_t Constants::highPwmPins[];
 constexpr int8_t Constants::lowPwmPins[];
+constexpr uint8_t Constants::LEFT_ENC_PIN;
+constexpr uint8_t Constants::RIGHT_ENC_PIN;
 
 void Constants::init() {
     /*
@@ -26,5 +28,5 @@ void Constants::init() {
     BASE_SPEED = MenuItem("BS", 0, 256, 150);
     LEFT_THRESHOLD = MenuItem("LT", 0, 4096, 2000);
     RIGHT_THRESHOLD = MenuItem("RT", 0, 4096, 2000);
-    EDGE_THRESHOLD = MenuItem("ET", 0, 4096, 2000);
+    EDGE_THRESHOLD = MenuItem("ET", 0, 4096, 2400);
 }

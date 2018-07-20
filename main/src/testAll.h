@@ -17,3 +17,4 @@ void testLineFollow();
 void testPWM();
 void testFFT();
 void testEncoders();
+void testLFandReverse();

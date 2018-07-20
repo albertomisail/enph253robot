@@ -15,6 +15,7 @@
 extern uint8_t SmallFont[];
 
 void setup() {
+    delay(1000);
     oled.begin();
     oled.setFont(SmallFont);
     //fft.init();
@@ -62,11 +63,12 @@ void loop() {
     oled.update();
     delay(1000); */
     //testMenu();
-    testLineFollow();
+    //testLineFollow();
     //testLineFollow();
     //delay(1000);
     //testFFT();
     //oled.print("!!", 0, 0);
     //oled.update();
     //testEncoders();
+    testLFandReverse();
 }
