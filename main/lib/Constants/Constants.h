@@ -32,10 +32,10 @@ public:
 
     constexpr static int8_t CLAW_ARM_PIN = PA6;
     constexpr static int8_t CLAW_PIN = PA7;
-    constexpr static int16_t angleOut = 45;
-    constexpr static int16_t angleIn = 0;
-    constexpr static int16_t angleOpen = 20;
-    constexpr static int16_t angleClose = 150;
+    constexpr static int16_t angleOut = 0;
+    constexpr static int16_t angleIn = 110;
+    constexpr static int16_t angleOpen = 30;
+    constexpr static int16_t angleClose = 75;
     constexpr static int8_t buttonSwitchPin = PB13;
 
     constexpr static uint8_t IR_BEACON_PIN = PA0;
