@@ -22,7 +22,8 @@ void setup() {
     Constants::init();
     //oled.begin();
     //oled.setFont(SmallFont);
-    // lineFollower.init();
+    lineFollower.init();
+    claw.init();
     // put your setup code here, to run once:
     // ultrasound.init();
     //claw.init();

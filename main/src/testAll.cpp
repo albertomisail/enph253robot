@@ -115,9 +115,9 @@ void testLFandReverse() {
     Encoder leftEnc(Constants::LEFT_ENC_PIN);
     Encoder rightEnc(Constants::RIGHT_ENC_PIN);
     oled.invertText(false);
-    for(int i=0;lineFollower.poll();++i) {
+    for(int32_t i=0;lineFollower.poll();++i) {
         //Encoder::poll();
-        if(i%100 == 0)
+        if(i%10000 == 0)
         {
             oled.clrScr();
             oled.print("L:", 0, 0);
@@ -132,14 +132,15 @@ void testLFandReverse() {
             oled.printNumI(lineFollower.sensorLeftReadingAmb, 55, 0);
             oled.printNumI(lineFollower.sensorRightReadingAmb, 55, 10);
             oled.printNumI(lineFollower.sensorEdgeReadingAmb, 55, 20);
-            oled.printNumI(lineFollower.sensorLeftReadingAmb, 90, 0);
-            oled.printNumI(lineFollower.sensorRightReadingAmb, 90, 10);
-            oled.printNumI(lineFollower.sensorEdgeReadingAmb, 90, 20);
+            oled.printNumI(lineFollower.sensorLeftReadingPow, 90, 0);
+            oled.printNumI(lineFollower.sensorRightReadingPow, 90, 10);
+            oled.printNumI(lineFollower.sensorEdgeReadingPow, 90, 20);
             oled.printNumI(lineFollower.g, 20, 30);
             oled.printNumI(lineFollower.error, 20, 40);
             oled.printNumI(leftEnc.getPosition(), 20, 50);
             oled.printNumI(rightEnc.getPosition(), 60, 50);
-            if(i%200 == 0)
+            oled.printNumI(lineFollower.lastCompTime, 90, 30);
+            if(i%20000 == 0)
             {
                 oled.print(".", 100, 0);
             }
@@ -185,6 +186,7 @@ void testLFandReverse() {
         oled.update();
         delay(5000);
     }
+    claw.deployBridge();
     oled.clrScr();
     oled.print("WAIT", 0, 0);
     oled.update();
