@@ -19,11 +19,11 @@ void ZiplineLiftBase::init(){
 }
 void ZiplineLiftBase::moveLift(const uint8_t& motorPin, const uint16_t& position){
     if(motorPin == Constants::frontLift){
-        //Higher voltage doesnt necessarily mean the position is up and also Hbridge might be hooked up backwards 
+        //Higher voltage doesnt necessarily mean the position is up and also Hbridge might be hooked up backwards
         if (ZiplineLiftBase::positionFrontLift <= Constants::voltageUpFront || ZiplineLiftBase::positionFrontLift >= Constants::voltageDownFront) {
             if(positionFrontLift < position){
                 // TODO: add threshold
-                // Might have to be careful with the squaring. If the difference is larger than 256 it will overflow 16 bit. 
+                // Might have to be careful with the squaring. If the difference is larger than 256 it will overflow 16 bit.
                 for(int32_t i =0; abs(positionFrontLift-position) > ERR_THR; ++i){
                     motor.speed(motorPin, Constants::speedLift);
                     ZiplineLiftBase::positionFrontLift = analogRead(Constants::potFront);
@@ -33,6 +33,7 @@ void ZiplineLiftBase::moveLift(const uint8_t& motorPin, const uint16_t& position
                         oled.update();
                     }
                 }
+                motor.speed(motorPin, 0);
             }else{
                 for(int32_t i=0; abs(positionFrontLift-position) > ERR_THR; ++i){
                     motor.speed(motorPin, -Constants::speedLift);
@@ -43,6 +44,7 @@ void ZiplineLiftBase::moveLift(const uint8_t& motorPin, const uint16_t& position
                         oled.update();
                     }
                 }
+                motor.speed(motorPin, 0);
             }
         }
     }else{
