@@ -1,8 +1,8 @@
 #include "ZiplineLiftBase.h"
 #include "OLED_I2C.h"
 
-const uint16_t ERR_THR = 50;
-// TODO: Replace ERR_THR with real values... They may all be different values
+const uint16_t ERR_THR = 25;
+
 
 ZiplineLiftBase::ZiplineLiftBase(){
     ZiplineLiftBase::init();
@@ -19,11 +19,16 @@ void ZiplineLiftBase::init(){
 }
 void ZiplineLiftBase::moveLift(const uint8_t& motorPin, const uint16_t& position){
     if(motorPin == Constants::frontLift){
-        //Higher voltage doesnt necessarily mean the position is up and also Hbridge might be hooked up backwards
         if (ZiplineLiftBase::positionFrontLift <= Constants::voltageUpFront || ZiplineLiftBase::positionFrontLift >= Constants::voltageDownFront) {
             if(positionFrontLift < position){
-                // TODO: add threshold
-                // Might have to be careful with the squaring. If the difference is larger than 256 it will overflow 16 bit.
+                //Actual code
+                /*
+                while(abs(positionFrontLift-position) > ERR_THR) {
+                    motor.speed(motorPin, Constants::speedLift);
+                    ZiplineLiftBase::positionFrontLift = analogRead(Constants::potFront);
+                }
+                */
+                // For loop for testing and printing pot value to OLED
                 for(int32_t i =0; abs(positionFrontLift-position) > ERR_THR; ++i){
                     motor.speed(motorPin, Constants::speedLift);
                     ZiplineLiftBase::positionFrontLift = analogRead(Constants::potFront);
@@ -35,6 +40,12 @@ void ZiplineLiftBase::moveLift(const uint8_t& motorPin, const uint16_t& position
                 }
                 motor.speed(motorPin, 0);
             }else{
+                /*
+                while(abs(positionFrontLift-position) > ERR_THR) {
+                    motor.speed(motorPin, -Constants::speedLift);
+                    ZiplineLiftBase::positionFrontLift = analogRead(Constants::potFront);
+                }
+                */
                 for(int32_t i=0; abs(positionFrontLift-position) > ERR_THR; ++i){
                     motor.speed(motorPin, -Constants::speedLift);
                     ZiplineLiftBase::positionFrontLift = analogRead(Constants::potFront);
@@ -50,16 +61,39 @@ void ZiplineLiftBase::moveLift(const uint8_t& motorPin, const uint16_t& position
     }else{
         if (ZiplineLiftBase::positionBackLift <= Constants::voltageUpBack || ZiplineLiftBase::positionBackLift >= Constants::voltageDownBack) {
             if(positionBackLift < position){
-                // TODO: add threshold
+                /*
                 while(abs(positionBackLift-position) > ERR_THR){
                     motor.speed(motorPin, Constants::speedLift);
                     ZiplineLiftBase::positionBackLift = analogRead(Constants::potBack);
                 }
+                */
+                for(int32_t i =0; abs(positionBackLift-position) > ERR_THR; ++i){
+                    motor.speed(motorPin, Constants::speedLift);
+                    ZiplineLiftBase::positionBackLift = analogRead(Constants::potBack);
+                    if (i%100 == 0) {
+                        oled.clrScr();
+                        oled.printNumI(positionBackLift, 0, 0);
+                        oled.update();
+                    }
+                }
+                motor.speed(motorPin,0);
             }else{
+                /*
                 while(abs(positionBackLift-position) > ERR_THR){
                     motor.speed(motorPin, -Constants::speedLift);
                     ZiplineLiftBase::positionBackLift = analogRead(Constants::potBack);
                 }
+                */
+                for(int32_t i =0; abs(positionBackLift-position) > ERR_THR; ++i){
+                    motor.speed(motorPin, -Constants::speedLift);
+                    ZiplineLiftBase::positionBackLift = analogRead(Constants::potBack);
+                    if (i%100 == 0) {
+                        oled.clrScr();
+                        oled.printNumI(positionBackLift, 0, 0);
+                        oled.update();
+                    }
+                }
+                motor.speed(motorPin,0);
             }
         }
     }

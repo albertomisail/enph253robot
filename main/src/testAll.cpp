@@ -208,7 +208,6 @@ void testPickingUpEwok(){
 void testLift(){
     ziplineLift.init();
     while(true) {
-        oled.clrScr();
         ziplineLift.liftFront();
         delay(2000);
         ziplineLift.dropFront();
