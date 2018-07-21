@@ -12,6 +12,8 @@ constexpr int8_t Constants::highPwmPins[];
 constexpr int8_t Constants::lowPwmPins[];
 constexpr uint8_t Constants::LEFT_ENC_PIN;
 constexpr uint8_t Constants::RIGHT_ENC_PIN;
+constexpr uint16_t Constants::voltageUpFront, Constants::voltageDownFront;
+constexpr uint8_t Constants::frontLift;
 
 void Constants::init() {
     /*

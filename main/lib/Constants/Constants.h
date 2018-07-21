@@ -40,15 +40,16 @@ public:
 
     constexpr static uint8_t IR_BEACON_PIN = PA0;
 
-    constexpr static uint8_t frontLift = PB13;
+    //constexpr static uint8_t LIFT_MOTOR = 1;
+    constexpr static uint8_t frontLift = 1;
     constexpr static uint8_t backLift = PB13;
-    constexpr static uint8_t potFront = PB13;
+    constexpr static uint8_t potFront = PA3;
     constexpr static uint8_t potBack = PB13;
     constexpr static uint16_t voltageUpFront = 1050;
     constexpr static uint16_t voltageDownFront = 850;
     constexpr static uint16_t voltageUpBack = 1050;
     constexpr static uint16_t voltageDownBack = 850;
-    constexpr static uint8_t speedLift = PB13;
+    constexpr static uint8_t speedLift = 150;
 
     constexpr static uint8_t LEFT_QRD_PIN = PA4;
     constexpr static uint8_t RIGHT_QRD_PIN = PA5;

@@ -20,3 +20,4 @@ void testFFT();
 void testEncoders();
 void testLFandReverse();
 void testPickingUpEwok();
+void testLift();

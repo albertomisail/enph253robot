@@ -1,4 +1,5 @@
 #include "ZiplineLiftBase.h"
+#include "OLED_I2C.h"
 
 const uint16_t ERR_THR = 50;
 // TODO: Replace ERR_THR with real values... They may all be different values
@@ -13,23 +14,34 @@ void ZiplineLiftBase::init(){
     pinMode(Constants::backLift, OUTPUT);
     ZiplineLiftBase::positionFrontLift = analogRead(Constants::potFront);
     ZiplineLiftBase::positionBackLift = analogRead(Constants::potBack);
-    ZiplineLiftBase::liftFront();
-    ZiplineLiftBase::dropFront();
+    //ZiplineLiftBase::liftFront();
+    //ZiplineLiftBase::dropFront();
 }
 void ZiplineLiftBase::moveLift(const uint8_t& motorPin, const uint16_t& position){
     if(motorPin == Constants::frontLift){
+        //Higher voltage doesnt necessarily mean the position is up and also Hbridge might be hooked up backwards 
         if (ZiplineLiftBase::positionFrontLift <= Constants::voltageUpFront || ZiplineLiftBase::positionFrontLift >= Constants::voltageDownFront) {
             if(positionFrontLift < position){
                 // TODO: add threshold
                 // Might have to be careful with the squaring. If the difference is larger than 256 it will overflow 16 bit. 
-                while(abs(positionFrontLift-position) > ERR_THR){
+                for(int32_t i =0; abs(positionFrontLift-position) > ERR_THR; ++i){
                     motor.speed(motorPin, Constants::speedLift);
                     ZiplineLiftBase::positionFrontLift = analogRead(Constants::potFront);
+                    if (i%100 == 0) {
+                        oled.clrScr();
+                        oled.printNumI(positionFrontLift, 0, 0);
+                        oled.update();
+                    }
                 }
             }else{
-                while(abs(positionFrontLift-position) > ERR_THR){
+                for(int32_t i=0; abs(positionFrontLift-position) > ERR_THR; ++i){
                     motor.speed(motorPin, -Constants::speedLift);
                     ZiplineLiftBase::positionFrontLift = analogRead(Constants::potFront);
+                    if(i%100 == 0) {
+                        oled.clrScr();
+                        oled.printNumI(positionFrontLift, 0, 0);
+                        oled.update();
+                    }
                 }
             }
         }
