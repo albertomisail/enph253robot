@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <EEPROM.h>
 #include <OLED_I2C.h>
-//#include "Constants.h"
+#include "Constants.h"
 //#include <FFT.h>
 #include <Menu.h>
 //#include <InfraredBase.h>
@@ -9,8 +9,9 @@
 //#include <Encoder.h>
 #include <ClawBase.h>
 #include <UltrasoundBase.h>
-//#include <ZiplineLiftBase.h>
+#include <ZiplineLiftBase.h>
 #include "testAll.h"
+#include <MotorBase.h>
 
 extern uint8_t SmallFont[];
 
@@ -24,6 +25,8 @@ void setup() {
     //oled.setFont(SmallFont);
     lineFollower.init();
     claw.init();
+    motor.init();
+    ziplineLift.init();
     // put your setup code here, to run once:
     // ultrasound.init();
     //claw.init();
@@ -72,7 +75,7 @@ void loop() {
     //oled.update();
     //testEncoders();
     //testLFandReverse();
-    testPickingUpEwok();
-   //testLift();
+    // testPickingUpEwok();
+   testLift();
     
 }

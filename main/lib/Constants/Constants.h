@@ -46,11 +46,12 @@ public:
     constexpr static uint8_t backLift = PB13;
     constexpr static uint8_t potFront = PA0;
     constexpr static uint8_t potBack = PB13;
-    constexpr static uint16_t voltageUpFront = 1100;
-    constexpr static uint16_t voltageDownFront = 850;
+    constexpr static uint16_t voltageUpFront = 800;
+    constexpr static uint16_t voltageDownFront = 1170;
     constexpr static uint16_t voltageUpBack = 1050;
     constexpr static uint16_t voltageDownBack = 850;
-    constexpr static uint8_t speedLift = 150;
+    constexpr static uint8_t speedLiftDown = 100;
+    constexpr static uint8_t speedLiftUp = 150;
 
     constexpr static uint8_t LEFT_QRD_PIN = PA4;
     constexpr static uint8_t RIGHT_QRD_PIN = PA3;

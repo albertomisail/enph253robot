@@ -1,7 +1,7 @@
 #include "ZiplineLiftBase.h"
 #include "OLED_I2C.h"
 
-const uint16_t ERR_THR = 50;
+const uint16_t ERR_THR = 20;
 
 
 ZiplineLiftBase::ZiplineLiftBase(){
@@ -19,48 +19,39 @@ void ZiplineLiftBase::init(){
 }
 void ZiplineLiftBase::moveLift(const uint8_t& motorPin, const uint16_t& position){
     if(motorPin == Constants::frontLift){
-        if (ZiplineLiftBase::positionFrontLift <= Constants::voltageUpFront + ERR_THR && ZiplineLiftBase::positionFrontLift >= Constants::voltageDownFront - ERR_THR) {
+        ZiplineLiftBase::positionFrontLift = analogRead(Constants::potFront);
+        if (ZiplineLiftBase::positionFrontLift >= Constants::voltageUpFront - ERR_THR && ZiplineLiftBase::positionFrontLift <= Constants::voltageDownFront + ERR_THR) {
             if(positionFrontLift < position){
                 //Move down
-                //Actual code
-                /*
-                while(abs(positionFrontLift-position) > ERR_THR) {
-                    motor.speed(motorPin, Constants::speedLift);
-                    ZiplineLiftBase::positionFrontLift = analogRead(Constants::potFront);
-                }
-                */
-                // For loop for testing and printing pot value to OLED
-                for(int32_t i =0; abs(positionFrontLift-position) > ERR_THR; ++i){
-                    motor.speed(motorPin, Constants::speedLift);
+                int count = 0;
+                while(abs(positionFrontLift - position) > ERR_THR){
+                    motor.speed(motorPin, Constants::speedLiftDown);
                     int a = abs(positionFrontLift-position);
                     ZiplineLiftBase::positionFrontLift = analogRead(Constants::potFront);
-                    if (i%100 == 0) {
+                    if (count%1 == 0) {
                         oled.clrScr();
-                        oled.printNumI(positionFrontLift, 0, 0);
+                        oled.printNumI(positionFrontLift, 0, 20);
                         oled.print("DROPING", 0, 10);
-                        oled.printNumI(a, 0, 20);
+                        oled.printNumI(a, 0, 30);
                         oled.update();
                     }
+                    count++;
                 }
                 motor.speed(motorPin, 0);
             }else{
-                /*
-                while(abs(positionFrontLift-position) > ERR_THR) {
-                    motor.speed(motorPin, -Constants::speedLift);
+                //Move up
+                int count = 0;
+                while(abs(positionFrontLift - position) > ERR_THR){
+                    motor.speed(motorPin, -Constants::speedLiftUp);
+                    int a = abs(positionFrontLift-position);
                     ZiplineLiftBase::positionFrontLift = analogRead(Constants::potFront);
-                }
-                */
-                for(int32_t i=0; abs(positionFrontLift-position) > ERR_THR; ++i){
-                    motor.speed(motorPin, -Constants::speedLift);
-                    int a = abs(positionFrontLift - position);
-                    ZiplineLiftBase::positionFrontLift = analogRead(Constants::potFront);
-                    if(i%100 == 0) {
-                        oled.clrScr();
-                        oled.printNumI(positionFrontLift, 0, 0);
+                    if (count%1 == 0) {
+                        oled.printNumI(positionFrontLift, 0, 20);
                         oled.print("LIFTING", 0, 10);
-                        oled.printNumI(a, 0, 20);
+                        oled.printNumI(a, 0, 30);
                         oled.update();
                     }
+                    count++;
                 }
                 motor.speed(motorPin, 0);
             }
@@ -75,13 +66,13 @@ void ZiplineLiftBase::moveLift(const uint8_t& motorPin, const uint16_t& position
                 }
                 */
                 for(int32_t i =0; abs(positionBackLift-position) > ERR_THR; ++i){
-                    motor.speed(motorPin, Constants::speedLift);
+                    motor.speed(motorPin, Constants::speedLiftDown);
                     ZiplineLiftBase::positionBackLift = analogRead(Constants::potBack);
-                    if (i%100 == 0) {
-                        oled.clrScr();
-                        oled.printNumI(positionBackLift, 0, 0);
-                        oled.update();
-                    }
+                    // if (i%100 == 0) {
+                    //     oled.clrScr();
+                    //     oled.printNumI(positionBackLift, 0, 0);
+                    //     oled.update();
+                    // }
                 }
                 motor.speed(motorPin,0);
             }else{
@@ -92,13 +83,13 @@ void ZiplineLiftBase::moveLift(const uint8_t& motorPin, const uint16_t& position
                 }
                 */
                 for(int32_t i =0; abs(positionBackLift-position) > ERR_THR; ++i){
-                    motor.speed(motorPin, -Constants::speedLift);
+                    motor.speed(motorPin, -Constants::speedLiftUp);
                     ZiplineLiftBase::positionBackLift = analogRead(Constants::potBack);
-                    if (i%100 == 0) {
-                        oled.clrScr();
-                        oled.printNumI(positionBackLift, 0, 0);
-                        oled.update();
-                    }
+                    // if (i%100 == 0) {
+                    //     oled.clrScr();
+                    //     oled.printNumI(positionBackLift, 0, 0);
+                    //     oled.update();
+                    // }
                 }
                 motor.speed(motorPin,0);
             }
@@ -106,6 +97,10 @@ void ZiplineLiftBase::moveLift(const uint8_t& motorPin, const uint16_t& position
     }
 }
 void ZiplineLiftBase::liftFront(){
+    // oled.clrScr();
+    // oled.print("here3", 0, 0);
+    // oled.update();
+    // delay(2000);
     ZiplineLiftBase::moveLift(Constants::frontLift, Constants::voltageUpFront);
 }
 void ZiplineLiftBase::dropFront(){

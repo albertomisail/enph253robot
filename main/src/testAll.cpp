@@ -206,13 +206,17 @@ void testPickingUpEwok(){
 }
 
 void testLift(){
-    ziplineLift.init();
     while(true) {
-        oled.print("LIFTING", 0, 10);
+        oled.clrScr();
+        oled.print("UP", 0, 0);
         oled.update();
+        delay(2000);
         ziplineLift.liftFront();
         delay(2000);
-        oled.print("DROPING", 0, 10);
+        oled.clrScr();
+        oled.print("DOWN", 0, 0);
+        oled.update();
+        delay(2000);
         ziplineLift.dropFront();
         delay(2000);
     }
