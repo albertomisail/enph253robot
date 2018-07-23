@@ -1,4 +1,5 @@
 #include "InfraredBase.h"
+#include "OLED_I2C.h"
 
 InfraredBase::InfraredBase(){
     InfraredBase::init();
@@ -22,7 +23,11 @@ int InfraredBase::makeMeasurement(){
         digitalWrite(Constants::infraredLeds[i], LOW);
     }
     int after = analogRead(Constants::infraredReceiver);
-    return after - base;
+    oled.clrScr();
+    oled.printNumI(base - after, 0, 0);
+    oled.update();
+    delay(2000);
+    return base - after;
 }
 bool InfraredBase::objectDetected(){
     if(Constants::infraredThreshold > makeMeasurement()){

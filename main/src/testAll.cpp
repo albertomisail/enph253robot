@@ -194,13 +194,15 @@ void testLFandReverse() {
 }
 
 void testPickingUpEwok(){
-    infrared.init();
-    claw.init();
+    oled.print("here", 0, 0);
+    oled.update();
+    delay(2000);
     oled.clrScr();
     while(!infrared.objectDetected()){
         delay(100);
     }
     oled.print("SAW SOMETHING", 0, 0);
+    oled.update();
     claw.pickEwok();
     delay(500);
 }

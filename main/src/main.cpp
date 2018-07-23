@@ -27,6 +27,7 @@ void setup() {
     claw.init();
     motor.init();
     ziplineLift.init();
+    infrared.init();
     // put your setup code here, to run once:
     // ultrasound.init();
     //claw.init();
@@ -75,7 +76,7 @@ void loop() {
     //oled.update();
     //testEncoders();
     //testLFandReverse();
-    // testPickingUpEwok();
-   testLift();
+    testPickingUpEwok();
+//    testLift();
     
 }
