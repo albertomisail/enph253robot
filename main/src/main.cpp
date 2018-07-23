@@ -72,7 +72,7 @@ void loop() {
     //oled.update();
     //testEncoders();
     //testLFandReverse();
-    //testPickingUpEwok();
-    testLift();
+    testPickingUpEwok();
+   //testLift();
     
 }

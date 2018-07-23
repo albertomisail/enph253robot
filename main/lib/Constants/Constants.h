@@ -13,7 +13,7 @@ public:
 
     static void init();
 
-    constexpr static uint8_t POT_PIN = PA0;
+    constexpr static uint8_t POT_PIN = PA1;
     constexpr static uint8_t GO_BTN_PIN = PB13;
 
     constexpr static int8_t oledPins[] = {PB7, PB10};
@@ -26,8 +26,8 @@ public:
     constexpr static int16_t ENCODER_POLL_TIME = 2; // milliseconds
 
     // TODO: Assign real pin values
-    constexpr static int8_t infraredLeds[] = {PB13};
-    constexpr static int8_t infraredReceiver = PB13;
+    constexpr static int8_t infraredLeds[] = {PB3};
+    constexpr static int8_t infraredReceiver = PA5;
     constexpr static int16_t infraredThreshold = -400;
 
     constexpr static int8_t CLAW_ARM_PIN = PA6;
@@ -39,21 +39,21 @@ public:
     constexpr static int16_t angleClose = 90;
     constexpr static int8_t buttonSwitchPin = PB13;
 
-    constexpr static uint8_t IR_BEACON_PIN = PA0;
+    constexpr static uint8_t IR_BEACON_PIN = PA5;
 
     //constexpr static uint8_t LIFT_MOTOR = 1;
     constexpr static uint8_t frontLift = 1;
     constexpr static uint8_t backLift = PB13;
-    constexpr static uint8_t potFront = PA3;
+    constexpr static uint8_t potFront = PA0;
     constexpr static uint8_t potBack = PB13;
-    constexpr static uint16_t voltageUpFront = 1050;
+    constexpr static uint16_t voltageUpFront = 1100;
     constexpr static uint16_t voltageDownFront = 850;
     constexpr static uint16_t voltageUpBack = 1050;
     constexpr static uint16_t voltageDownBack = 850;
     constexpr static uint8_t speedLift = 150;
 
     constexpr static uint8_t LEFT_QRD_PIN = PA4;
-    constexpr static uint8_t RIGHT_QRD_PIN = PA5;
+    constexpr static uint8_t RIGHT_QRD_PIN = PA3;
     constexpr static uint8_t EDGE_QRD_PIN = PA2;
     constexpr static uint8_t QRD_POWER_PIN = PB4;
 
