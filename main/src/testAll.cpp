@@ -201,7 +201,7 @@ void testLFandReverse() {
     //Rotating to find Ewok
     motor.speed(Constants::MOTOR_LEFT, Constants::CORRECTION_SPEED/2);
     motor.speed(Constants::MOTOR_RIGHT, -Constants::CORRECTION_SPEED/2);
-    while (!infrared.objectDetected()) {
+    while (!infrared.objectDetected(Constants::pickUpInfraredThreshold)) {
         oled.clrScr();
         oled.printNumI(infrared.makeMeasurement(),0,0);
         oled.update();
@@ -230,7 +230,7 @@ void testPickingUpEwok(){
     oled.update();
     delay(1000);
 
-    while(!infrared.objectDetected()) {
+    while(!infrared.objectDetected(Constants::pickUpInfraredThreshold)) {
         delay(100);
         oled.clrScr();
         oled.printNumI(infrared.makeMeasurement(), 0, 0);
@@ -274,4 +274,75 @@ void testLift(){
         ziplineLift.dropFront();
         delay(2000);
     }
+}
+
+void pickUpFirstEwok() {
+    Menu m;
+    m.run();
+    lineFollower.start();
+    Encoder leftEnc(Constants::LEFT_ENC_PIN);
+    Encoder rightEnc(Constants::RIGHT_ENC_PIN);
+    oled.invertText(false);
+    for(int32_t i=0;lineFollower.poll();++i) {
+        //Encoder::poll();
+        if(leftEnc.getPosition() > 90) {
+            lineFollower.stop();
+        }
+        if(i%10000 == 0)
+        {
+            oled.clrScr();
+            oled.print("L:", 0, 0);
+            oled.print("R:", 0, 10);
+            oled.print("E:", 0, 20);
+            oled.print("G:", 0, 30);
+            oled.print("ER", 0, 40);
+            oled.print("EN", 0, 50);
+            oled.printNumI(lineFollower.sensorLeftReading, 20, 0);
+            oled.printNumI(lineFollower.sensorRightReading, 20, 10);
+            oled.printNumI(lineFollower.sensorEdgeReading, 20, 20);
+            oled.printNumI(lineFollower.sensorLeftReadingAmb, 55, 0);
+            oled.printNumI(lineFollower.sensorRightReadingAmb, 55, 10);
+            oled.printNumI(lineFollower.sensorEdgeReadingAmb, 55, 20);
+            oled.printNumI(lineFollower.sensorLeftReadingPow, 90, 0);
+            oled.printNumI(lineFollower.sensorRightReadingPow, 90, 10);
+            oled.printNumI(lineFollower.sensorEdgeReadingPow, 90, 20);
+            oled.printNumI(lineFollower.g, 20, 30);
+            oled.printNumI(lineFollower.error, 20, 40);
+            oled.printNumI(leftEnc.getPosition(), 20, 50);
+            oled.printNumI(rightEnc.getPosition(), 60, 50);
+            oled.printNumI(lineFollower.lastCompTime, 90, 30);
+            if(i%20000 == 0)
+            {
+                oled.print(".", 100, 0);
+            }
+            oled.update();
+        }
+    }
+
+    uint8_t encoderReading = leftEnc.getPosition();
+
+    Movement move;
+    move.start(1,-1,6,6);
+    while(move.poll()) {};
+
+    InfraredBase infrared;
+    //TODO: what to do if ewok not detected?
+    bool ewokDetected = false;
+
+    //Really bad way of doing this but this is just limiting the movement so we don't overrotate
+    for(int i = 0; i < 20 ; i++) {
+        move.start(-1,1,1,1);
+        while(move.poll()) {}
+        if (infrared.objectDetected(Constants::distantInfaredThreshold)) {
+            ewokDetected = true;
+            break; 
+        }
+    } 
+
+    if (ewokDetected) {
+
+    }
+
+
+
 }

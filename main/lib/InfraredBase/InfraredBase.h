@@ -10,7 +10,7 @@ public:
     constexpr static int8_t size();
     void init();
     int makeMeasurement();
-    bool objectDetected();
+    bool objectDetected(int16_t infraredThreshold);
 };
 
 extern InfraredBase infrared;

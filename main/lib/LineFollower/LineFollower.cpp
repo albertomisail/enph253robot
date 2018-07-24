@@ -15,6 +15,11 @@ void LineFollower::start() {
 }
 void LineFollower::stop() {
     movingState = false;
+    motor.speed(Constants::MOTOR_LEFT, 255);
+    motor.speed(Constants::MOTOR_RIGHT, -255);
+    delay(40);
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
 }
 
 bool LineFollower::isMoving() const {
@@ -116,6 +121,9 @@ bool LineFollower::poll()
     state = 0;
     lastCompTime = millis()-now;
     return true;
-}
+    
+
+
+    }
 
 LineFollower lineFollower;

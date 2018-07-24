@@ -29,8 +29,8 @@ int InfraredBase::makeMeasurement(){
     delay(2000);
     return base - after;
 }
-bool InfraredBase::objectDetected(){
-    if(Constants::infraredThreshold > makeMeasurement()){
+bool InfraredBase::objectDetected(int16_t infraredThreshold){
+    if(infraredThreshold > makeMeasurement()){
         return false;
     }else{
         return true;
