@@ -29,12 +29,11 @@ bool Movement::oneSideFinished(int16_t leftPos, int16_t rightPos) {
     }
     if(leftPos >= leftInit+leftAmt) {
         motor.speed(Constants::MOTOR_LEFT, 0);
-        motor.speed(Constants::MOTOR_RIGHT, Constants::CORRECTION_SPEED+10);
+        motor.speed(Constants::MOTOR_RIGHT, rightAmt*(Constants::CORRECTION_SPEED+10));
     } else {
-        motor.speed(Constants::MOTOR_LEFT, Constants::CORRECTION_SPEED+10);
+        motor.speed(Constants::MOTOR_LEFT, leftAmt*(Constants::CORRECTION_SPEED+10));
         motor.speed(Constants::MOTOR_RIGHT, 0);
     }
-
     return true;
 }
 
@@ -78,8 +77,8 @@ bool Movement::poll() {
 
     int16_t g = p+d;
 
-    motor.speed(Constants::MOTOR_LEFT, Constants::CORRECTION_SPEED-g);
-    motor.speed(Constants::MOTOR_RIGHT, Constants::CORRECTION_SPEED+g);
+    motor.speed(Constants::MOTOR_LEFT, leftDir*(Constants::CORRECTION_SPEED-g));
+    motor.speed(Constants::MOTOR_RIGHT, rightDir*(Constants::CORRECTION_SPEED+g));
 
     previousError = error;
     previousTime = now;

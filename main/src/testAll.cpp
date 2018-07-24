@@ -195,7 +195,7 @@ void testLFandReverse() {
     oled.clrScr();
     oled.print("BRIDGE DROPPED", 0, 0);
     oled.update();
-    
+
     delay(2000);
 
     //Rotating to find Ewok
@@ -243,6 +243,20 @@ void testPickingUpEwok(){
     oled.print("EWOK PICKED", 0, 0);
     oled.update();
     delay(500);
+}
+
+void testMovement() {
+    oled.clrScr();
+    oled.print("MOVEMENT TEST:", 0, 0);
+    oled.update();
+    delay(1000);
+    Movement m;
+    m.start(1, -1, 40, 40);
+    while(m.poll()) {}
+    oled.clrScr();
+    oled.print("DONE", 0, 0);
+    oled.update();
+    delay(5000);
 }
 
 void testLift(){

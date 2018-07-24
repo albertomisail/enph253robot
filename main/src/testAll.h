@@ -9,6 +9,7 @@
 #include <LineFollower.h>
 #include <FFT.h>
 #include <InfraredBase.h>
+#include <Movement.h>
 
 void testUltrasound();
 void testEncoder();
@@ -21,3 +22,4 @@ void testEncoders();
 void testLFandReverse();
 void testPickingUpEwok();
 void testLift();
+void testMovement();
