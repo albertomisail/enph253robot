@@ -116,7 +116,7 @@ void testLFandReverse() {
     Encoder rightEnc(Constants::RIGHT_ENC_PIN);
     oled.invertText(false);
     for(int32_t i=0;lineFollower.poll();++i) {
-        //Encoder::poll();
+        Encoder::poll();
         if(i%10000 == 0)
         {
             oled.clrScr();
@@ -147,58 +147,46 @@ void testLFandReverse() {
             oled.update();
         }
     }
+
+    int16_t leftEncStore = leftEnc.getPosition();
+    int16_t rightEncStore = rightEnc.getPosition();
     oled.clrScr();
     oled.print("EDGE", 0, 0);
     oled.update();
     delay(500);
-    int16_t lastLeftPos = leftEnc.getPosition();
-    int16_t lastRightPos = rightEnc.getPosition();
-    motor.speed(Constants::MOTOR_LEFT, -Constants::CORRECTION_SPEED);
-    motor.speed(Constants::MOTOR_RIGHT, -Constants::CORRECTION_SPEED);
 
-    // Wait for left encoder to
-    while(rightEnc.getPosition() - lastRightPos < 6
-    && leftEnc.getPosition() - lastLeftPos < 16) {
-        Encoder::poll();
-    }
-    motor.speed(Constants::MOTOR_RIGHT, 0);
-    motor.speed(Constants::MOTOR_LEFT, 0);
+    oled.clrScr();
+    oled.print("TRY reverse", 0, 0);
+    oled.update();
 
-    delay(1000);
+    Movement mvt;
+    mvt.start(-1, -1, 6, 6);
+    while(mvt.poll()) {}
+    delay(500);
+    oled.print("TRY turn", 0, 0);
+    oled.update();
+    mvt.start(-1, 1, 10, 10);
+    while(mvt.poll()) {}
+    delay(500);
+    oled.print("TRY more turn", 0, 0);
+    oled.update();
+    mvt.start(-1, -1, 6, 6);
+    while(mvt.poll()) {}
+    delay(500);
 
-    //Turning to line up with edge and deploy bridge
-    motor.speed(Constants::MOTOR_LEFT, -Constants::CORRECTION_SPEED);
-    motor.speed(Constants::MOTOR_RIGHT, (Constants::CORRECTION_SPEED)/2);
-    int32_t cnt = 0;
-    while(leftEnc.getPosition() - lastLeftPos < 16) {
-        Encoder::poll();
-        if(cnt%10000 == 0) {
-            oled.clrScr();
-            oled.print("L", 0, 0);
-            oled.print("r", 0, 10);
-            oled.printNumI(leftEnc.getPosition() - lastLeftPos, 20, 0);
-            oled.printNumI(rightEnc.getPosition() - lastRightPos, 20, 10);
-            oled.update();
-        }
-        ++cnt;
-    }
-    motor.speed(Constants::MOTOR_LEFT, 0);
-    motor.speed(Constants::MOTOR_RIGHT, 0); /*
-    if(rightEnc.getPosition() - lastRightPos < 12) {
-        // probably wanna see what's wrong, in case I'm about to fall off the table
-        oled.clrScr();
-        oled.print("!!", 0, 0);
-        oled.update();
-        delay(5000);
-    } */
     claw.deployBridge();
     oled.clrScr();
     oled.print("BRIDGE DROPPED", 0, 0);
     oled.update();
 
-    delay(2000);
+    oled.clrScr();
+    oled.printNumI(leftEncStore, 0, 0);
+    oled.printNumI(rightEncStore, 0, 10);
+    oled.update();
+    delay(20000);
 
     //Rotating to find Ewok
+    /*
     motor.speed(Constants::MOTOR_LEFT, Constants::CORRECTION_SPEED/2);
     motor.speed(Constants::MOTOR_RIGHT, -Constants::CORRECTION_SPEED/2);
     while (!infrared.objectDetected(Constants::pickUpInfraredThreshold)) {
@@ -211,7 +199,7 @@ void testLFandReverse() {
     oled.print("EWOK DETECTED",0,10);
     oled.update();
     claw.pickEwok();
-    delay(10000);
+    delay(10000); */
 }
 
 void testPickingUpEwok(){
@@ -251,7 +239,7 @@ void testMovement() {
     oled.update();
     delay(1000);
     Movement m;
-    m.start(1, -1, 40, 40);
+    m.start(1, -1, 120, 120);
     while(m.poll()) {}
     oled.clrScr();
     oled.print("DONE", 0, 0);

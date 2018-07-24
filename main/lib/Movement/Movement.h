@@ -3,6 +3,7 @@
 #include <Arduino.h>
 #include <MotorBase.h>
 #include <Encoder.h>
+#include <OLED_I2C.h>
 
 class Movement {
 private:
@@ -16,7 +17,7 @@ public:
             deltaT,
             error,
             previousError,
-            counter;
+            counter, cnt = 0;
 
     Movement();
     void init();
