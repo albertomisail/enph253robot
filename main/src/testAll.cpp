@@ -194,16 +194,28 @@ void testLFandReverse() {
 }
 
 void testPickingUpEwok(){
-    oled.print("here", 0, 0);
-    oled.update();
-    delay(2000);
     oled.clrScr();
+    oled.update();
+    delay(1000);
+    oled.clrScr();
+    oled.print("STARTING EWOK TEST", 0, 0);
+    oled.update();
+    delay(1000);
+    infrared.init();
+    claw.init();
+    oled.clrScr();
+    oled.print("DONE INITS", 0, 0);
     while(!infrared.objectDetected()){
         delay(100);
+        oled.clrScr();
+        oled.printNumI(infrared.makeMeasurement(), 0, 0);
+        oled.update();
     }
     oled.print("SAW SOMETHING", 0, 0);
     oled.update();
     claw.pickEwok();
+    oled.print("EWOK PICKED", 0, 0);
+    oled.update();
     delay(500);
 }
 

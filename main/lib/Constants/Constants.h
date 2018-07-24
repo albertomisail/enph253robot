@@ -35,9 +35,10 @@ public:
     constexpr static int16_t angleOut = 0;
     constexpr static int16_t angleInit = 40;
     constexpr static int16_t angleIn = 45;
-    constexpr static int16_t angleOpen = 20;
-    constexpr static int16_t angleClose = 90;
-    constexpr static int8_t buttonSwitchPin = PB13;
+    constexpr static int16_t angleOpen = 80;
+    constexpr static int16_t angleClose = 160;
+    constexpr static int16_t angleFullClose = 100;
+    constexpr static int8_t buttonSwitchPin = PA15;
 
     constexpr static uint8_t IR_BEACON_PIN = PA5;
 

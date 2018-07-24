@@ -77,6 +77,7 @@ void loop() {
     //testEncoders();
     //testLFandReverse();
     testPickingUpEwok();
-//    testLift();
-    
+    delay(2000);
+    //testLift();
+
 }

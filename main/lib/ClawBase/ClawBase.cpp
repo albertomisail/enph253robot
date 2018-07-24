@@ -1,5 +1,5 @@
 #include "ClawBase.h"
-
+#include "OLED_I2C.h"
 ClawBase::ClawBase(){
     //ClawBase::init();
 }
@@ -52,25 +52,38 @@ void ClawBase::pickEwok(){
 }
 */
 void ClawBase::pickEwok(){
+    // TODO: return value based on success state
     int step = (Constants::angleClose - Constants::angleOpen) / 5;
     int step2 = (Constants::angleIn - Constants::angleOut) / 5;
     (ClawBase::arm).write(Constants::angleOut);
     (ClawBase::claw).write(Constants::angleOpen);
+    oled.clrScr();
+    oled.print("here", 0, 0);
+    oled.update();
     //ziplineLift.dropClaw();
-    while(!buttonSwitch || (ClawBase::claw).read() <= Constants::angleClose ){
-        (ClawBase::claw).write((ClawBase::claw).read() - step);
+    while(!buttonSwitch && (ClawBase::claw).read() <= Constants::angleClose ){
+        (ClawBase::claw).write((ClawBase::claw).read() + step);
         delay(250);
         buttonSwitch = digitalRead(Constants::buttonSwitchPin);
+        oled.clrScr();
+        oled.printNumI((ClawBase::claw).read(), 0, 0);
+        oled.printNumI(buttonSwitch, 0, 10);
+        oled.update();
     }
-    if(buttonSwitch){
-        while((ClawBase::arm).read() <= Constants::angleIn ){
-            (ClawBase::arm).write((ClawBase::arm).read() + step);
+    oled.print("here2", 0, 0);
+    oled.update();
+    delay(250);
+    if(buttonSwitch) {
+        while((ClawBase::arm).read() <= Constants::angleIn) {
+            (ClawBase::arm).write((ClawBase::arm).read() + step2);
             delay(250);
         }
         (ClawBase::claw).write(Constants::angleOpen);
         delay(250);
         (ClawBase::arm).write(Constants::angleOut);
-    } else{(ClawBase::claw).write(Constants::angleOpen);}
+    } else {
+        (ClawBase::claw).write(Constants::angleOpen);
+    }
     //ziplineLift.liftClaw();
     ClawBase::buttonSwitch = false;
 }
