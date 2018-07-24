@@ -166,6 +166,7 @@ void testLFandReverse() {
 
     delay(1000);
 
+    //Turning to line up with edge and deploy bridge
     motor.speed(Constants::MOTOR_LEFT, -Constants::CORRECTION_SPEED);
     motor.speed(Constants::MOTOR_RIGHT, (Constants::CORRECTION_SPEED)/2);
     while(leftEnc.getPosition() - lastLeftPos < 18) {
@@ -188,8 +189,24 @@ void testLFandReverse() {
     }
     claw.deployBridge();
     oled.clrScr();
-    oled.print("WAIT", 0, 0);
+    oled.print("BRIDGE DROPPED", 0, 0);
     oled.update();
+    
+    delay(2000);
+
+    //Rotating to find Ewok
+    motor.speed(Constants::MOTOR_LEFT, Constants::CORRECTION_SPEED/2);
+    motor.speed(Constants::MOTOR_RIGHT, -Constants::CORRECTION_SPEED/2);
+    while (!infrared.objectDetected()) {
+        oled.clrScr();
+        oled.printNumI(infrared.makeMeasurement(),0,0);
+        oled.update();
+    }
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+    oled.print("EWOK DETECTED",0,10);
+    oled.update();
+    claw.pickEwok();
     delay(10000);
 }
 
