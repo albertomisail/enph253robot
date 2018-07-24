@@ -310,7 +310,7 @@ void pickUpFirstEwok() {
     uint8_t encoderReading = leftEnc.getPosition();
 
     Movement move;
-    move.start(1,-1,6,6);
+    move.start(-1,1,6,6);
     while(move.poll()) {};
 
     InfraredBase infrared;
@@ -319,7 +319,7 @@ void pickUpFirstEwok() {
 
     //Really bad way of doing this but this is just limiting the movement so we don't overrotate
     for(int i = 0; i < 20 ; i++) {
-        move.start(-1,1,1,1);
+        move.start(1,-1,1,1);
         while(move.poll()) {}
         if (infrared.objectDetected(Constants::distantInfaredThreshold)) {
             ewokDetected = true;
@@ -328,9 +328,9 @@ void pickUpFirstEwok() {
     } 
 
     if (ewokDetected) {
-
+        while(infrared.makeMeasurement()<=(Constants::pickUpInfraredThreshold)){
+            move.start(1,1,1,1);
+        }
+        claw.pickEwok();
     }
-
-
-
 }
