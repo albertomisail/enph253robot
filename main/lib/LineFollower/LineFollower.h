@@ -20,7 +20,7 @@ public:
     int32_t sensorLeftReadingAmb, sensorRightReadingAmb, sensorEdgeReadingAmb;
     int32_t sensorLeftReadingPow, sensorRightReadingPow, sensorEdgeReadingPow;
     int16_t error, lastCompTime;
-    void init();
+    void init(int);
     void start();
     void stop();
     bool poll();
