@@ -205,6 +205,8 @@ void testPickingUpEwok(){
     claw.init();
     oled.clrScr();
     oled.print("DONE INITS", 0, 0);
+    oled.update();
+    delay(1000);
     while(!infrared.objectDetected()){
         delay(100);
         oled.clrScr();
@@ -213,6 +215,7 @@ void testPickingUpEwok(){
     }
     oled.print("SAW SOMETHING", 0, 0);
     oled.update();
+    delay(1000);
     claw.pickEwok();
     oled.print("EWOK PICKED", 0, 0);
     oled.update();
