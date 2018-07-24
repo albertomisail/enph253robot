@@ -1,6 +1,6 @@
 #include "LineFollower.h"
 
-void LineFollower::init()
+void LineFollower::init(int previousError)
 {
     motor.init();
     pinMode(Constants::QRD_POWER_PIN, OUTPUT);
@@ -8,6 +8,7 @@ void LineFollower::init()
     pinMode(Constants::LEFT_QRD_PIN, INPUT);
     pinMode(Constants::RIGHT_QRD_PIN, INPUT);
     pinMode(Constants::EDGE_QRD_PIN, INPUT);
+    LineFollower::previousError = previousError;
 }
 
 void LineFollower::start() {

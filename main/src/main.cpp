@@ -24,7 +24,7 @@ void setup() {
     Constants::init();
     //oled.begin();
     //oled.setFont(SmallFont);
-    lineFollower.init();
+    lineFollower.init(0);
     claw.init();
     motor.init();
     ziplineLift.init();

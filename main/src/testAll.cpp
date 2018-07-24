@@ -333,4 +333,8 @@ void pickUpFirstEwok() {
         }
         claw.pickEwok();
     }
+
+    lineFollower.init(-4);
+    lineFollower.start();
+    while(lineFollower.poll()){}    
 }

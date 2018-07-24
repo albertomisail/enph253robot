@@ -26,5 +26,5 @@ public:
     bool isMoving() const;
     bool poll();
     bool oneSideFinished(int16_t, int16_t);
-
+    
 };
