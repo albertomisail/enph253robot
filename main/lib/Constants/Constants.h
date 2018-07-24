@@ -11,6 +11,9 @@ public:
     static MenuItem RIGHT_THRESHOLD;//("RT", 0, 4096, 1024);
     static MenuItem EDGE_THRESHOLD;//("RT", 0, 4096, 1024);
 
+    constexpr static int16_t PROPORTIONAL_MOVEMENT = 20;
+    constexpr static int16_t DERIVATIVE_MOVEMENT = 3;
+
     static void init();
 
     constexpr static uint8_t POT_PIN = PA1;
@@ -28,16 +31,16 @@ public:
     // TODO: Assign real pin values
     constexpr static int8_t infraredLeds[] = {PB3};
     constexpr static int8_t infraredReceiver = PA5;
-    constexpr static int16_t infraredThreshold = 1000;
+    constexpr static int16_t infraredThreshold = 2600;
 
     constexpr static int8_t CLAW_ARM_PIN = PA6;
     constexpr static int8_t CLAW_PIN = PA7;
     constexpr static int16_t angleOut = 0;
     constexpr static int16_t angleInit = 40;
     constexpr static int16_t angleIn = 45;
-    constexpr static int16_t angleOpen = 80;
-    constexpr static int16_t angleClose = 160;
-    constexpr static int16_t angleFullClose = 100;
+    constexpr static int16_t angleOpen = 0;
+    constexpr static int16_t angleClose = 80;
+    //constexpr static int16_t angleFullClose = 20;
     constexpr static int8_t buttonSwitchPin = PA15;
 
     constexpr static uint8_t IR_BEACON_PIN = PA5;

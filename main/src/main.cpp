@@ -12,6 +12,7 @@
 #include <ZiplineLiftBase.h>
 #include "testAll.h"
 #include <MotorBase.h>
+#include <Movement.h>
 
 extern uint8_t SmallFont[];
 
@@ -75,9 +76,9 @@ void loop() {
     //oled.print("!!", 0, 0);
     //oled.update();
     //testEncoders();
-    //testLFandReverse();
-    testPickingUpEwok();
-    delay(2000);
+    testLFandReverse();
+    //testPickingUpEwok();
+    //delay(2000);
     //testLift();
 
 }

@@ -158,7 +158,7 @@ void testLFandReverse() {
 
     // Wait for left encoder to
     while(rightEnc.getPosition() - lastRightPos < 6
-    && leftEnc.getPosition() - lastLeftPos < 18) {
+    && leftEnc.getPosition() - lastLeftPos < 16) {
         Encoder::poll();
     }
     motor.speed(Constants::MOTOR_RIGHT, 0);
@@ -169,24 +169,28 @@ void testLFandReverse() {
     //Turning to line up with edge and deploy bridge
     motor.speed(Constants::MOTOR_LEFT, -Constants::CORRECTION_SPEED);
     motor.speed(Constants::MOTOR_RIGHT, (Constants::CORRECTION_SPEED)/2);
-    while(leftEnc.getPosition() - lastLeftPos < 18) {
+    int32_t cnt = 0;
+    while(leftEnc.getPosition() - lastLeftPos < 16) {
         Encoder::poll();
-        oled.clrScr();
-        oled.print("L", 0, 0);
-        oled.print("r", 0, 10);
-        oled.printNumI(leftEnc.getPosition() - lastLeftPos, 20, 0);
-        oled.printNumI(rightEnc.getPosition() - lastRightPos, 20, 10);
-        oled.update();
+        if(cnt%10000 == 0) {
+            oled.clrScr();
+            oled.print("L", 0, 0);
+            oled.print("r", 0, 10);
+            oled.printNumI(leftEnc.getPosition() - lastLeftPos, 20, 0);
+            oled.printNumI(rightEnc.getPosition() - lastRightPos, 20, 10);
+            oled.update();
+        }
+        ++cnt;
     }
     motor.speed(Constants::MOTOR_LEFT, 0);
-    motor.speed(Constants::MOTOR_RIGHT, 0);
-    if(rightEnc.getPosition() - lastRightPos < 6) {
+    motor.speed(Constants::MOTOR_RIGHT, 0); /*
+    if(rightEnc.getPosition() - lastRightPos < 12) {
         // probably wanna see what's wrong, in case I'm about to fall off the table
         oled.clrScr();
         oled.print("!!", 0, 0);
         oled.update();
         delay(5000);
-    }
+    } */
     claw.deployBridge();
     oled.clrScr();
     oled.print("BRIDGE DROPPED", 0, 0);
@@ -217,6 +221,7 @@ void testPickingUpEwok(){
     oled.clrScr();
     oled.print("STARTING EWOK TEST", 0, 0);
     oled.update();
+
     delay(1000);
     infrared.init();
     claw.init();
@@ -224,7 +229,8 @@ void testPickingUpEwok(){
     oled.print("DONE INITS", 0, 0);
     oled.update();
     delay(1000);
-    while(!infrared.objectDetected()){
+
+    while(!infrared.objectDetected()) {
         delay(100);
         oled.clrScr();
         oled.printNumI(infrared.makeMeasurement(), 0, 0);
