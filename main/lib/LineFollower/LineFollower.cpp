@@ -16,11 +16,6 @@ void LineFollower::start() {
 }
 void LineFollower::stop() {
     movingState = false;
-    motor.speed(Constants::MOTOR_LEFT, 255);
-    motor.speed(Constants::MOTOR_RIGHT, -255);
-    delay(40);
-    motor.speed(Constants::MOTOR_LEFT, 0);
-    motor.speed(Constants::MOTOR_RIGHT, 0);
 }
 
 bool LineFollower::isMoving() const {
@@ -68,7 +63,7 @@ bool LineFollower::poll()
 
     if(sensorEdgeReading < Constants::EDGE_THRESHOLD.getVal()) {
         if(++consec > 1) {
-            motor.speed(Constants::MOTOR_LEFT, 255);
+            motor.speed(Constants::MOTOR_LEFT, -255);
             motor.speed(Constants::MOTOR_RIGHT, -255);
             delay(40);
             motor.speed(Constants::MOTOR_LEFT, 0);
@@ -122,7 +117,7 @@ bool LineFollower::poll()
     state = 0;
     lastCompTime = millis()-now;
     return true;
-    
+
 
 
     }

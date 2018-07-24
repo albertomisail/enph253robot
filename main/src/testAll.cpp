@@ -219,7 +219,7 @@ void testPickingUpEwok(){
     delay(1000);
 
     while(!infrared.objectDetected(Constants::pickUpInfraredThreshold)) {
-        delay(100);
+        delay(50);
         oled.clrScr();
         oled.printNumI(infrared.makeMeasurement(), 0, 0);
         oled.update();
@@ -323,9 +323,9 @@ void pickUpFirstEwok() {
         while(move.poll()) {}
         if (infrared.objectDetected(Constants::distantInfaredThreshold)) {
             ewokDetected = true;
-            break; 
+            break;
         }
-    } 
+    }
 
     if (ewokDetected) {
         while(infrared.makeMeasurement()<=(Constants::pickUpInfraredThreshold)){
@@ -334,7 +334,13 @@ void pickUpFirstEwok() {
         claw.pickEwok();
     }
 
+<<<<<<< HEAD
     lineFollower.init(-4);
     lineFollower.start();
     while(lineFollower.poll()){}    
 }
+=======
+
+
+}
+>>>>>>> 76cf0ab... Line follower corrections
