@@ -249,7 +249,7 @@ void testLFandReverse() {
             if(i++%10 == 0) {
                 Serial(lineFollower.QRDMeasurement());
             }
-            if(lineFollower.QRDMeasurement()<=Constants::RIGHT_THRESHOLD){
+            if(lineFollower.QRDMeasurement('r')<=Constants::RIGHT_THRESHOLD){
                 break;
             }
             lineFollower.startQRD();
