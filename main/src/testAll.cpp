@@ -109,7 +109,7 @@
 // }
 
 void testLFandReverse() {
-    
+
     Menu m;
     m.run();
     /*
@@ -173,7 +173,7 @@ void testLFandReverse() {
     oled.update();
 
     */
-    InfraredBase infrared;
+    //InfraredBase infrared;
     oled.clrScr();
     oled.print("Rotate",0,0);
     oled.update();
