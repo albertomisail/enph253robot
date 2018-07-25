@@ -19,8 +19,8 @@ public:
     bool poll();
     int lastMeasurement() const;
 
-/*    int makeMeasurement();
-    bool objectDetected(int16_t infraredThreshold); */
+//    int makeMeasurement();
+    bool objectDetected(int16_t infraredThreshold);
 };
 
 extern InfraredBase infrared;
