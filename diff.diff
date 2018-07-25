@@ -1,0 +1,299 @@
+diff --git a/main/lib/Menu/Menu.cpp b/main/lib/Menu/Menu.cpp
+new file mode 100644
+index 0000000..f61f6a9
+--- /dev/null
++++ b/main/lib/Menu/Menu.cpp
+@@ -0,0 +1,5 @@
++#include "Menu.h"
++
++Menu::Menu() {
++
++}
+diff --git a/main/lib/Menu/Menu.h b/main/lib/Menu/Menu.h
+new file mode 100644
+index 0000000..3703b05
+--- /dev/null
++++ b/main/lib/Menu/Menu.h
+@@ -0,0 +1,17 @@
++#pragma once
++#include "MenuItem.h"
++#include <Arduino.h>
++
++/**
++ * The base menu class. Call Menu.run() to start the menu.
++ * The menu will contain a base MenuItem implementation
++ *
++ *
++ *
++ */
++
++class Menu {
++private:
++public:
++    Menu();
++};
+diff --git a/main/lib/Menu/MenuItem.cpp b/main/lib/Menu/MenuItem.cpp
+new file mode 100644
+index 0000000..ef1ce4a
+--- /dev/null
++++ b/main/lib/Menu/MenuItem.cpp
+@@ -0,0 +1,18 @@
++#include "MenuItem.h"
++
++int16_t MenuItem::getVal()
++{
++    return val;
++}
++void MenuItem::setVal(int16_t _val)
++{
++    val = _val;
++}
++constexpr int16_t MenuItem::getMin()
++{
++    return myMin;
++}
++constexpr int16_t MenuItem::getMax()
++{
++    return myMax;
++}
+diff --git a/main/lib/Menu/MenuItem.h b/main/lib/Menu/MenuItem.h
+new file mode 100644
+index 0000000..1799ec7
+--- /dev/null
++++ b/main/lib/Menu/MenuItem.h
+@@ -0,0 +1,28 @@
++#pragma once
++#include <Arduino.h>
++
++class MenuItem {
++private:
++    const char* name;
++    const int16_t myMin, myMax;
++    // TODO track menu items
++
++public:
++    //MenuItem();
++    int16_t val;
++
++    constexpr MenuItem(const char* _name, int16_t _myMin, int16_t _myMax)
++        : name(_name), myMin(_myMin), myMax(_myMax), val(0)
++    {}
++    constexpr MenuItem(const char* _name, int16_t _myMin, int16_t _myMax, int16_t _defaultValue)
++        : name(_name), myMin(_myMin), myMax(_myMax), val(_defaultValue)
++    {}
++    constexpr char* getName()
++    {
++        return const_cast<char*>(name);
++    }
++    int16_t getVal();
++    void setVal(int16_t _val);
++    constexpr int16_t getMin();
++    constexpr int16_t getMax();
++};
+diff --git a/main/lib/Menu/MenuScreen.cpp b/main/lib/Menu/MenuScreen.cpp
+new file mode 100644
+index 0000000..fcb42ab
+--- /dev/null
++++ b/main/lib/Menu/MenuScreen.cpp
+@@ -0,0 +1 @@
++#include "MenuScreen.h"
+diff --git a/main/lib/Menu/MenuScreen.h b/main/lib/Menu/MenuScreen.h
+new file mode 100644
+index 0000000..28a90ad
+--- /dev/null
++++ b/main/lib/Menu/MenuScreen.h
+@@ -0,0 +1,7 @@
++#pragma once
++#include <Arduino.h>
++
++class MenuScreen {
++private:
++public:
++};
+diff --git a/main/lib/constants/Constants.cpp b/main/lib/constants/Constants.cpp
+new file mode 100644
+index 0000000..cd23762
+--- /dev/null
++++ b/main/lib/constants/Constants.cpp
+@@ -0,0 +1,26 @@
++#include "Constants.h"
++
++uint8_t Constants::lowPwmPins[2] = {PA0, PA2};
++uint8_t Constants::highPwmPins[2] = {PA1, PA3};
++
++void Constants::load(int16_t addr)
++{
++    // TODO: What happens if overflowing EEPROM?
++    for(int i=0;i<static_cast<int>(size());++i)
++    {
++        *((char*)this+i) = EEPROM.read(addr+i);
++    }
++}
++
++void Constants::dump(int16_t addr)
++{
++    // TODO: What happens if overflowing EEPROM?
++    for(int i=0;i<static_cast<int>(size());++i)
++    {
++        EEPROM.write(addr+i, *((char*)this+i));
++    }
++}
++
++constexpr size_t Constants::size() {
++    return sizeof(Constants);
++}
+diff --git a/main/lib/constants/constants.h b/main/lib/constants/constants.h
+new file mode 100644
+index 0000000..d6cf93f
+--- /dev/null
++++ b/main/lib/constants/constants.h
+@@ -0,0 +1,26 @@
++#pragma once
++#include <Arduino.h>
++#include <EEPROM.h>
++#include <MenuItem.h>
++
++/**
++ * NOTE: you will likely
++ *
++ */
++
++class Constants {
++private:
++    int16_t vals[20];
++public:
++    static uint8_t lowPwmPins[2];
++    static uint8_t highPwmPins[2];
++    constexpr static MenuItem PROPORTIONAL = MenuItem("P", 0, 256, 40);
++    constexpr static MenuItem INTEGRAL = MenuItem("I", 0, 20, 0);
++    constexpr static MenuItem DERIVATIVE = MenuItem("D", 0, 40, 5);
++    constexpr static MenuItem BASE_SPEED = MenuItem("BS", 0, 256, 150);
++    constexpr static MenuItem LEFT_THRESHOLD = MenuItem("LT", 0, 4096, 1024);
++    constexpr static MenuItem RIGHT_THRESHOLD = MenuItem("RT", 0, 4096, 1024);
++    void load(int16_t addr);
++    void dump(int16_t addr);
++    constexpr static size_t size();
++};
+diff --git a/main/lib/readme.txt b/main/lib/readme.txt
+new file mode 100644
+index 0000000..131f1bf
+--- /dev/null
++++ b/main/lib/readme.txt
+@@ -0,0 +1,41 @@
++
++This directory is intended for the project specific (private) libraries.
++PlatformIO will compile them to static libraries and link to executable file.
++
++The source code of each library should be placed in separate directory, like
++"lib/private_lib/[here are source files]".
++
++For example, see how can be organized `Foo` and `Bar` libraries:
++
++|--lib
++|  |
++|  |--Bar
++|  |  |--docs
++|  |  |--examples
++|  |  |--src
++|  |     |- Bar.c
++|  |     |- Bar.h
++|  |  |- library.json (optional, custom build options, etc) http://docs.platformio.org/page/librarymanager/config.html
++|  |
++|  |--Foo
++|  |  |- Foo.c
++|  |  |- Foo.h
++|  |
++|  |- readme.txt --> THIS FILE
++|
++|- platformio.ini
++|--src
++   |- main.c
++
++Then in `src/main.c` you should use:
++
++#include <Foo.h>
++#include <Bar.h>
++
++// rest H/C/CPP code
++
++PlatformIO will find your libraries automatically, configure preprocessor's
++include paths and build them.
++
++More information about PlatformIO Library Dependency Finder
++- http://docs.platformio.org/page/librarymanager/ldf.html
+diff --git a/main/platformio.ini b/main/platformio.ini
+new file mode 100644
+index 0000000..851a7c3
+--- /dev/null
++++ b/main/platformio.ini
+@@ -0,0 +1,14 @@
++; PlatformIO Project Configuration File
++;
++;   Build options: build flags, source filter
++;   Upload options: custom upload port, speed and extra flags
++;   Library options: dependencies, extra library storages
++;   Advanced options: extra scripting
++;
++; Please visit documentation for the other options and examples
++; http://docs.platformio.org/page/projectconf.html
++
++[env:bluepill_f103c8]
++platform = ststm32
++board = bluepill_f103c8
++framework = arduino
+diff --git a/main/src/main.cpp b/main/src/main.cpp
+new file mode 100644
+index 0000000..f24c162
+--- /dev/null
++++ b/main/src/main.cpp
+@@ -0,0 +1,10 @@
++#include <Arduino.h>
++#include <Constants.h>
++
++void setup() {
++    // put your setup code here, to run once:
++}
++
++void loop() {
++    // put your main code here, to run repeatedly:
++}
+diff --git a/motors/src/main.cpp b/motors/src/main.cpp
+index 7d07554..1bcc8b9 100644
+--- a/motors/src/main.cpp
++++ b/motors/src/main.cpp
+@@ -48,6 +48,7 @@ int last_g = 0;
+ float i = 0;
+ 
+ void setup() {
++<<<<<<< HEAD
+     motor.init();
+     // put your setup code here, to run once:
+     oled.begin();
+@@ -67,6 +68,8 @@ void setup() {
+     THRESHOLD_LEFT = pidScreen.vals[4]<<4;
+     THRESHOLD_RIGHT= pidScreen.vals[5]<<4;
+     //base_speed = pidScreen.vals[0];
++=======
++>>>>>>> 63b8f3b... Menu system dev
+ }
+ 
+ void loop() {
+@@ -84,6 +87,7 @@ void loop() {
+     delay(15); */
+ 
+     // put your main code here, to run repeatedly:
++<<<<<<< HEAD
+     /*
+     oled.clrScr();
+     oled.printNumI(pval, 0, 0);
+@@ -162,4 +166,10 @@ void loop() {
+     previous_time = now;
+     loop_counter++;
+     delay(10);
++=======
++    for(int i=0;i<4;++i) {
++        motor.speed(0, min(255, max(-255, i*256-512)));
++        delay(500);
++    }
++>>>>>>> 63b8f3b... Menu system dev
+ }
