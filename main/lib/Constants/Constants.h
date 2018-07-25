@@ -23,16 +23,16 @@ public:
 
     constexpr static int8_t trigPins[] = {PB12}; constexpr static int8_t echoPins[] = {PB13};
 
-    constexpr static int8_t highPwmPins[] = {PB8, PB0};
-    constexpr static int8_t lowPwmPins[] = {PB9, PB1};
+    constexpr static int8_t highPwmPins[] = {PB8, PB0, PB6};
+    constexpr static int8_t lowPwmPins[] = {PB9, PB1, PB7};
 
     constexpr static int16_t ENCODER_POLL_TIME = 2; // milliseconds
 
     // TODO: Assign real pin values
     constexpr static int8_t infraredLeds[] = {PB3};
     constexpr static int8_t infraredReceiver = PA5;
-    constexpr static int16_t pickUpInfraredThreshold = 2600;
-    constexpr static int16_t distantInfaredThreshold = 1500;
+    constexpr static int16_t pickUpInfraredThreshold = 1900;
+    constexpr static int16_t distantInfaredThreshold = 1200;
     constexpr static int8_t CLAW_ARM_PIN = PA6;
     constexpr static int8_t CLAW_PIN = PA7;
     constexpr static int16_t angleOut = 0;
@@ -60,7 +60,7 @@ public:
     constexpr static uint8_t LEFT_QRD_PIN = PA4;
     constexpr static uint8_t RIGHT_QRD_PIN = PA3;
     constexpr static uint8_t EDGE_QRD_PIN = PA2;
-    constexpr static uint8_t     QRD_POWER_PIN = PB4;
+    constexpr static uint8_t QRD_POWER_PIN = PB4;
 
     constexpr static uint8_t MOTOR_LEFT = 0;
     constexpr static uint8_t MOTOR_RIGHT = 1;

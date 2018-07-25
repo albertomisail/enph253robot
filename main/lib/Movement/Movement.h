@@ -7,16 +7,16 @@
 
 class Movement {
 private:
-    bool moveState;
-    int8_t leftDir, rightDir, leftAmt, rightAmt;
+    bool moveState = false;
+    int8_t leftDir = 0, rightDir = 0, leftAmt = 0, rightAmt = 0;
     Encoder leftEnc, rightEnc;
-    int16_t leftInit, rightInit;
+    int16_t leftInit = 0, rightInit = 0;
 
 public:
-    int32_t previousTime,
-            deltaT,
-            error,
-            previousError,
+    int32_t previousTime = 0,
+            deltaT = 0,
+            error = 0,
+            previousError = 0,
             counter, cnt = 0;
 
     Movement();

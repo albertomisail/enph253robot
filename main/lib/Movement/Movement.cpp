@@ -32,10 +32,10 @@ bool Movement::oneSideFinished(int16_t leftPos, int16_t rightPos) {
         return false;
     }
     if(leftPos >= leftInit+leftAmt) {
-        oled.clrScr();
+        /*oled.clrScr();
         oled.print("here", 0, 0);
         oled.update();
-        delay(1000);
+        delay(1000);*/
         motor.speed(Constants::MOTOR_LEFT, 0);
         motor.speed(Constants::MOTOR_RIGHT, rightDir*(Constants::CORRECTION_SPEED+10));
     } else {
@@ -63,21 +63,23 @@ bool Movement::poll() {
     int32_t now = millis();
     deltaT = now - previousTime;
     Encoder::poll();
+    //Not too sure what this does
     if(deltaT < Constants::LINE_FOLLOW_POLL_TIME) {
         return true;
     }
     int16_t leftPos = leftEnc.getPosition();
     int16_t rightPos = rightEnc.getPosition();
 
+    //difference between left encoder's position multiplied by how much we want to go to the right + half of left amoun
     int16_t expectedRightPos = ((leftPos-leftInit)*(rightAmt) + leftAmt/2)/leftAmt + rightInit;
     int16_t error = expectedRightPos - rightPos;
 
     if(leftPos >= leftInit+leftAmt || rightPos >= rightInit+rightAmt)
     {
-        oled.clrScr();
+        /*oled.clrScr();
         oled.printNumI(cnt, 0, 0);
         oled.update();
-        delay(1000);
+        delay(1000);*/
         return oneSideFinished(leftPos, rightPos);
     }
 
