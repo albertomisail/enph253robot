@@ -182,20 +182,27 @@ void testLFandReverse() {
     while(mvt.poll()) {}
     delay(1000);
     uint16_t cnt;
-    bool flag = true;
-    while(flag){
-        mvt.start(1,-1,6,6, 100);
-        while(mvt.poll()){}
-        for(int i = 0; i < 10; i++){
-            if(infrared.objectDetected(Constants::distantInfaredThreshold)){
-                flag = false;
+    mvt.start(1,-1,12,12,100);
+    infrared.startMeasurement();
+    for(int i=0;mvt.poll();) {
+        if(!infrared.poll()) {
+            if(++i%10 == 0) {
+                oled.clrScr();
+                oled.printNumI(infrared.lastMeasurement(),0,0);
+                oled.update();
             }
+            if(infrared.objectDetected(Constants::distantInfraredThreshold)) {
+                break;
+            }
+            infrared.startMeasurement();
         }
-        oled.clrScr();
-        oled.printNumI(infrared.makeMeasurement(),0,0);
-        oled.update();
-        delay(2000);
-    }
+    }/*
+    for(int i = 0; i < 10; i++){
+        if(infrared.objectDetected(Constants::distantInfaredThreshold)){
+            flag = false;
+        }
+    } */
+    delay(2000);
     // while(!infrared.objectDetected(Constants::distantInfaredThreshold)) {
     //     cnt = 0;
     //     oled.clrScr();
@@ -213,20 +220,22 @@ void testLFandReverse() {
     oled.print("DETECTED FAR",0,10);
     oled.update();
     delay(2000);
-    bool flag2 = true;
-    while(flag2){
-        mvt.start(1,1,6,6, 100);
-        while(mvt.poll()){}
-        for(int i = 0; i < 10; i++){
-            if(infrared.objectDetected(Constants::pickUpInfraredThreshold)){
-                flag2 = false;
+    mvt.start(1,1,10,10, 100);
+    infrared.startMeasurement();
+    for(int i = 0; mvt.poll();){
+        if(!infrared.poll()) {
+            if(i++%10 == 0) {
+                oled.clrScr();
+                oled.printNumI(infrared.lastMeasurement(),0,0);
+                oled.update();
             }
+            if(infrared.objectDetected(Constants::pickUpInfraredThreshold)){
+                break;
+            }
+            infrared.startMeasurement();
         }
-        oled.clrScr();
-        oled.printNumI(infrared.makeMeasurement(),0,0);
-        oled.update();
-        delay(2000);
     }
+    delay(2000);
     oled.print("DETECTED, PICKING UP",0,10);
     oled.update();
     // delay(1000);
@@ -277,6 +286,11 @@ void testLFandReverse() {
 
 void testPickingUpEwok(){
     oled.clrScr();
+    oled.print("COMMENTED OUT", 0, 0);
+    oled.update();
+    delay(10000);
+    /*
+    oled.clrScr();
     oled.update();
     delay(1000);
     oled.clrScr();
@@ -304,6 +318,7 @@ void testPickingUpEwok(){
     oled.print("EWOK PICKED", 0, 0);
     oled.update();
     delay(500);
+    */
 }
 
 // void testMovement() {

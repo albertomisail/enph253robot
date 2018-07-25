@@ -74,14 +74,10 @@ int InfraredBase::makeMeasurement(){
     oled.update();
     delay(15);
     return base - after;
-}
+} */
 
 bool InfraredBase::objectDetected(int16_t infraredThreshold){
-    if(infraredThreshold > makeMeasurement()){
-        return false;
-    }else{
-        return true;
-    }
-} */
+    return (lastMeasurement() >= infraredThreshold);
+}
 
 InfraredBase infrared;
