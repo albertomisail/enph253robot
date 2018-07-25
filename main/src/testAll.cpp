@@ -307,7 +307,7 @@ void pickUpFirstEwok() {
         }
     }
 
-    uint8_t encoderReading = leftEnc.getPosition();
+    int16_t encoderReading = leftEnc.getPosition();
 
     Movement move;
     move.start(-1,1,6,6);
@@ -330,17 +330,52 @@ void pickUpFirstEwok() {
     if (ewokDetected) {
         while(infrared.makeMeasurement()<=(Constants::pickUpInfraredThreshold)){
             move.start(1,1,1,1);
+            while(move.poll()) {}
         }
         claw.pickEwok();
     }
 
-<<<<<<< HEAD
     lineFollower.init(-4);
     lineFollower.start();
-    while(lineFollower.poll()){}    
+    while(lineFollower.poll()){}
 }
-=======
 
+void crossBridge() {
+    // Assumes that we are at the beginning of the bridge, lined up straight to it,
+    // and we're about to cross the bridge.  This will bring us toward the 2nd ewok.
+    Menu m;
+    m.run();
+    Movement move;
+    move.start(1, 1, 48, 40);
+    while(move.poll()) {}
+    delay(1000);
+    move.start(1, -1, 6, 6);
+    while(move.poll()) {}
+    delay(1000);
+    move.start(1, 1, 24, 24);
+    while(move.poll()) {}
+    delay(1000);
+
+    bool ewokDetected = false;
+
+    for(int i = 0; i < 20 ; i++) {
+        move.start(-1,1,1,1);
+        while(move.poll()) {}
+        if (infrared.objectDetected(Constants::distantInfaredThreshold)) {
+            ewokDetected = true;
+            break;
+        }
+    }
+
+    if (ewokDetected) {
+        while(infrared.makeMeasurement()<=(Constants::pickUpInfraredThreshold)){
+            move.start(1,1,1,1);
+            while(move.poll()) {}
+        }
+        claw.pickEwok();
+    }
+}
+
+void findFFTSignal() {
 
 }
->>>>>>> 76cf0ab... Line follower corrections

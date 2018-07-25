@@ -19,7 +19,7 @@ public:
     constexpr static uint8_t POT_PIN = PA1;
     constexpr static uint8_t GO_BTN_PIN = PB13;
 
-    constexpr static int8_t oledPins[] = {PB7, PB10};
+    constexpr static int8_t oledPins[] = {PB11, PB10};
 
     constexpr static int8_t trigPins[] = {PB12}; constexpr static int8_t echoPins[] = {PB13};
 

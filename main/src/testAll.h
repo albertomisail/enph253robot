@@ -23,3 +23,5 @@ void testLFandReverse();
 void testPickingUpEwok();
 void testLift();
 void testMovement();
+void crossBridge();
+void findFFTSignal();
