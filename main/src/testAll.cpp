@@ -178,13 +178,13 @@ void testLFandReverse() {
     oled.print("Rotate",0,0);
     oled.update();
     Movement mvt;
-    mvt.start(-1, 1, 6, 6);
+    mvt.start(-1, 1, 6, 6, 100);
     while(mvt.poll()) {}
     delay(1000);
     uint16_t cnt;
     bool flag = true;
     while(flag){
-        mvt.start(1,-1,1,1);
+        mvt.start(1,-1,6,6, 100);
         while(mvt.poll()){}
         for(int i = 0; i < 10; i++){
             if(infrared.objectDetected(Constants::distantInfaredThreshold)){
@@ -215,7 +215,7 @@ void testLFandReverse() {
     delay(2000);
     bool flag2 = true;
     while(flag2){
-        mvt.start(1,1,1,1);
+        mvt.start(1,1,6,6, 100);
         while(mvt.poll()){}
         for(int i = 0; i < 10; i++){
             if(infrared.objectDetected(Constants::pickUpInfraredThreshold)){
