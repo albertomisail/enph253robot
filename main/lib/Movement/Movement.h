@@ -11,6 +11,7 @@ private:
     int8_t leftDir = 0, rightDir = 0, leftAmt = 0, rightAmt = 0;
     Encoder leftEnc, rightEnc;
     int16_t leftInit = 0, rightInit = 0;
+    int16_t correctionSpeed = 0;
 
 public:
     int32_t previousTime = 0,
@@ -21,7 +22,7 @@ public:
 
     Movement();
     void init();
-    void start(int8_t leftDir_, int8_t rightDir_, int16_t leftAmt_, int16_t rightAmt_);
+    void start(int8_t, int8_t, int16_t, int16_t, int16_t);
     void stop();
     bool isMoving() const;
     bool poll();

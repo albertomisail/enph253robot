@@ -2,7 +2,7 @@
 
 Movement::Movement() : leftEnc(Constants::LEFT_ENC_PIN), rightEnc(Constants::RIGHT_ENC_PIN) {}
 
-void Movement::start(int8_t leftDir_, int8_t rightDir_, int16_t leftAmt_, int16_t rightAmt_)
+void Movement::start(int8_t leftDir_, int8_t rightDir_, int16_t leftAmt_, int16_t rightAmt_, int16_t correctionSpeed_)
 {
     previousTime = millis();
     motor.init();
@@ -14,6 +14,7 @@ void Movement::start(int8_t leftDir_, int8_t rightDir_, int16_t leftAmt_, int16_
     Encoder::poll();
     leftInit = leftEnc.getPosition();
     rightInit = rightEnc.getPosition();
+    correctionSpeed = correctionSpeed_;
 }
 
 void Movement::stop() {
@@ -37,9 +38,9 @@ bool Movement::oneSideFinished(int16_t leftPos, int16_t rightPos) {
         oled.update();
         delay(1000);*/
         motor.speed(Constants::MOTOR_LEFT, 0);
-        motor.speed(Constants::MOTOR_RIGHT, rightDir*(Constants::CORRECTION_SPEED+10));
+        motor.speed(Constants::MOTOR_RIGHT, rightDir*(correctionSpeed+10));
     } else {
-        motor.speed(Constants::MOTOR_LEFT, leftDir*(Constants::CORRECTION_SPEED+10));
+        motor.speed(Constants::MOTOR_LEFT, leftDir*(correctionSpeed+10));
         motor.speed(Constants::MOTOR_RIGHT, 0);
     }
     return true;
@@ -102,8 +103,8 @@ bool Movement::poll() {
 
     int16_t g = p+d;
 
-    motor.speed(Constants::MOTOR_LEFT, leftDir*(Constants::CORRECTION_SPEED-g));
-    motor.speed(Constants::MOTOR_RIGHT, rightDir*(Constants::CORRECTION_SPEED+g));
+    motor.speed(Constants::MOTOR_LEFT, leftDir*(correctionSpeed-g));
+    motor.speed(Constants::MOTOR_RIGHT, rightDir*(correctionSpeed+g));
 
     previousError = error;
     previousTime = now;
