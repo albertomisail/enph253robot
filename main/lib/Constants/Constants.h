@@ -46,16 +46,16 @@ public:
     constexpr static uint8_t IR_BEACON_PIN = PA5;
 
     //constexpr static uint8_t LIFT_MOTOR = 1;
-    constexpr static uint8_t frontLift = 1;
+    constexpr static uint8_t frontLift = 2;
     constexpr static uint8_t backLift = PB13;
     constexpr static uint8_t potFront = PA0;
     constexpr static uint8_t potBack = PB13;
-    constexpr static uint16_t voltageUpFront = 800;
-    constexpr static uint16_t voltageDownFront = 1170;
+    constexpr static uint16_t voltageUpFront = 1231;
+    constexpr static uint16_t voltageDownFront = 1528;
     constexpr static uint16_t voltageUpBack = 1050;
     constexpr static uint16_t voltageDownBack = 850;
-    constexpr static uint8_t speedLiftDown = 100;
-    constexpr static uint8_t speedLiftUp = 150;
+    constexpr static uint8_t speedLiftDown = 180;
+    constexpr static uint8_t speedLiftUp = 180;
 
     constexpr static uint8_t LEFT_QRD_PIN = PA4;
     constexpr static uint8_t RIGHT_QRD_PIN = PA3;
@@ -64,6 +64,7 @@ public:
 
     constexpr static uint8_t MOTOR_LEFT = 0;
     constexpr static uint8_t MOTOR_RIGHT = 1;
+    constexpr static uint8_t MOTOR_FRONT_LIFT = 2;
     constexpr static int16_t LINE_FOLLOW_POLL_TIME = 3; // millis
 
     constexpr static int16_t CORRECTION_SPEED = 120;

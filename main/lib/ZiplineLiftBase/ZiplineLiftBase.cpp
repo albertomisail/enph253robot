@@ -20,6 +20,10 @@ void ZiplineLiftBase::init(){
 void ZiplineLiftBase::moveLift(const uint8_t& motorPin, const uint16_t& position){
     if(motorPin == Constants::frontLift){
         ZiplineLiftBase::positionFrontLift = analogRead(Constants::potFront);
+        oled.clrScr();
+        oled.printNumI(ZiplineLiftBase::positionFrontLift, 0, 0);
+        oled.update();
+        delay(2000);
         if (ZiplineLiftBase::positionFrontLift >= Constants::voltageUpFront - ERR_THR && ZiplineLiftBase::positionFrontLift <= Constants::voltageDownFront + ERR_THR) {
             if(positionFrontLift < position){
                 //Move down
@@ -97,10 +101,6 @@ void ZiplineLiftBase::moveLift(const uint8_t& motorPin, const uint16_t& position
     }
 }
 void ZiplineLiftBase::liftFront(){
-    // oled.clrScr();
-    // oled.print("here3", 0, 0);
-    // oled.update();
-    // delay(2000);
     ZiplineLiftBase::moveLift(Constants::frontLift, Constants::voltageUpFront);
 }
 void ZiplineLiftBase::dropFront(){
