@@ -24,10 +24,10 @@ void Constants::init() {
     LEFT_THRESHOLD = MenuItem("LT", 0, 4096, 1024);
     RIGHT_THRESHOLD = MenuItem("RT", 0, 4096, 1024);
     */
-    PROPORTIONAL = MenuItem("P", 0, 256, 35);
+    PROPORTIONAL = MenuItem("P", 0, 256, 24);
     INTEGRAL = MenuItem("I", 0, 20, 0);
-    DERIVATIVE = MenuItem("D", 0, 40, 6);
-    BASE_SPEED = MenuItem("BS", 0, 256, 140);
+    DERIVATIVE = MenuItem("D", 0, 40, 4);
+    BASE_SPEED = MenuItem("BS", 0, 256, 110);
     LEFT_THRESHOLD = MenuItem("LT", 0, 4096, 3100);
     RIGHT_THRESHOLD = MenuItem("RT", 0, 4096, 3100);
     EDGE_THRESHOLD = MenuItem("ET", 0, 4096, 1600);

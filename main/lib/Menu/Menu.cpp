@@ -38,6 +38,7 @@ void Menu::writeEEPROM() {
 
 void Menu::run() {
     pinMode(Constants::POT_PIN, INPUT);
+    pinMode(Constants::GO_BTN_PIN, INPUT);
     MenuScreen menuScreen;
     // Preload eeprom values into Constants
     loadEEPROM();

@@ -32,6 +32,10 @@ bool Movement::oneSideFinished(int16_t leftPos, int16_t rightPos) {
         return false;
     }
     if(leftPos >= leftInit+leftAmt) {
+        oled.clrScr();
+        oled.print("here", 0, 0);
+        oled.update();
+        delay(1000);
         motor.speed(Constants::MOTOR_LEFT, 0);
         motor.speed(Constants::MOTOR_RIGHT, rightDir*(Constants::CORRECTION_SPEED+10));
     } else {
@@ -41,10 +45,11 @@ bool Movement::oneSideFinished(int16_t leftPos, int16_t rightPos) {
     return true;
 }
 
+int cnt = 0;
 bool Movement::poll() {
-    /*
+    
     cnt++;
-    if(cnt%2) {
+    /*if(cnt%2) {
         oled.clrPixel(50, 50);
     } else {
         oled.setPixel(50, 50);
@@ -69,6 +74,10 @@ bool Movement::poll() {
 
     if(leftPos >= leftInit+leftAmt || rightPos >= rightInit+rightAmt)
     {
+        oled.clrScr();
+        oled.printNumI(cnt, 0, 0);
+        oled.update();
+        delay(1000);
         return oneSideFinished(leftPos, rightPos);
     }
 

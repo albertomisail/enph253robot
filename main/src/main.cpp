@@ -76,10 +76,10 @@ void loop() {
     //oled.print("!!", 0, 0);
     //oled.update();
     //testEncoders();
-    //testLFandReverse();
+    testLFandReverse();
     //testPickingUpEwok();
     //delay(2000);
     //testLift();
     //testMovement();
-    crossBridge();
+    // crossBridge();
 }

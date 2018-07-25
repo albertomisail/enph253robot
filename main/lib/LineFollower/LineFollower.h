@@ -6,7 +6,7 @@ class LineFollower
 {
 private:
     int32_t lastTime = 0;
-    int16_t previousError;
+    int16_t previousError = 0;
     int32_t deltaT = 0,
             previousTime = 0;
     uint8_t consec = 0;
