@@ -225,9 +225,7 @@ void testLFandReverse() {
     for(int i = 0; mvt.poll();){
         if(!infrared.poll()) {
             if(i++%10 == 0) {
-                oled.clrScr();
-                oled.printNumI(infrared.lastMeasurement(),0,0);
-                oled.update();
+                Serial.print(infrared.lastMeasurement());
             }
             if(infrared.objectDetected(Constants::pickUpInfraredThreshold)){
                 break;
@@ -243,6 +241,22 @@ void testLFandReverse() {
     delay(2000);
     claw.init();
     claw.pickEwok();
+
+    mvt.start(-1,1,80,80);
+    lineFollower.startQRD();
+    for(int i=0;lineFollower.QRDPoll();){
+        if(!lineFollower.QRDPoll()) {
+            if(i++%10 == 0) {
+                Serial(lineFollower.QRDMeasurement());
+            }
+            if(lineFollower.QRDMeasurement()<=Constants::RIGHT_THRESHOLD){
+                break;
+            }
+            lineFollower.startQRD();
+        }
+    }
+
+    lineFollower.start();
 
 
     // oled.print("TRY turn", 0, 0);
