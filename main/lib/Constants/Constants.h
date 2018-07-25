@@ -33,6 +33,7 @@ public:
     constexpr static int8_t infraredReceiver = PA5;
     constexpr static int16_t pickUpInfraredThreshold = 1900;
     constexpr static int16_t distantInfaredThreshold = 1200;
+    constexpr static int16_t ewokPulseDuration = 15; // m
     constexpr static int8_t CLAW_ARM_PIN = PA6;
     constexpr static int8_t CLAW_PIN = PA7;
     constexpr static int16_t angleOut = 0;
