@@ -573,3 +573,44 @@ void testInfrared() {
         }
     }
 }
+
+void encoderReadings() {
+    Encoder leftEnc(Constants::LEFT_ENC_PIN);
+    Encoder rightEnc(Constants::RIGHT_ENC_PIN);
+    int a = 0;
+    while(true) {
+        Encoder::poll();
+        if(millis()%50 == 0 && a == 0) {
+            Serial.print(leftEnc.getPosition());
+            Serial.print(" ");
+            Serial.print(rightEnc.getPosition());
+            Serial.println();
+            ++a;
+        } else {
+            a = 0;
+        }
+    }
+}
+
+void fftTuning() {
+    const int8_t MULTIPLEX_PIN = PA8;
+    pinMode(MULTIPLEX_PIN, OUTPUT);
+    digitalWrite(MULTIPLEX_PIN, HIGH);
+    delay(20);
+    while(true) {
+        float f10=0, f1=0;
+        for(int i=0;i<10;++i) {
+            FFTPair fftPair = fft.sample();
+            f10 += fftPair.highAmount;
+            f1 += fftPair.lowAmount;
+        }
+        float totalAmount = sqrt(f10*f10 + f1*f1);
+        Serial.print(totalAmount);
+        Serial.print("\t");
+        Serial.print(f1);
+        Serial.print("\t");
+        Serial.print(f10);
+        Serial.println();
+        delay(100);
+    }
+}

@@ -102,7 +102,8 @@ bool ClawBase::pickEwok(){
 }
 
 void ClawBase::dropEwok() {
-    // TODO
+    (ClawBase::claw).write(Constants::angleOpen);
+    delay(500);
 }
 
 ClawBase claw;

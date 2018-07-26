@@ -153,7 +153,7 @@ void handleFirstEwok(Encoder& leftEnc, Encoder& rightEnc) {
  * the second ewok should be.
  */
 void getToSecondEwok() {
-    // TODO
+    
 }
 
 /**

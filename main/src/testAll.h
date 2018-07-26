@@ -10,6 +10,7 @@
 #include <FFT.h>
 #include <InfraredBase.h>
 #include <Movement.h>
+#include "procedures.h"
 
 void testUltrasound();
 void testEncoder();
@@ -26,3 +27,5 @@ void testMovement();
 void crossBridge();
 void findFFTSignal();
 void testInfrared();
+void encoderReadings();
+void fftTuning();

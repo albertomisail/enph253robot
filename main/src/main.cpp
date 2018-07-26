@@ -21,7 +21,7 @@ void setup() {
     delay(1000);
     oled.begin();
     oled.setFont(SmallFont);
-    //fft.init();
+    fft.init();
     Constants::init();
     //oled.begin();
     //oled.setFont(SmallFont);
@@ -40,6 +40,7 @@ void setup() {
 }
 
 void loop() {
+
     // put your main code here, to run repeatedly:
     //oled.print("HI-", 0, 0);
     //oled.update();
@@ -77,11 +78,23 @@ void loop() {
     //oled.print("!!", 0, 0);
     //oled.update();
     //testEncoders();
-    //testLFandReverse();
+    testLFandReverse();
     //testPickingUpEwok();
     //delay(2000);
     //testLift();
     //testMovement();
     // crossBridge();
-    testInfrared();
+    // testInfrared();
+    // encoderReadings();
+    //fftTuning();
+/*
+    int8_t TPIN = PA8;
+    pinMode(TPIN, OUTPUT);
+
+    while(true) {
+        digitalWrite(TPIN, HIGH);
+        delay(100);
+        digitalWrite(TPIN, LOW);
+        delay(100);
+    }*/
 }
