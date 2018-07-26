@@ -30,6 +30,8 @@ void setup() {
     motor.init();
     ziplineLift.init();
     infrared.init();
+    pinMode(PA8, OUTPUT);
+    digitalWrite(PA8,LOW);
     // put your setup code here, to run once:
     // ultrasound.init();
     //claw.init();

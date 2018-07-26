@@ -104,14 +104,17 @@ void initialLineFollow(Encoder& leftEnc, Encoder& rightEnc) {
 void maneuverToDropLocation() {
     // TODO: determine final values, speeds
     Movement mvt;
+    //Backing up
     mvt.start(-1, -1, 6, 6, 100);
     while(mvt.poll()) {}
     delay(500);
+    //Turning left
     oled.print(const_cast<char*>("TRY turn"), 0, 0);
     oled.update();
     mvt.start(-1, 1, 10, 10, 100);
     while(mvt.poll()) {}
     delay(500);
+    //Backing up more
     oled.print(const_cast<char*>("TRY more turn"), 0, 0);
     oled.update();
     mvt.start(-1, -1, 6, 6, 100);
