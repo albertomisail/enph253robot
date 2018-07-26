@@ -159,48 +159,7 @@ void testLFandReverse() {
     motor.speed(0, 0);
     motor.speed(1, 0);
 
-    // oled.clrScr();
-    // oled.print(const_cast<char*>("TRY turn"), 0, 0);
-    // oled.update();
-    //InfraredBase infrared;
-    oled.clrScr();
-    oled.print(const_cast<char*>("Rotate"),0,0);
-    oled.update();
-    Movement mvt;
-    //mvt.start(-1, 1, 3, 3, 100);
-    //while(mvt.poll()) {}
-    oled.clrScr();
-    oled.print(const_cast<char*>("After first rotation"),0,0);
-    oled.update();
-    delay(1000);
-    uint16_t cnt;
-    mvt.start(1,-1,12,12,80);
-    infrared.startMeasurement();
-    for(int i=0;mvt.poll();) {
-        if(!infrared.poll()) {
-            if(++i%5 == 0) {
-                Serial.println(infrared.lastMeasurement());
-                // oled.clrScr();
-                // oled.printNumI(infrared.lastMeasurement(),0,0);
-                // oled.update();
-            }
-<<<<<<< HEAD
-            if(infrared.objectDetected(Constants::distantInfraredThreshold)) {
-                //Serial.println("!!!!!!!!!!!!!!!!!");
-=======
-            if(infrared.objectDetected(Constants::distantInfraredThreshold1)) {
-                Serial.println("!!!!!!!!!!!!!!!!!");
->>>>>>> 24bf71711351fb88fd7656af6ede7ecdd14d5114
-                // oled.print("!!!!!!!!!!!!", 0, 20);
-                // oled.update();
-                // delay(1000);
-                break;
-            }
-            infrared.startMeasurement();
-        }
-    }
-    motor.speed(Constants::MOTOR_LEFT, 0);
-    motor.speed(Constants::MOTOR_RIGHT, 0);
+   
     /*
     for(int i = 0; i < 10; i++){
         if(infrared.objectDetected(Constants::distantInfaredThreshold)){
@@ -216,6 +175,7 @@ void testLFandReverse() {
     //     if (cnt%100 == 0) {
 
     // //InfraredBase infrared;
+    Movement mvt;
     oled.clrScr();
     oled.print(const_cast<char*>("Rotate"),0,0);
     oled.update();
@@ -300,15 +260,10 @@ void testLFandReverse() {
     oled.print(const_cast<char*>("Picked up Ewok, looking for line"),0,0);
     oled.update();
     delay(2000);
-<<<<<<< HEAD
     mvt.start(1,1,7,5,100);
     while(mvt.poll()){}
     mvt.start(1,-1,800,800,75);
     oled.print("mvt.start",0,0);
-=======
-    mvt.start(1,-1,800,800,100);
-    oled.print(const_cast<char*>("mvt.start"),0,0);
->>>>>>> 24bf71711351fb88fd7656af6ede7ecdd14d5114
     oled.update();
     lineFollower.startQRD();
     for(int32_t i=0;mvt.poll();){

@@ -80,19 +80,12 @@ void loop() {
     //oled.print("!!", 0, 0);
     //oled.update();
     //testEncoders();
-<<<<<<< HEAD
-    testLFandReverse();
-=======
     // testLFandReverse();
->>>>>>> 24bf71711351fb88fd7656af6ede7ecdd14d5114
     //testPickingUpEwok();
     //delay(2000);
     //testLift();
     //testMovement();
     // crossBridge();
-<<<<<<< HEAD
-    //testInfrared();
-=======
     // testInfrared();
     // encoderReadings();
     fftTuning();
@@ -108,5 +101,4 @@ void loop() {
         digitalWrite(TPIN, LOW);
         delay(100);
     }*/
->>>>>>> 24bf71711351fb88fd7656af6ede7ecdd14d5114
 }
