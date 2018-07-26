@@ -30,6 +30,8 @@ void setup() {
     motor.init();
     ziplineLift.init();
     infrared.init();
+    pinMode(PA8, OUTPUT);
+    digitalWrite(PA8,LOW);
     // put your setup code here, to run once:
     // ultrasound.init();
     //claw.init();
@@ -77,11 +79,11 @@ void loop() {
     //oled.print("!!", 0, 0);
     //oled.update();
     //testEncoders();
-    //testLFandReverse();
+    testLFandReverse();
     //testPickingUpEwok();
     //delay(2000);
     //testLift();
     //testMovement();
     // crossBridge();
-    testInfrared();
+    //testInfrared();
 }

@@ -54,8 +54,8 @@ void ClawBase::pickEwok(){
 }
 */
 bool ClawBase::pickEwok(){
-    int step = (Constants::angleClose - Constants::angleOpen) / 10;
-    int step2 = (Constants::angleIn - Constants::angleOut) / 10;
+    int step = (Constants::angleClose - Constants::angleOpen) / Constants::numSteps;
+    int step2 = (Constants::angleIn - Constants::angleOut) / Constants::numSteps;
     ClawBase::buttonSwitch = false;
 
     (ClawBase::claw).write(Constants::angleOpen);
@@ -85,24 +85,28 @@ bool ClawBase::pickEwok(){
     Serial.println("here2");
     delay(250);
     boolean result = false;
-    if(buttonSwitch) {
+    //if(buttonSwitch) {
         // while((ClawBase::arm).read() < Constants::angleIn) {
         //     (ClawBase::arm).write((ClawBase::arm).read() + step2);
         //     delay(250);
         // }
-        (ClawBase::arm).write(Constants::angleIn);
-        result = true;
+        //(ClawBase::arm).write(Constants::angleIn);
+        //result = true;
         //(ClawBase::claw).write(Constants::angleOpen);
-    } else {
-        (ClawBase::claw).write(Constants::angleOpen);
-        arm.write(Constants::angleIn);
-    }
+    //} else {
+        //(ClawBase::claw).write(Constants::angleOpen);
+        //arm.write(Constants::angleIn);
+    //}
     //ziplineLift.liftFront();
+    (ClawBase::arm).write(Constants::angleClose);
+    arm.write(Constants::angleIn);
     return result;
 }
 
 void ClawBase::dropEwok() {
     // TODO
+    int step = (Constants::angleOpen - Constants::angleClose) / Constants::numSteps;
+    int step2 = (Constants::angleOut - Constants::angleIn) / Constants::numSteps;
 }
 
 ClawBase claw;

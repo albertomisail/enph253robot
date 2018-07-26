@@ -31,16 +31,17 @@ public:
     // TODO: Assign real pin values
     constexpr static int8_t infraredLeds[] = {PB3};
     constexpr static int8_t infraredReceiver = PA5;
-    constexpr static int16_t pickUpInfraredThreshold = 2400;
-    constexpr static int16_t distantInfraredThreshold = 1200;
+    constexpr static int16_t pickUpInfraredThreshold = 2700;
+    constexpr static int16_t distantInfraredThreshold = 900;
     constexpr static int16_t ewokPulseDuration = 15; // m
     constexpr static int8_t CLAW_ARM_PIN = PA2;
     constexpr static int8_t CLAW_PIN = PA3;
     constexpr static int16_t angleOut = 0;
-    constexpr static int16_t angleInit = 40;
+    constexpr static int16_t angleInit = 65;
     constexpr static int16_t angleIn = 70;
     constexpr static int16_t angleOpen = 0;
-    constexpr static int16_t angleClose = 130;
+    constexpr static int16_t angleClose = 115;
+    constexpr static int16_t numSteps = 10;
     //constexpr static int16_t angleFullClose = 20;
     constexpr static int8_t buttonSwitchPin = PA15;
 
