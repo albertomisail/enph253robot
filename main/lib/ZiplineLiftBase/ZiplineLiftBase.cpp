@@ -35,7 +35,7 @@ void ZiplineLiftBase::moveLift(const uint8_t& motorPin, const uint16_t& position
                     if (count%1 == 0) {
                         oled.clrScr();
                         oled.printNumI(positionFrontLift, 0, 20);
-                        oled.print("DROPING", 0, 10);
+                        oled.print(const_cast<char*>("DROPING"), 0, 10);
                         oled.printNumI(a, 0, 30);
                         oled.update();
                     }
@@ -51,7 +51,7 @@ void ZiplineLiftBase::moveLift(const uint8_t& motorPin, const uint16_t& position
                     ZiplineLiftBase::positionFrontLift = analogRead(Constants::potFront);
                     if (count%1 == 0) {
                         oled.printNumI(positionFrontLift, 0, 20);
-                        oled.print("LIFTING", 0, 10);
+                        oled.print(const_cast<char*>("LIFTING"), 0, 10);
                         oled.printNumI(a, 0, 30);
                         oled.update();
                     }

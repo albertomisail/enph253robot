@@ -5,7 +5,7 @@ Movement::Movement() : leftEnc(Constants::LEFT_ENC_PIN), rightEnc(Constants::RIG
 void Movement::start(int8_t leftDir_, int8_t rightDir_, int16_t leftAmt_, int16_t rightAmt_, int16_t correctionSpeed_)
 {
     //oled.clrScr();
-    //oled.print("Movement.Start", 0, 10);
+    //oled.print(const_cast<char*>("Movement.Start"), 0, 10);
     //oled.update();
     previousTime = millis();
     motor.init();
@@ -37,7 +37,7 @@ bool Movement::oneSideFinished(int16_t leftPos, int16_t rightPos) {
     }
     if(leftPos >= leftInit+leftAmt) {
         /*oled.clrScr();
-        oled.print("here", 0, 0);
+        oled.print(const_cast<char*>("here"), 0, 0);
         oled.update();
         delay(1000);*/
         motor.speed(Constants::MOTOR_LEFT, 0);
