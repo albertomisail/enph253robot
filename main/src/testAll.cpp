@@ -118,155 +118,164 @@ void testLFandReverse() {
     Encoder leftEnc(Constants::LEFT_ENC_PIN);
     Encoder rightEnc(Constants::RIGHT_ENC_PIN);
     oled.invertText(false);
-    // for(int32_t i=0;lineFollower.poll();++i) {
-    //     Encoder::poll();
-    //     if(rightEnc.getPosition()>=150){
-    //         break;
-    //     }
-    //     if(i%10000 == 0)
-    //     {
-    //         oled.clrScr();
-    //         oled.print("L:", 0, 0);
-    //         oled.print("R:", 0, 10);
-    //         oled.print("E:", 0, 20);
-    //         oled.print("G:", 0, 30);
-    //         oled.print("ER", 0, 40);
-    //         oled.print("EN", 0, 50);
-    //         oled.printNumI(lineFollower.sensorLeftReading, 20, 0);
-    //         oled.printNumI(lineFollower.sensorRightReading, 20, 10);
-    //         oled.printNumI(lineFollower.sensorEdgeReading, 20, 20);
-    //         oled.printNumI(lineFollower.sensorLeftReadingAmb, 55, 0);
-    //         oled.printNumI(lineFollower.sensorRightReadingAmb, 55, 10);
-    //         oled.printNumI(lineFollower.sensorEdgeReadingAmb, 55, 20);
-    //         oled.printNumI(lineFollower.sensorLeftReadingPow, 90, 0);
-    //         oled.printNumI(lineFollower.sensorRightReadingPow, 90, 10);
-    //         oled.printNumI(lineFollower.sensorEdgeReadingPow, 90, 20);
-    //         oled.printNumI(lineFollower.g, 20, 30);
-    //         oled.printNumI(lineFollower.error, 20, 40);
-    //         oled.printNumI(leftEnc.getPosition(), 20, 50);
-    //         oled.printNumI(rightEnc.getPosition(), 60, 50);
-    //         oled.printNumI(lineFollower.lastCompTime, 90, 30);
-    //         if(i%20000 == 0)
-    //         {
-    //             oled.print(".", 100, 0);
-    //         }
-    //         oled.update();
-    //     }
-    // }
+    for(int32_t i=0;lineFollower.poll();++i) {
+        Encoder::poll();
+        if(rightEnc.getPosition()>=150){
+            break;
+        }
+        if(i%10000 == 0)
+        {
+            oled.clrScr();
+            oled.print("L:", 0, 0);
+            oled.print("R:", 0, 10);
+            oled.print("E:", 0, 20);
+            oled.print("G:", 0, 30);
+            oled.print("ER", 0, 40);
+            oled.print("EN", 0, 50);
+            oled.printNumI(lineFollower.sensorLeftReading, 20, 0);
+            oled.printNumI(lineFollower.sensorRightReading, 20, 10);
+            oled.printNumI(lineFollower.sensorEdgeReading, 20, 20);
+            oled.printNumI(lineFollower.sensorLeftReadingAmb, 55, 0);
+            oled.printNumI(lineFollower.sensorRightReadingAmb, 55, 10);
+            oled.printNumI(lineFollower.sensorEdgeReadingAmb, 55, 20);
+            oled.printNumI(lineFollower.sensorLeftReadingPow, 90, 0);
+            oled.printNumI(lineFollower.sensorRightReadingPow, 90, 10);
+            oled.printNumI(lineFollower.sensorEdgeReadingPow, 90, 20);
+            oled.printNumI(lineFollower.g, 20, 30);
+            oled.printNumI(lineFollower.error, 20, 40);
+            oled.printNumI(leftEnc.getPosition(), 20, 50);
+            oled.printNumI(rightEnc.getPosition(), 60, 50);
+            oled.printNumI(lineFollower.lastCompTime, 90, 30);
+            if(i%20000 == 0)
+            {
+                oled.print(".", 100, 0);
+            }
+            oled.update();
+        }
+    }
 
-    // int16_t leftEncStore = leftEnc.getPosition();
-    // int16_t rightEncStore = rightEnc.getPosition();
-    // motor.speed(0, 0);
-    // motor.speed(1, 0);
+    int16_t leftEncStore = leftEnc.getPosition();
+    int16_t rightEncStore = rightEnc.getPosition();
+    motor.speed(0, 0);
+    motor.speed(1, 0);
 
     // oled.clrScr();
     // oled.print("ENCODER", 0, 0);
     // oled.update();
     // delay(2000);
 
-    // // oled.clrScr();
-    // // oled.print("EDGE", 0, 0);
-    // // oled.update();
-    // // delay(500);
+    // oled.clrScr();
+    // oled.print("EDGE", 0, 0);
+    // oled.update();
+    // delay(500);
 
     // oled.clrScr();
     // oled.print("TRY turn", 0, 0);
     // oled.update();
 
     // //InfraredBase infrared;
-    // oled.clrScr();
-    // oled.print("Rotate",0,0);
-    // oled.update();
-    // Movement mvt;
-    // //mvt.start(-1, 1, 3, 3, 100);
-    // //while(mvt.poll()) {}
-    // oled.clrScr();
-    // oled.print("After first rotation",0,0);
-    // oled.update();
-    // delay(1000);
-    // uint16_t cnt;
-    // mvt.start(1,-1,12,12,80);
-    // infrared.startMeasurement();
-    // for(int i=0;mvt.poll();) {
-    //     if(!infrared.poll()) {
-    //         if(++i%5 == 0) {
-    //             Serial.println(infrared.lastMeasurement());
-    //             // oled.clrScr();
-    //             // oled.printNumI(infrared.lastMeasurement(),0,0);
-    //             // oled.update();
-    //         }
-    //         if(infrared.objectDetected(Constants::distantInfraredThreshold)) {
-    //             Serial.println("!!!!!!!!!!!!!!!!!");
-    //             // oled.print("!!!!!!!!!!!!", 0, 20);
-    //             // oled.update();
-    //             // delay(1000);
-    //             break;
-    //         }
-    //         infrared.startMeasurement();
-    //     }
-    // }
-    // motor.speed(Constants::MOTOR_LEFT, 0);
-    // motor.speed(Constants::MOTOR_RIGHT, 0);
-    // /*
-    // for(int i = 0; i < 10; i++){
-    //     if(infrared.objectDetected(Constants::distantInfaredThreshold)){
-    //         flag = false;
-    //     }
-    // } */
-    // // while(!infrared.objectDetected(Constants::distantInfaredThreshold)) {
-    // //     cnt = 0;
-    // //     oled.clrScr();
-    // //     oled.printNumI(infrared.makeMeasurement(),0,0);
-    // //     oled.update();
-    // //     delay(2000);
-    // //     if (cnt%100 == 0) {
-
-    // //     }
-    // //     mvt.start(1,-1,1,1);
-    // //     while(mvt.poll()){}
-    // //     cnt++;
-    // // }
-
-    // oled.clrScr();
-    // oled.print("DETECTED FAR",0,10);
-    // oled.update();
-    // delay(2000);
-    // mvt.start(1,1,10,10, 105);
-    // infrared.startMeasurement();
-    // for(int i = 0; mvt.poll();){
-    //     if(!infrared.poll()) {
-    //         if(i++%5 == 0) {
-    //             Serial.println(infrared.lastMeasurement());
-    //         }
-    //         if(infrared.objectDetected(Constants::pickUpInfraredThreshold)){
-    //             Serial.println("????????????");
-    //             break;
-    //         }
-    //         infrared.startMeasurement();
-    //     }
-    // }
-    // motor.speed(Constants::MOTOR_LEFT, 0);
-    // motor.speed(Constants::MOTOR_RIGHT, 0);
-    // oled.print("DETECTED, PICKING UP",0,10);
-    // oled.update();
-    // // delay(1000);
-    // // ziplineLift.dropFront();
-    // delay(2000);
-
-    // claw.pickEwok();
+    oled.clrScr();
+    oled.print("Rotate",0,0);
+    oled.update();
     Movement mvt;
-    mvt.start(1,-1,800,800,80);
+    //mvt.start(-1, 1, 3, 3, 100);
+    //while(mvt.poll()) {}
+    oled.clrScr();
+    oled.print("After first rotation",0,0);
+    oled.update();
+    delay(1000);
+    uint16_t cnt;
+    mvt.start(1,-1,12,12,80);
+    infrared.startMeasurement();
+    for(int i=0;mvt.poll();) {
+        if(!infrared.poll()) {
+            if(++i%5 == 0) {
+                Serial.println(infrared.lastMeasurement());
+                // oled.clrScr();
+                // oled.printNumI(infrared.lastMeasurement(),0,0);
+                // oled.update();
+            }
+            if(infrared.objectDetected(Constants::distantInfraredThreshold)) {
+                Serial.println("!!!!!!!!!!!!!!!!!");
+                // oled.print("!!!!!!!!!!!!", 0, 20);
+                // oled.update();
+                // delay(1000);
+                break;
+            }
+            infrared.startMeasurement();
+        }
+    }
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+    /*
+    for(int i = 0; i < 10; i++){
+        if(infrared.objectDetected(Constants::distantInfaredThreshold)){
+            flag = false;
+        }
+    } */
+    // while(!infrared.objectDetected(Constants::distantInfaredThreshold)) {
+    //     cnt = 0;
+    //     oled.clrScr();
+    //     oled.printNumI(infrared.makeMeasurement(),0,0);
+    //     oled.update();
+    //     delay(2000);
+    //     if (cnt%100 == 0) {
 
+    //     }
+    //     mvt.start(1,-1,1,1);
+    //     while(mvt.poll()){}
+    //     cnt++;
+    // }
+
+    oled.clrScr();
+    oled.print("DETECTED FAR",0,10);
+    oled.update();
+    delay(2000);
+    mvt.start(1,1,10,10, 105);
+    infrared.startMeasurement();
+    for(int i = 0; mvt.poll();){
+        if(!infrared.poll()) {
+            if(i++%5 == 0) {
+                Serial.println(infrared.lastMeasurement());
+            }
+            if(infrared.objectDetected(Constants::pickUpInfraredThreshold)){
+                Serial.println("????????????");
+                break;
+            }
+            infrared.startMeasurement();
+        }
+    }
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+    oled.print("DETECTED, PICKING UP",0,10);
+    oled.update();
+    // delay(1000);
+    // ziplineLift.dropFront();
+    delay(2000);
+
+    claw.pickEwok();
+    oled.clrScr();
+    oled.print("Picked up Ewok, looking for line",0,0);
+    oled.update();
+    delay(2000);
+    mvt.start(1,-1,800,800,100);
+    oled.print("mvt.start",0,0);
+    oled.update();
     lineFollower.startQRD();
-    for(int i=0;mvt.poll();i++){
+    for(int32_t i=0;mvt.poll();){
         if(!lineFollower.QRDPoll()) {
             // Serial.println("i=" + i);
-            if(i>0){
+            if(i++>0){
                 // if(i%1 == 0) {
                 //     Serial.println(lineFollower.QRDMeasurement('r'));
                 //     Serial.println("bla");
                 // }
                 if(lineFollower.QRDMeasurement('r')<=Constants::RIGHT_THRESHOLD.getVal()){
+                    oled.clrScr();
+                    oled.print("see black",0,0);
+                    oled.printNumI(i, 0, 10);
+                    oled.update();
+                    
                     // Serial.println(lineFollower.QRDMeasurement('r'));
                     // Serial.println("blu");
                     break;
@@ -277,10 +286,10 @@ void testLFandReverse() {
     }
     motor.speed(0, 0);
     motor.speed(1, 0);
-    Serial.println("!!SAW BLACK");
-    delay(10000);
+    //Serial.println("!!SAW BLACK");
+    delay(2000);
 
-    // lineFollower.start();
+    lineFollower.start();
 
 
     // oled.print("TRY turn", 0, 0);

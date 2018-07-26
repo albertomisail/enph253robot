@@ -128,20 +128,20 @@ void LineFollower::QRDGetInitialReading() {
     sensorRightReadingAmb = analogRead(Constants::RIGHT_QRD_PIN);
     sensorEdgeReadingAmb = analogRead(Constants::EDGE_QRD_PIN);
     digitalWrite(Constants::QRD_POWER_PIN, HIGH);
-    Serial.println("QRDGetInitialReading()");
+    //Serial.println("QRDGetInitialReading()");
     hasQRDStarted = true;
     nextAvailableQRDTime = millis()+2;
 }
 bool LineFollower::QRDPoll() {
-    Serial.print("hasQRDStarted = ");
-    Serial.print(hasQRDStarted);
-    Serial.print(", ");
-    Serial.print(isQRDReading);
-    Serial.print(", times comparision ");
-    Serial.print(nextAvailableQRDTime);
-    Serial.print(" vs ");
-    Serial.print(millis());
-    Serial.println();
+    // Serial.print("hasQRDStarted = ");
+    // Serial.print(hasQRDStarted);
+    // Serial.print(", ");
+    // Serial.print(isQRDReading);
+    // Serial.print(", times comparision ");
+    // Serial.print(nextAvailableQRDTime);
+    // Serial.print(" vs ");
+    // Serial.print(millis());
+    // Serial.println();
     if(!isQRDReading) return false;
     if(nextAvailableQRDTime > millis()) return true;
     if(!hasQRDStarted) {

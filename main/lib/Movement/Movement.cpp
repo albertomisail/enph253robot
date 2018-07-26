@@ -4,9 +4,9 @@ Movement::Movement() : leftEnc(Constants::LEFT_ENC_PIN), rightEnc(Constants::RIG
 
 void Movement::start(int8_t leftDir_, int8_t rightDir_, int16_t leftAmt_, int16_t rightAmt_, int16_t correctionSpeed_)
 {
-    oled.clrScr();
-    oled.print("Movement.Start", 0, 10);
-    oled.update();
+    //oled.clrScr();
+    //oled.print("Movement.Start", 0, 10);
+    //oled.update();
     previousTime = millis();
     motor.init();
     leftDir = leftDir_;
