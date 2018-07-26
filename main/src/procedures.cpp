@@ -7,6 +7,58 @@
 #include <Movement.h>
 #include <InfraredBase.h>
 
+bool lookForEwok(int movementRange, int forwardAmount, int tries) {
+    bool foundEwok = false;
+    Movement mvt;
+    for(int i=0;i<5;++i) {
+
+        mvt.start(-1, 1, movementRange/2, movementRange/2, 120);
+        while(mvt.poll()) {}
+
+        mvt.start(1, -1, movementRange, movementRange, 100);
+        infrared.startMeasurement();
+        while(mvt.poll()) {
+            if(!infrared.poll()) {
+                // if(i++%5 == 0) {
+                //     Serial.println(infrared.lastMeasurement());
+                // }
+                if(infrared.objectDetected(Constants::pickUpInfraredThreshold)){
+                    //Serial.println("????????????");
+                    foundEwok = true;
+                    break;
+                }
+                infrared.startMeasurement();
+            }
+        }
+        // these ones go faster cause they don't need to look for ewoks
+        mvt.start(1, 1, forwardAmount, forwardAmount, 120);
+        while(mvt.poll()) {}
+        mvt.start(-1, 1, movementRange-movementRange/2, movementRange-movementRange/2, 120);
+        while(mvt.poll()) {}
+    }
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+}
+
+bool moveForwardToEwok(int threshold, int maxDistance) {
+    Movement mvt;
+    bool foundEwok = false;
+    mvt.start(1, 1, maxDistance, maxDistance, 90);
+    infrared.startMeasurement();
+    while(mvt.poll()) {
+        if(!infrared.poll()) {
+            if(infrared.lastMeasurement() > threshold) {
+                foundEwok = true;
+                break;
+            }
+            infrared.startMeasurement();
+        }
+    }
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+    return foundEwok;
+}
+
 void initialLineFollow(Encoder& leftEnc, Encoder& rightEnc) {
     lineFollower.start();
     for(int32_t i=0;lineFollower.poll();++i) {
@@ -76,33 +128,7 @@ void handleFirstEwok(Encoder& leftEnc, Encoder& rightEnc) {
     // ~120 degree turn to face toward ewok
     mvt.start(1, -1, 20, 20, 100);
 
-    // TODO: wrap this iterative-scanning-ewok-detector code into its own method
-    // so it can be reused
-    bool foundEwok = false;
-    for(int i=0;i<5;++i) {
-        mvt.start(1, -1, 12, 12, 100);
-        infrared.startMeasurement();
-        while(mvt.poll()) {
-            if(!infrared.poll()) {
-                // if(i++%5 == 0) {
-                //     Serial.println(infrared.lastMeasurement());
-                // }
-                if(infrared.objectDetected(Constants::pickUpInfraredThreshold)){
-                    //Serial.println("????????????");
-                    foundEwok = true;
-                    break;
-                }
-                infrared.startMeasurement();
-            }
-        }
-        // these ones go faster cause they don't need to look for ewoks
-        mvt.start(-1, 1, 6, 6, 120);
-        mvt.start(1, 1, 6, 6, 120);
-        mvt.start(-1, 1, 6, 6, 120);
-        while(mvt.poll()) {}
-    }
-    motor.speed(Constants::MOTOR_LEFT, 0);
-    motor.speed(Constants::MOTOR_RIGHT, 0);
+    bool foundEwok = lookForEwok(12, 3, 5);
 
     if(foundEwok) {
         // TODO add the method to move foward to toward the ewok
@@ -153,7 +179,16 @@ void handleFirstEwok(Encoder& leftEnc, Encoder& rightEnc) {
  * the second ewok should be.
  */
 void getToSecondEwok() {
-    
+    Movement move;
+    move.start(1, 1, 48, 40, 100);
+    while(move.poll()) {}
+    delay(500);
+    move.start(1, -1, 6, 6, 90);
+    while(move.poll()) {}
+    delay(500);
+    move.start(1, 1, 24, 24, 90);
+    while(move.poll()) {}
+    delay(500);
 }
 
 /**
@@ -161,7 +196,13 @@ void getToSecondEwok() {
  */
 bool handleSecondEwok() {
     // TODO
-    return false;
+    bool foundEwok = lookForEwok(6, 3, 4);
+    if(!foundEwok) return false;
+    foundEwok = moveForwardToEwok(Constants::ewok2Distance, 6);
+    if(claw.pickEwok()) return true;
+    Movement mvt;
+    mvt.start(-1, -1, 1, 1, 100);
+    return claw.pickEwok();
 }
 
 /**
@@ -241,6 +282,7 @@ void mainRun() {
 
     handleFirstEwok(leftEnc, rightEnc);
 
+    // we want to return to drop location so we go back onto the bridge
     maneuverToDropLocation();
 
     getToSecondEwok();

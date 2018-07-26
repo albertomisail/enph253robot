@@ -4,6 +4,8 @@
 void mainRun();
 void oneEwokRun();
 
+bool lookForEwok(int, int, int);
+bool moveForwardToEwok(int, int);
 void initialLineFollow(Encoder&, Encoder&);
 
 void maneuverToDropLocation();
