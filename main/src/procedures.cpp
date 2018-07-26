@@ -20,11 +20,7 @@ bool lookForEwok(int threshold, int movementRange, int forwardAmount, int tries)
         infrared.startMeasurement();
         while(mvt.poll()) {
             if(!infrared.poll()) {
-                // if(i++%5 == 0) {
-                //     Serial.println(infrared.lastMeasurement());
-                // }
                 if(infrared.objectDetected(threshold)){
-                    //Serial.println("????????????");
                     foundEwok = true;
                     break;
                 }
@@ -321,26 +317,26 @@ void mainRun() {
 
     initialLineFollow(leftEnc, rightEnc);
 
-    maneuverToDropLocation();
+    // maneuverToDropLocation();
 
-    claw.deployBridge();
+    // claw.deployBridge();
 
-    handleFirstEwok(leftEnc, rightEnc);
+    // handleFirstEwok(leftEnc, rightEnc);
 
-    // we want to return to drop location so we go back onto the bridge
-    maneuverToDropLocation();
+    // // we want to return to drop location so we go back onto the bridge
+    // maneuverToDropLocation();
 
-    getToSecondEwok();
+    // getToSecondEwok();
 
-    boolean gotSecondEwok = handleSecondEwok();
+    // boolean gotSecondEwok = handleSecondEwok();
 
-    IRBeacon();
+    // IRBeacon();
 
-    crossArch();
+    // crossArch();
 
-    dropSecondEwok(gotSecondEwok);
+    // dropSecondEwok(gotSecondEwok);
 
-    handleThirdEwok();
+    // handleThirdEwok();
 }
 
 void oneEwokRun() {
