@@ -184,7 +184,7 @@ void testLFandReverse() {
                 // oled.printNumI(infrared.lastMeasurement(),0,0);
                 // oled.update();
             }
-            if(infrared.objectDetected(Constants::distantInfraredThreshold)) {
+            if(infrared.objectDetected(Constants::distantInfraredThreshold1)) {
                 Serial.println("!!!!!!!!!!!!!!!!!");
                 // oled.print("!!!!!!!!!!!!", 0, 20);
                 // oled.update();
@@ -232,7 +232,7 @@ void testLFandReverse() {
                 // oled.printNumI(infrared.lastMeasurement(),0,0);
                 // oled.update();
             }
-            if(infrared.objectDetected(Constants::distantInfraredThreshold)) {
+            if(infrared.objectDetected(Constants::distantInfraredThreshold1)) {
                 Serial.println("!!!!!!!!!!!!!!!!!");
                 // oled.print("!!!!!!!!!!!!", 0, 20);
                 // oled.update();
@@ -275,7 +275,7 @@ void testLFandReverse() {
             if(i++%5 == 0) {
                 Serial.println(infrared.lastMeasurement());
             }
-            if(infrared.objectDetected(Constants::pickUpInfraredThreshold)){
+            if(infrared.objectDetected(Constants::pickUpInfraredThreshold1)){
                 Serial.println("????????????");
                 break;
             }

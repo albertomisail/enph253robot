@@ -78,7 +78,7 @@ void loop() {
     //oled.print("!!", 0, 0);
     //oled.update();
     //testEncoders();
-    testLFandReverse();
+    // testLFandReverse();
     //testPickingUpEwok();
     //delay(2000);
     //testLift();
@@ -86,7 +86,7 @@ void loop() {
     // crossBridge();
     // testInfrared();
     // encoderReadings();
-    //fftTuning();
+    fftTuning();
 /*
     int8_t TPIN = PA8;
     pinMode(TPIN, OUTPUT);

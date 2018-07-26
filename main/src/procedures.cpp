@@ -7,7 +7,7 @@
 #include <Movement.h>
 #include <InfraredBase.h>
 
-bool lookForEwok(int movementRange, int forwardAmount, int tries) {
+bool lookForEwok(int threshold, int movementRange, int forwardAmount, int tries) {
     bool foundEwok = false;
     Movement mvt;
     for(int i=0;i<5;++i) {
@@ -22,7 +22,7 @@ bool lookForEwok(int movementRange, int forwardAmount, int tries) {
                 // if(i++%5 == 0) {
                 //     Serial.println(infrared.lastMeasurement());
                 // }
-                if(infrared.objectDetected(Constants::pickUpInfraredThreshold)){
+                if(infrared.objectDetected(threshold)){
                     //Serial.println("????????????");
                     foundEwok = true;
                     break;
@@ -128,7 +128,7 @@ void handleFirstEwok(Encoder& leftEnc, Encoder& rightEnc) {
     // ~120 degree turn to face toward ewok
     mvt.start(1, -1, 20, 20, 100);
 
-    bool foundEwok = lookForEwok(12, 3, 5);
+    bool foundEwok = lookForEwok(Constants::distantInfraredThreshold1, 12, 3, 5);
 
     if(foundEwok) {
         // TODO add the method to move foward to toward the ewok
@@ -196,9 +196,9 @@ void getToSecondEwok() {
  */
 bool handleSecondEwok() {
     // TODO
-    bool foundEwok = lookForEwok(6, 3, 4);
+    bool foundEwok = lookForEwok(Constants::distantInfraredThreshold2, 6, 3, 4);
     if(!foundEwok) return false;
-    foundEwok = moveForwardToEwok(Constants::ewok2Distance, 6);
+    foundEwok = moveForwardToEwok(Constants::pickUpInfraredThreshold2, 6);
     if(claw.pickEwok()) return true;
     Movement mvt;
     mvt.start(-1, -1, 1, 1, 100);
