@@ -15,11 +15,22 @@ private:
     uint8_t state = 0;
     bool movingState = false;
 
+    bool isQRDReading = false, hasQRDStarted = false;
+
 public:
     int32_t sensorLeftReading, sensorRightReading, sensorEdgeReading, g;
     int32_t sensorLeftReadingAmb, sensorRightReadingAmb, sensorEdgeReadingAmb;
     int32_t sensorLeftReadingPow, sensorRightReadingPow, sensorEdgeReadingPow;
     int16_t error, lastCompTime;
+
+    int16_t nextAvailableQRDTime=0;
+
+    void startQRD();
+    bool QRDPoll();
+    bool QRDIsReading() const;
+    void QRDGetInitialReading();
+    int16_t QRDMeasurement(char c) const;
+
     void init(int);
     void start();
     void stop();

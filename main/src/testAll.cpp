@@ -110,7 +110,10 @@
 
 void testLFandReverse() {
 
+<<<<<<< HEAD
     claw.init();
+=======
+>>>>>>> aa5d3c4631ff7d45c9b0094077801cab8c7437c3
     Menu m;
     m.run();
     
@@ -173,7 +176,11 @@ void testLFandReverse() {
     oled.print("TRY turn", 0, 0);
     oled.update();
 
+<<<<<<< HEAD
     
+=======
+    */
+>>>>>>> aa5d3c4631ff7d45c9b0094077801cab8c7437c3
     //InfraredBase infrared;
     oled.clrScr();
     oled.print("Rotate",0,0);
@@ -256,6 +263,22 @@ void testLFandReverse() {
 
     claw.pickEwok();
 
+    mvt.start(-1,1,80,80);
+    lineFollower.startQRD();
+    for(int i=0;lineFollower.QRDPoll();){
+        if(!lineFollower.QRDPoll()) {
+            if(i++%10 == 0) {
+                Serial(lineFollower.QRDMeasurement());
+            }
+            if(lineFollower.QRDMeasurement('r')<=Constants::RIGHT_THRESHOLD){
+                break;
+            }
+            lineFollower.startQRD();
+        }
+    }
+
+    lineFollower.start();
+
 
     // oled.print("TRY turn", 0, 0);
     // oled.update();
@@ -303,6 +326,11 @@ void testPickingUpEwok(){
     //delay(10000);
     
     oled.clrScr();
+    oled.print("COMMENTED OUT", 0, 0);
+    oled.update();
+    delay(10000);
+    /*
+    oled.clrScr();
     oled.update();
     delay(1000);
     oled.clrScr();
@@ -336,7 +364,7 @@ void testPickingUpEwok(){
     oled.print("EWOK PICKED", 0, 0);
     oled.update();
     delay(500);
-    
+    */
 }
 
 // void testMovement() {

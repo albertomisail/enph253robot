@@ -117,9 +117,51 @@ bool LineFollower::poll()
     state = 0;
     lastCompTime = millis()-now;
     return true;
+}
 
+void LineFollower::startQRD() {
+    hasQRDStarted = false;
+    isQRDReading = true;
+}
+void LineFollower::QRDGetInitialReading() {
+    sensorLeftReadingAmb = analogRead(Constants::LEFT_QRD_PIN);
+    sensorRightReadingAmb = analogRead(Constants::RIGHT_QRD_PIN);
+    sensorEdgeReadingAmb = analogRead(Constants::EDGE_QRD_PIN);
+    digitalWrite(Constants::QRD_POWER_PIN, HIGH);
 
-
+    hasQRDStarted = true;
+    nextAvailableQRDTime = millis()+2;
+}
+bool LineFollower::QRDPoll() {
+    if(!isQRDReading) return false;
+    if(nextAvailableQRDTime > millis()) return true;
+    if(!hasQRDStarted) {
+        QRDGetInitialReading();
+        return true;
     }
+    sensorLeftReadingPow = analogRead(Constants::LEFT_QRD_PIN);
+    sensorRightReadingPow = analogRead(Constants::RIGHT_QRD_PIN);
+    sensorEdgeReadingPow = analogRead(Constants::EDGE_QRD_PIN);
+    digitalWrite(Constants::QRD_POWER_PIN, LOW);
+
+    sensorLeftReading = (sensorLeftReadingAmb-sensorLeftReadingPow);
+    sensorRightReading = (sensorRightReadingAmb-sensorRightReadingPow);
+    sensorEdgeReading = (sensorEdgeReadingAmb-sensorEdgeReadingPow);
+
+    nextAvailableQRDTime = millis()+2;
+    isQRDReading = false;
+    return false;
+}
+int16_t LineFollower::QRDMeasurement(char c) const {
+    switch(c) {
+        case 'l': return sensorLeftReading;
+        case 'r': return sensorRightReading;
+        case 'e': return sensorEdgeReading;
+    }
+    return -1;
+}
+bool LineFollower::QRDIsReading() const {
+    return isQRDReading;
+}
 
 LineFollower lineFollower;
