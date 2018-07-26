@@ -6,6 +6,59 @@
 #include <ClawBase.h>
 #include <Movement.h>
 #include <InfraredBase.h>
+#include <FFT.h>
+
+bool lookForEwok(int threshold, int movementRange, int forwardAmount, int tries) {
+    bool foundEwok = false;
+    Movement mvt;
+    for(int i=0;i<5;++i) {
+
+        mvt.start(-1, 1, movementRange/2, movementRange/2, 120);
+        while(mvt.poll()) {}
+
+        mvt.start(1, -1, movementRange, movementRange, 100);
+        infrared.startMeasurement();
+        while(mvt.poll()) {
+            if(!infrared.poll()) {
+                // if(i++%5 == 0) {
+                //     Serial.println(infrared.lastMeasurement());
+                // }
+                if(infrared.objectDetected(threshold)){
+                    //Serial.println("????????????");
+                    foundEwok = true;
+                    break;
+                }
+                infrared.startMeasurement();
+            }
+        }
+        // these ones go faster cause they don't need to look for ewoks
+        mvt.start(1, 1, forwardAmount, forwardAmount, 120);
+        while(mvt.poll()) {}
+        mvt.start(-1, 1, movementRange-movementRange/2, movementRange-movementRange/2, 120);
+        while(mvt.poll()) {}
+    }
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+}
+
+bool moveForwardToEwok(int threshold, int maxDistance) {
+    Movement mvt;
+    bool foundEwok = false;
+    mvt.start(1, 1, maxDistance, maxDistance, 90);
+    infrared.startMeasurement();
+    while(mvt.poll()) {
+        if(!infrared.poll()) {
+            if(infrared.lastMeasurement() > threshold) {
+                foundEwok = true;
+                break;
+            }
+            infrared.startMeasurement();
+        }
+    }
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+    return foundEwok;
+}
 
 void initialLineFollow(Encoder& leftEnc, Encoder& rightEnc) {
     lineFollower.start();
@@ -79,33 +132,7 @@ void handleFirstEwok(Encoder& leftEnc, Encoder& rightEnc) {
     // ~120 degree turn to face toward ewok
     mvt.start(1, -1, 20, 20, 100);
 
-    // TODO: wrap this iterative-scanning-ewok-detector code into its own method
-    // so it can be reused
-    bool foundEwok = false;
-    for(int i=0;i<5;++i) {
-        mvt.start(1, -1, 12, 12, 100);
-        infrared.startMeasurement();
-        while(mvt.poll()) {
-            if(!infrared.poll()) {
-                // if(i++%5 == 0) {
-                //     Serial.println(infrared.lastMeasurement());
-                // }
-                if(infrared.objectDetected(Constants::pickUpInfraredThreshold)){
-                    //Serial.println("????????????");
-                    foundEwok = true;
-                    break;
-                }
-                infrared.startMeasurement();
-            }
-        }
-        // these ones go faster cause they don't need to look for ewoks
-        mvt.start(-1, 1, 6, 6, 120);
-        mvt.start(1, 1, 6, 6, 120);
-        mvt.start(-1, 1, 6, 6, 120);
-        while(mvt.poll()) {}
-    }
-    motor.speed(Constants::MOTOR_LEFT, 0);
-    motor.speed(Constants::MOTOR_RIGHT, 0);
+    bool foundEwok = lookForEwok(Constants::distantInfraredThreshold1, 12, 3, 5);
 
     if(foundEwok) {
         // TODO add the method to move foward to toward the ewok
@@ -156,7 +183,16 @@ void handleFirstEwok(Encoder& leftEnc, Encoder& rightEnc) {
  * the second ewok should be.
  */
 void getToSecondEwok() {
-    // TODO
+    Movement move;
+    move.start(1, 1, 48, 40, 100);
+    while(move.poll()) {}
+    delay(500);
+    move.start(1, -1, 6, 6, 90);
+    while(move.poll()) {}
+    delay(500);
+    move.start(1, 1, 24, 24, 90);
+    while(move.poll()) {}
+    delay(500);
 }
 
 /**
@@ -164,7 +200,13 @@ void getToSecondEwok() {
  */
 bool handleSecondEwok() {
     // TODO
-    return false;
+    bool foundEwok = lookForEwok(Constants::distantInfraredThreshold2, 6, 3, 4);
+    if(!foundEwok) return false;
+    foundEwok = moveForwardToEwok(Constants::pickUpInfraredThreshold2, 6);
+    if(claw.pickEwok()) return true;
+    Movement mvt;
+    mvt.start(-1, -1, 1, 1, 100);
+    return claw.pickEwok();
 }
 
 /**
@@ -221,6 +263,47 @@ void handleThirdEwok() {
  * we HAVE to keep looking until we find it.
  */
 void IRBeacon() {
+
+    ziplineLift.moveLift(Constants::frontLift, Constants::voltageIRFront);
+
+    Movement mvt;
+    mvt.start(1, -1, 3, 3, 100);
+    while(mvt.poll()) {}
+    bool foundIRBeacon = false;
+    while(true) {
+        mvt.start(-1, 1, 6, 6, 90);
+        while(mvt.poll()) {
+            float f10=0, f1=0;
+            for(int i=0;i<10;++i) {
+                FFTPair fftPair = fft.sample();
+                f10 += fftPair.highAmount;
+                f1 += fftPair.lowAmount;
+            }
+            float totalAmount = sqrt(f10*f10 + f1*f1);
+            if(totalAmount > Constants::FFT_THRESHOLD_TOTAL)
+            {
+                foundIRBeacon = true;
+                break;
+            }
+        }
+        if(foundIRBeacon) {
+            break;
+        }
+        mvt.start(1, -1, 6, 6, 90);
+        while(mvt.poll()) {}
+    }
+
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+
+    oled.clrScr();
+    oled.print("ir beacon found", 0, 0);
+    oled.update();
+
+
+
+
+
     // TODO
     // Set the lift to the correct height
     // Move around until finding a large total IR signal
@@ -244,6 +327,7 @@ void mainRun() {
 
     handleFirstEwok(leftEnc, rightEnc);
 
+    // we want to return to drop location so we go back onto the bridge
     maneuverToDropLocation();
 
     getToSecondEwok();

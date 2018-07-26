@@ -104,9 +104,14 @@ bool ClawBase::pickEwok(){
 }
 
 void ClawBase::dropEwok() {
+<<<<<<< HEAD
     // TODO
     int step = (Constants::angleOpen - Constants::angleClose) / Constants::numSteps;
     int step2 = (Constants::angleOut - Constants::angleIn) / Constants::numSteps;
+=======
+    (ClawBase::claw).write(Constants::angleOpen);
+    delay(500);
+>>>>>>> 24bf71711351fb88fd7656af6ede7ecdd14d5114
 }
 
 ClawBase claw;
