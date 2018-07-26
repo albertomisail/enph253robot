@@ -21,9 +21,10 @@ public:
     int32_t sensorLeftReading, sensorRightReading, sensorEdgeReading, g;
     int32_t sensorLeftReadingAmb, sensorRightReadingAmb, sensorEdgeReadingAmb;
     int32_t sensorLeftReadingPow, sensorRightReadingPow, sensorEdgeReadingPow;
-    int16_t error, lastCompTime;
+    int16_t error;
+    int32_t lastCompTime;
 
-    int16_t nextAvailableQRDTime=0;
+    int32_t nextAvailableQRDTime=0;
 
     void startQRD();
     bool QRDPoll();

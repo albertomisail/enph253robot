@@ -98,7 +98,6 @@ bool ClawBase::pickEwok(){
         arm.write(Constants::angleIn);
     }
     //ziplineLift.liftFront();
-    delay(10000);
     return result;
 }
 

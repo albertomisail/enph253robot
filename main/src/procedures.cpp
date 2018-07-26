@@ -6,6 +6,7 @@
 #include <ClawBase.h>
 
 void initialLineFollow(Encoder& leftEnc, Encoder& rightEnc) {
+    /*
     for(int32_t i=0;lineFollower.poll();++i) {
         //Encoder::poll();
         if(i%10000 == 0)
@@ -41,9 +42,11 @@ void initialLineFollow(Encoder& leftEnc, Encoder& rightEnc) {
     oled.clrScr();
     oled.print("EDGE", 0, 0);
     oled.update();
+    */
 }
 
 void mainRun() {
+    /*
     Menu m;
     m.run();
     lineFollower.start();
@@ -56,5 +59,5 @@ void mainRun() {
     // MANEUVER to EDGE
 
     claw.deployBridge();
-
+    */
 }

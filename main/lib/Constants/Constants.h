@@ -11,7 +11,7 @@ public:
     static MenuItem RIGHT_THRESHOLD;//("RT", 0, 4096, 1024);
     static MenuItem EDGE_THRESHOLD;//("RT", 0, 4096, 1024);
 
-    constexpr static int16_t PROPORTIONAL_MOVEMENT = 20;
+    constexpr static int16_t PROPORTIONAL_MOVEMENT = 30;
     constexpr static int16_t DERIVATIVE_MOVEMENT = 3;
 
     static void init();
@@ -38,9 +38,9 @@ public:
     constexpr static int8_t CLAW_PIN = PA3;
     constexpr static int16_t angleOut = 0;
     constexpr static int16_t angleInit = 40;
-    constexpr static int16_t angleIn = 45;
+    constexpr static int16_t angleIn = 70;
     constexpr static int16_t angleOpen = 0;
-    constexpr static int16_t angleClose = 120;
+    constexpr static int16_t angleClose = 130;
     //constexpr static int16_t angleFullClose = 20;
     constexpr static int8_t buttonSwitchPin = PA15;
 

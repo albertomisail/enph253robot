@@ -106,8 +106,11 @@ bool Movement::poll() {
 
     int16_t g = p+d;
 
-    motor.speed(Constants::MOTOR_LEFT, leftDir*(correctionSpeed-g));
-    motor.speed(Constants::MOTOR_RIGHT, rightDir*(correctionSpeed+g));
+    int16_t leftVal = leftDir*max(correctionSpeed, correctionSpeed-g);
+    int16_t rightVal = rightDir*max(correctionSpeed, correctionSpeed+g);
+
+    motor.speed(Constants::MOTOR_LEFT, leftVal);
+    motor.speed(Constants::MOTOR_RIGHT, rightVal);
 
     previousError = error;
     previousTime = now;
