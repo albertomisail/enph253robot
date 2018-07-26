@@ -1,6 +1,7 @@
 #pragma once
 #include <Arduino.h>
 #include <MotorBase.h>
+#include <Movement.h>
 
 class LineFollower
 {
@@ -27,8 +28,9 @@ public:
     int32_t nextAvailableQRDTime=0;
     //constexpr static int8_t infraredReceiver = PA5;
 
-    constexpr static int8_t DIR_LEFT = 0;
-    constexpr static int8_t DIR_RIGHT = 0; // TODO assign useful values of left, right
+    constexpr static int8_t DIR_LEFT = 1;
+    constexpr static int8_t DIR_RIGHT = -1; // TODO assign useful values of left, right
+    constexpr static int16_t A_LOT_OF_TURNS = 999;
 
     void startQRD();
     bool QRDPoll();
@@ -41,8 +43,7 @@ public:
     void stop();
     bool poll();
     bool isMoving() const;
-
-    void findLine(const int8_t&);
+    void findLine(const int8_t&, const int16_t&);
 };
 
 extern LineFollower lineFollower;

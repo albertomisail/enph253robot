@@ -1,7 +1,6 @@
 #include "LineFollower.h"
 
-void LineFollower::init(int previousError_)
-{
+void LineFollower::init(int previousError_){
     motor.init();
     pinMode(Constants::QRD_POWER_PIN, OUTPUT);
     digitalWrite(Constants::QRD_POWER_PIN, LOW);
@@ -10,20 +9,16 @@ void LineFollower::init(int previousError_)
     pinMode(Constants::EDGE_QRD_PIN, INPUT);
     this->previousError = previousError_;
 }
-
 void LineFollower::start() {
     movingState = true;
 }
 void LineFollower::stop() {
     movingState = false;
 }
-
 bool LineFollower::isMoving() const {
     return movingState;
 }
-
-bool LineFollower::poll()
-{
+bool LineFollower::poll(){
     if(movingState == false) {
         digitalWrite(Constants::QRD_POWER_PIN, LOW);
         return false;
@@ -54,12 +49,6 @@ bool LineFollower::poll()
     sensorLeftReading = (sensorLeftReadingAmb-sensorLeftReadingPow);
     sensorRightReading = (sensorRightReadingAmb-sensorRightReadingPow);
     sensorEdgeReading = (sensorEdgeReadingAmb-sensorEdgeReadingPow);
-
-    //sensorLeftReading -= analogRead(Constants::LEFT_QRD_PIN);
-    //sensorRightReading -= analogRead(Constants::RIGHT_QRD_PIN);
-    //sensorEdgeReading -= analogRead(Constants::EDGE_QRD_PIN);
-
-    //digitalWrite(Constants::QRD_POWER_PIN, LOW);
 
     if(sensorEdgeReading < Constants::EDGE_THRESHOLD.getVal()) {
         if(++consec > 1) {
@@ -118,7 +107,6 @@ bool LineFollower::poll()
     lastCompTime = millis()-now;
     return true;
 }
-
 void LineFollower::startQRD() {
     hasQRDStarted = false;
     isQRDReading = true;
@@ -133,15 +121,6 @@ void LineFollower::QRDGetInitialReading() {
     nextAvailableQRDTime = millis()+2;
 }
 bool LineFollower::QRDPoll() {
-    // Serial.print("hasQRDStarted = ");
-    // Serial.print(hasQRDStarted);
-    // Serial.print(", ");
-    // Serial.print(isQRDReading);
-    // Serial.print(", times comparision ");
-    // Serial.print(nextAvailableQRDTime);
-    // Serial.print(" vs ");
-    // Serial.print(millis());
-    // Serial.println();
     if(!isQRDReading) return false;
     if(nextAvailableQRDTime > millis()) return true;
     if(!hasQRDStarted) {
@@ -172,9 +151,28 @@ int16_t LineFollower::QRDMeasurement(char c) const {
 bool LineFollower::QRDIsReading() const {
     return isQRDReading;
 }
-
-void LineFollower::findLine(const int8_t& dir) {
-    // TODO: blocking findLine method, to
+void LineFollower::findLine(const int8_t& dir, const int16_t& spd) {
+    Movement mvt;
+    mvt.start(dir,-dir,LineFollower::A_LOT_OF_TURNS,LineFollower::A_LOT_OF_TURNS,spd);
+    this->startQRD();
+    for(int32_t i=0;mvt.poll();){
+        if(!this->QRDPoll()) {
+            if(i++>0){
+                if(dir==LineFollower::DIR_RIGHT){
+                    if(this->QRDMeasurement('r')<=Constants::RIGHT_THRESHOLD.getVal()){
+                    break;
+                    }
+                }else{
+                    if(this->QRDMeasurement('l')<=Constants::RIGHT_THRESHOLD.getVal()){
+                    break;
+                    }
+                }
+            }
+            this->startQRD();
+        }
+    }
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
 }
 
 LineFollower lineFollower;

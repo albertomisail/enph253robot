@@ -138,7 +138,7 @@ void handleFirstEwok(Encoder& leftEnc, Encoder& rightEnc) {
         claw.pickEwok();
 
         // go back to the start
-        lineFollower.findLine(LineFollower::DIR_LEFT); // blocking
+        lineFollower.findLine(LineFollower::DIR_RIGHT, 80); // blocking
         lineFollower.start();
 
         leftEnc.reset();
@@ -156,7 +156,7 @@ void handleFirstEwok(Encoder& leftEnc, Encoder& rightEnc) {
         // TODO write the drop ewok method
         claw.dropEwok();
 
-        lineFollower.findLine(LineFollower::DIR_LEFT);
+        lineFollower.findLine(LineFollower::DIR_RIGHT, 80);
         lineFollower.start();
         while(lineFollower.poll()) {} // go until we get to the edge
     } else {
@@ -169,7 +169,7 @@ void handleFirstEwok(Encoder& leftEnc, Encoder& rightEnc) {
         while(mvt.poll()) {}
 
         // follow the line until the end
-        lineFollower.findLine(LineFollower::DIR_LEFT);
+        lineFollower.findLine(LineFollower::DIR_LEFT, 80);
         lineFollower.start();
         while(lineFollower.poll()) {}
     }
@@ -211,7 +211,7 @@ bool handleSecondEwok() {
  * Continue until seenig an edge.
  */
 void crossArch() {
-    lineFollower.findLine(LineFollower::DIR_LEFT);
+    lineFollower.findLine(LineFollower::DIR_LEFT, 80);
     lineFollower.start();
     while(lineFollower.poll()) {}
     // TODO: do we need to slow down at the end, so we don't go off the edge?
