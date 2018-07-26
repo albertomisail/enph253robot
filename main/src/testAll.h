@@ -25,3 +25,4 @@ void testLift();
 void testMovement();
 void crossBridge();
 void findFFTSignal();
+void testInfrared();
