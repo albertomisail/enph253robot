@@ -31,16 +31,16 @@ public:
     // TODO: Assign real pin values
     constexpr static int8_t infraredLeds[] = {PB3};
     constexpr static int8_t infraredReceiver = PA5;
-    constexpr static int16_t pickUpInfraredThreshold = 1900;
+    constexpr static int16_t pickUpInfraredThreshold = 2400;
     constexpr static int16_t distantInfraredThreshold = 1200;
     constexpr static int16_t ewokPulseDuration = 15; // m
-    constexpr static int8_t CLAW_ARM_PIN = PA6;
-    constexpr static int8_t CLAW_PIN = PA7;
+    constexpr static int8_t CLAW_ARM_PIN = PA2;
+    constexpr static int8_t CLAW_PIN = PA3;
     constexpr static int16_t angleOut = 0;
     constexpr static int16_t angleInit = 40;
     constexpr static int16_t angleIn = 45;
     constexpr static int16_t angleOpen = 0;
-    constexpr static int16_t angleClose = 80;
+    constexpr static int16_t angleClose = 120;
     //constexpr static int16_t angleFullClose = 20;
     constexpr static int8_t buttonSwitchPin = PA15;
 
@@ -56,11 +56,11 @@ public:
     constexpr static uint16_t voltageUpBack = 1050;
     constexpr static uint16_t voltageDownBack = 850;
     constexpr static uint8_t speedLiftDown = 180;
-    constexpr static uint8_t speedLiftUp = 180;
+    constexpr static uint8_t speedLiftUp = 200;
 
-    constexpr static uint8_t LEFT_QRD_PIN = PA4;
-    constexpr static uint8_t RIGHT_QRD_PIN = PA3;
-    constexpr static uint8_t EDGE_QRD_PIN = PA2;
+    constexpr static uint8_t LEFT_QRD_PIN = PA6;
+    constexpr static uint8_t RIGHT_QRD_PIN = PA7; //PA3;
+    constexpr static uint8_t EDGE_QRD_PIN = PA4; //PA2;
     constexpr static uint8_t QRD_POWER_PIN = PB4;
 
     constexpr static uint8_t MOTOR_LEFT = 0;

@@ -4,7 +4,8 @@
 
 class InfraredBase {
 private:
-    bool lastResult = false, started = false, isMeasuring = false;
+    int lastResult = 0;
+    bool started = false, isMeasuring = false;
     int32_t startTime = true;
     int32_t nextAvailable = 0;
     int16_t base;

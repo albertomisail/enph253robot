@@ -17,6 +17,7 @@
 extern uint8_t SmallFont[];
 
 void setup() {
+    Serial.begin(9600);
     delay(1000);
     oled.begin();
     oled.setFont(SmallFont);
@@ -76,10 +77,10 @@ void loop() {
     //oled.print("!!", 0, 0);
     //oled.update();
     //testEncoders();
-    //testLFandReverse();
+    testLFandReverse();
     //testPickingUpEwok();
     //delay(2000);
-    testLift();
+    //testLift();
     //testMovement();
     // crossBridge();
 }

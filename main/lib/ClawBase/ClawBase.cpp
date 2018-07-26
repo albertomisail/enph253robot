@@ -9,7 +9,8 @@ void ClawBase::init(){
     (ClawBase::arm).attach(Constants::CLAW_ARM_PIN);
     (ClawBase::arm).write(Constants::angleInit);
     (ClawBase::claw).attach(Constants::CLAW_PIN);
-    (ClawBase::claw).write(Constants::angleClose);
+    //(ClawBase::claw).write(Constants::angleClose);
+    (ClawBase::claw).write(Constants::angleOpen);
     ClawBase::buttonSwitch = true;
     ClawBase::bridge = true;
     pinMode(Constants::buttonSwitchPin, INPUT);
@@ -60,9 +61,7 @@ bool ClawBase::pickEwok(){
     (ClawBase::claw).write(Constants::angleOpen);
     delay(250);
 
-    oled.clrScr();
-    oled.print("here", 0, 0);
-    oled.update();
+    Serial.println("here");
 
     int step_dir = Constants::angleOut-arm.read();
     step_dir = step_dir/abs(step_dir);
@@ -83,15 +82,15 @@ bool ClawBase::pickEwok(){
         oled.update();
     }
     delay(250);
-    oled.print("here2", 0, 0);
-    oled.update();
+    Serial.println("here2");
     delay(250);
     boolean result = false;
     if(buttonSwitch) {
-        while((ClawBase::arm).read() < Constants::angleIn) {
-            (ClawBase::arm).write((ClawBase::arm).read() + step2);
-            delay(250);
-        }
+        // while((ClawBase::arm).read() < Constants::angleIn) {
+        //     (ClawBase::arm).write((ClawBase::arm).read() + step2);
+        //     delay(250);
+        // }
+        (ClawBase::arm).write(Constants::angleIn);
         result = true;
         //(ClawBase::claw).write(Constants::angleOpen);
     } else {
@@ -99,6 +98,7 @@ bool ClawBase::pickEwok(){
         arm.write(Constants::angleIn);
     }
     //ziplineLift.liftFront();
+    delay(10000);
     return result;
 }
 
