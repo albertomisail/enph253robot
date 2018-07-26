@@ -87,6 +87,8 @@ void loop() {
     // testInfrared();
     // encoderReadings();
     fftTuning();
+
+    
 /*
     int8_t TPIN = PA8;
     pinMode(TPIN, OUTPUT);

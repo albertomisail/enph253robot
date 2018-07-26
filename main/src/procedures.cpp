@@ -6,6 +6,7 @@
 #include <ClawBase.h>
 #include <Movement.h>
 #include <InfraredBase.h>
+#include <FFT.h>
 
 bool lookForEwok(int threshold, int movementRange, int forwardAmount, int tries) {
     bool foundEwok = false;
@@ -259,6 +260,47 @@ void handleThirdEwok() {
  * we HAVE to keep looking until we find it.
  */
 void IRBeacon() {
+
+    ziplineLift.moveLift(Constants::frontLift, Constants::voltageIRFront);
+
+    Movement mvt;
+    mvt.start(1, -1, 3, 3, 100);
+    while(mvt.poll()) {}
+    bool foundIRBeacon = false;
+    while(true) {
+        mvt.start(-1, 1, 6, 6, 90);
+        while(mvt.poll()) {
+            float f10=0, f1=0;
+            for(int i=0;i<10;++i) {
+                FFTPair fftPair = fft.sample();
+                f10 += fftPair.highAmount;
+                f1 += fftPair.lowAmount;
+            }
+            float totalAmount = sqrt(f10*f10 + f1*f1);
+            if(totalAmount > Constants::FFT_THRESHOLD_TOTAL)
+            {
+                foundIRBeacon = true;
+                break;
+            }
+        }
+        if(foundIRBeacon) {
+            break;
+        }
+        mvt.start(1, -1, 6, 6, 90);
+        while(mvt.poll()) {}
+    }
+
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+
+    oled.clrScr();
+    oled.print("ir beacon found", 0, 0);
+    oled.update();
+
+
+
+
+
     // TODO
     // Set the lift to the correct height
     // Move around until finding a large total IR signal

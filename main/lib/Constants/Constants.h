@@ -3,13 +3,13 @@
 
 class Constants {
 public:
-    static MenuItem PROPORTIONAL;//("P", 0, 256, 40);
-    static MenuItem INTEGRAL;//("I", 0, 20, 0);
-    static MenuItem DERIVATIVE;//("D", 0, 40, 5);
-    static MenuItem BASE_SPEED;//("BS", 0, 256, 150);
-    static MenuItem LEFT_THRESHOLD;//("LT", 0, 4096, 1024);
-    static MenuItem RIGHT_THRESHOLD;//("RT", 0, 4096, 1024);
-    static MenuItem EDGE_THRESHOLD;//("RT", 0, 4096, 1024);
+    static MenuItem PROPORTIONAL;//(const_cast<char*>("P"), 0, 256, 40);
+    static MenuItem INTEGRAL;//(const_cast<char*>("I"), 0, 20, 0);
+    static MenuItem DERIVATIVE;//(const_cast<char*>("D"), 0, 40, 5);
+    static MenuItem BASE_SPEED;//(const_cast<char*>("BS"), 0, 256, 150);
+    static MenuItem LEFT_THRESHOLD;//(const_cast<char*>("LT"), 0, 4096, 1024);
+    static MenuItem RIGHT_THRESHOLD;//(const_cast<char*>("RT"), 0, 4096, 1024);
+    static MenuItem EDGE_THRESHOLD;//(const_cast<char*>("RT"), 0, 4096, 1024);
 
     constexpr static int16_t PROPORTIONAL_MOVEMENT = 30;
     constexpr static int16_t DERIVATIVE_MOVEMENT = 3;
@@ -57,8 +57,9 @@ public:
     constexpr static uint16_t voltageDownFront = 1528;
     constexpr static uint16_t voltageUpBack = 1050;
     constexpr static uint16_t voltageDownBack = 850;
-    constexpr static uint8_t speedLiftDown = 180;
-    constexpr static uint8_t speedLiftUp = 200;
+    constexpr static uint16_t speedLiftDown = 180;
+    constexpr static uint16_t speedLiftUp = 200;
+    constexpr static uint16_t voltageIRFront = (voltageUpFront-voltageDownFront)/3 + voltageDownFront;
 
     constexpr static uint8_t LEFT_QRD_PIN = PA6;
     constexpr static uint8_t RIGHT_QRD_PIN = PA7; //PA3;
@@ -74,4 +75,8 @@ public:
 
     constexpr static uint8_t LEFT_ENC_PIN = PB14;
     constexpr static uint8_t RIGHT_ENC_PIN = PB15;
+
+    constexpr static int32_t FFT_THRESHOLD_TOTAL = 2e5;
+    constexpr static int32_t FFT_THRESHOLD_1K_FACTOR = 10;
+    constexpr static int32_t FFT_THRESHOLD_10K_FACTOR = 10;
 };
