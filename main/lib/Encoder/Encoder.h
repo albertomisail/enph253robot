@@ -21,6 +21,7 @@ public:
     //void init();
     //constexpr static int8_t size();
     int16_t getPosition() const;
+    void reset();
     //long getPositionChange(const int8_t&);
 };
 

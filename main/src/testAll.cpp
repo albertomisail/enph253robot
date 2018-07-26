@@ -44,12 +44,12 @@
 //         if(i%200 == 0)
 //         {
 //             oled.clrScr();
-//             oled.print(const_cast<const char*>("L:"), 0, 0);
-//             oled.print(const_cast<const char*>("R:"), 0, 10);
-//             oled.print(const_cast<const char*>("E:"), 0, 20);
-//             oled.print(const_cast<const char*>("G:"), 0, 30);
-//             oled.print(const_cast<const char*>("ER"), 0, 40);
-//             oled.print(const_cast<const char*>("EN"), 0, 50);
+//             oled.print(const_cast<char*>("L:"), 0, 0);
+//             oled.print(const_cast<char*>("R:"), 0, 10);
+//             oled.print(const_cast<char*>("E:"), 0, 20);
+//             oled.print(const_cast<char*>("G:"), 0, 30);
+//             oled.print(const_cast<char*>("ER"), 0, 40);
+//             oled.print(const_cast<char*>("EN"), 0, 50);
 //             oled.printNumI(lineFollower.sensorLeftReading, 20, 0);
 //             oled.printNumI(lineFollower.sensorRightReading, 20, 10);
 //             oled.printNumI(lineFollower.sensorEdgeReading, 20, 20);
@@ -72,8 +72,8 @@
 // void testFFT() {
 //     oled.clrScr();
 //     FFTPair fftPair = fft.sample();
-//     oled.print("1:", 0, 0);
-//     oled.print("10:", 0, 10);
+//     oled.print(const_cast<char*>("1:"), 0, 0);
+//     oled.print(const_cast<char*>("10:"), 0, 10);
 //     oled.printNumI(fftPair.lowAmount, 30, 0);
 //     oled.printNumI(fftPair.highAmount, 30, 10);
 //     oled.printNumI(analogRead(Constants::IR_BEACON_PIN), 30, 20);
@@ -126,12 +126,12 @@ void testLFandReverse() {
         if(i%10000 == 0)
         {
             oled.clrScr();
-            oled.print("L:", 0, 0);
-            oled.print("R:", 0, 10);
-            oled.print("E:", 0, 20);
-            oled.print("G:", 0, 30);
-            oled.print("ER", 0, 40);
-            oled.print("EN", 0, 50);
+            oled.print(const_cast<char*>("L:"), 0, 0);
+            oled.print(const_cast<char*>("R:"), 0, 10);
+            oled.print(const_cast<char*>("E:"), 0, 20);
+            oled.print(const_cast<char*>("G:"), 0, 30);
+            oled.print(const_cast<char*>("ER"), 0, 40);
+            oled.print(const_cast<char*>("EN"), 0, 50);
             oled.printNumI(lineFollower.sensorLeftReading, 20, 0);
             oled.printNumI(lineFollower.sensorRightReading, 20, 10);
             oled.printNumI(lineFollower.sensorEdgeReading, 20, 20);
@@ -148,7 +148,7 @@ void testLFandReverse() {
             oled.printNumI(lineFollower.lastCompTime, 90, 30);
             if(i%20000 == 0)
             {
-                oled.print(".", 100, 0);
+                oled.print(const_cast<char*>("."), 100, 0);
             }
             oled.update();
         }
@@ -160,17 +160,17 @@ void testLFandReverse() {
     motor.speed(1, 0);
 
     // oled.clrScr();
-    // oled.print(const_cast<const char*>("TRY turn"), 0, 0);
+    // oled.print(const_cast<char*>("TRY turn"), 0, 0);
     // oled.update();
     //InfraredBase infrared;
     oled.clrScr();
-    oled.print(const_cast<const char*>("Rotate"),0,0);
+    oled.print(const_cast<char*>("Rotate"),0,0);
     oled.update();
     Movement mvt;
     //mvt.start(-1, 1, 3, 3, 100);
     //while(mvt.poll()) {}
     oled.clrScr();
-    oled.print(const_cast<const char*>("After first rotation"),0,0);
+    oled.print(const_cast<char*>("After first rotation"),0,0);
     oled.update();
     delay(1000);
     uint16_t cnt;
@@ -212,13 +212,13 @@ void testLFandReverse() {
 
     // //InfraredBase infrared;
     oled.clrScr();
-    oled.print("Rotate",0,0);
+    oled.print(const_cast<char*>("Rotate"),0,0);
     oled.update();
     //Movement mvt;
     //mvt.start(-1, 1, 3, 3, 100);
     //while(mvt.poll()) {}
     oled.clrScr();
-    oled.print("After first rotation",0,0);
+    oled.print(const_cast<char*>("After first rotation"),0,0);
     oled.update();
     delay(1000);
     //uint16_t cnt;
@@ -265,7 +265,7 @@ void testLFandReverse() {
     // }
 
     oled.clrScr();
-    oled.print("DETECTED FAR",0,10);
+    oled.print(const_cast<char*>("DETECTED FAR"),0,10);
     oled.update();
     delay(2000);
     mvt.start(1,1,10,10, 105);
@@ -284,7 +284,7 @@ void testLFandReverse() {
     }
     motor.speed(Constants::MOTOR_LEFT, 0);
     motor.speed(Constants::MOTOR_RIGHT, 0);
-    oled.print("DETECTED, PICKING UP",0,10);
+    oled.print(const_cast<char*>("DETECTED, PICKING UP"),0,10);
     oled.update();
     // delay(1000);
     // ziplineLift.dropFront();
@@ -292,11 +292,11 @@ void testLFandReverse() {
 
     claw.pickEwok();
     oled.clrScr();
-    oled.print("Picked up Ewok, looking for line",0,0);
+    oled.print(const_cast<char*>("Picked up Ewok, looking for line"),0,0);
     oled.update();
     delay(2000);
     mvt.start(1,-1,800,800,100);
-    oled.print("mvt.start",0,0);
+    oled.print(const_cast<char*>("mvt.start"),0,0);
     oled.update();
     lineFollower.startQRD();
     for(int32_t i=0;mvt.poll();){
@@ -309,7 +309,7 @@ void testLFandReverse() {
                 // }
                 if(lineFollower.QRDMeasurement('r')<=Constants::RIGHT_THRESHOLD.getVal()){
                     oled.clrScr();
-                    oled.print("see black",0,0);
+                    oled.print(const_cast<char*>("see black"),0,0);
                     oled.printNumI(i, 0, 10);
                     oled.update();
 
@@ -330,12 +330,12 @@ void testLFandReverse() {
 
     while(lineFollower.poll()) {}
 
-    // oled.print(const_cast<const char*>("TRY turn"), 0, 0);
+    // oled.print(const_cast<char*>("TRY turn"), 0, 0);
     // oled.update();
     // mvt.start(-1, 1, 10, 10);
     // while(mvt.poll()) {}
     // delay(500);
-    // oled.print(const_cast<const char*>("TRY more turn"), 0, 0);
+    // oled.print(const_cast<char*>("TRY more turn"), 0, 0);
     // oled.update();
     // mvt.start(-1, -1, 6, 6);
     // while(mvt.poll()) {}
@@ -343,7 +343,7 @@ void testLFandReverse() {
 
     // claw.deployBridge();
     // oled.clrScr();
-    // oled.print(const_cast<const char*>("BRIDGE DROPPED"), 0, 0);
+    // oled.print(const_cast<char*>("BRIDGE DROPPED"), 0, 0);
     // oled.update();
 
     // oled.clrScr();
@@ -363,7 +363,7 @@ void testLFandReverse() {
     }
     motor.speed(Constants::MOTOR_LEFT, 0);
     motor.speed(Constants::MOTOR_RIGHT, 0);
-    oled.print(const_cast<const char*>("EWOK DETECTED"),0,10);
+    oled.print(const_cast<char*>("EWOK DETECTED"),0,10);
     oled.update();
     claw.pickEwok();
     delay(10000); */
@@ -371,12 +371,12 @@ void testLFandReverse() {
 
 void testPickingUpEwok(){
     //oled.clrScr();
-    //oled.print(const_cast<const char*>("COMMENTED OUT"), 0, 0);
+    //oled.print(const_cast<char*>("COMMENTED OUT"), 0, 0);
     //oled.update();
     //delay(10000);
 
     oled.clrScr();
-    oled.print(const_cast<const char*>("COMMENTED OUT"), 0, 0);
+    oled.print(const_cast<char*>("COMMENTED OUT"), 0, 0);
     oled.update();
     delay(10000);
     /*
@@ -384,14 +384,14 @@ void testPickingUpEwok(){
     oled.update();
     delay(1000);
     oled.clrScr();
-    oled.print(const_cast<const char*>("STARTING EWOK TEST"), 0, 0);
+    oled.print(const_cast<char*>("STARTING EWOK TEST"), 0, 0);
     oled.update();
 
     delay(1000);
     infrared.init();
     claw.init();
     oled.clrScr();
-    oled.print(const_cast<const char*>("DONE INITS"), 0, 0);
+    oled.print(const_cast<char*>("DONE INITS"), 0, 0);
     oled.update();
     delay(1000);
     int i = 0;
@@ -407,11 +407,11 @@ void testPickingUpEwok(){
             infrared.startMeasurement();
         }
     }
-    oled.print(const_cast<const char*>("SAW SOMETHING"), 0, 0);
+    oled.print(const_cast<char*>("SAW SOMETHING"), 0, 0);
     oled.update();
     delay(1000);
     claw.pickEwok();
-    oled.print(const_cast<const char*>("EWOK PICKED"), 0, 0);
+    oled.print(const_cast<char*>("EWOK PICKED"), 0, 0);
     oled.update();
     delay(500);
     */
@@ -419,14 +419,14 @@ void testPickingUpEwok(){
 
 // void testMovement() {
 //     oled.clrScr();
-//     oled.print(const_cast<const char*>("MOVEMENT TEST:"), 0, 0);
+//     oled.print(const_cast<char*>("MOVEMENT TEST:"), 0, 0);
 //     oled.update();
 //     delay(1000);
 //     Movement m;
 //     m.start(1, -1, 120, 120);
 //     while(m.poll()) {}
 //     oled.clrScr();
-//     oled.print(const_cast<const char*>("DONE"), 0, 0);
+//     oled.print(const_cast<char*>("DONE"), 0, 0);
 //     oled.update();
 //     delay(5000);
 // }
@@ -434,13 +434,13 @@ void testPickingUpEwok(){
 void testLift(){
     while(true) {
         oled.clrScr();
-        oled.print(const_cast<const char*>("UP"), 0, 0);
+        oled.print(const_cast<char*>("UP"), 0, 0);
         oled.update();
         delay(2000);
         ziplineLift.liftFront();
         delay(2000);
         oled.clrScr();
-        oled.print(const_cast<const char*>("DOWN"), 0, 0);
+        oled.print(const_cast<char*>("DOWN"), 0, 0);
         oled.update();
         delay(2000);
         ziplineLift.dropFront();
@@ -463,12 +463,12 @@ void testLift(){
 //         if(i%10000 == 0)
 //         {
 //             oled.clrScr();
-//             oled.print(const_cast<const char*>("L:"), 0, 0);
-//             oled.print(const_cast<const char*>("R:"), 0, 10);
-//             oled.print(const_cast<const char*>("E:"), 0, 20);
-//             oled.print(const_cast<const char*>("G:"), 0, 30);
-//             oled.print(const_cast<const char*>("ER"), 0, 40);
-//             oled.print(const_cast<const char*>("EN"), 0, 50);
+//             oled.print(const_cast<char*>("L:"), 0, 0);
+//             oled.print(const_cast<char*>("R:"), 0, 10);
+//             oled.print(const_cast<char*>("E:"), 0, 20);
+//             oled.print(const_cast<char*>("G:"), 0, 30);
+//             oled.print(const_cast<char*>("ER"), 0, 40);
+//             oled.print(const_cast<char*>("EN"), 0, 50);
 //             oled.printNumI(lineFollower.sensorLeftReading, 20, 0);
 //             oled.printNumI(lineFollower.sensorRightReading, 20, 10);
 //             oled.printNumI(lineFollower.sensorEdgeReading, 20, 20);
@@ -485,7 +485,7 @@ void testLift(){
 //             oled.printNumI(lineFollower.lastCompTime, 90, 30);
 //             if(i%20000 == 0)
 //             {
-//                 oled.print(".", 100, 0);
+//                 oled.print(const_cast<char*>("."), 100, 0);
 //             }
 //             oled.update();
 //         }

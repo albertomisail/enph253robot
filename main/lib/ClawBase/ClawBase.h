@@ -16,6 +16,7 @@ public:
     void init();
     void deployBridge();
     bool pickEwok();
+    void dropEwok();
 };
 
 extern ClawBase claw;

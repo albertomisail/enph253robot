@@ -173,4 +173,8 @@ bool LineFollower::QRDIsReading() const {
     return isQRDReading;
 }
 
+void LineFollower::findLine(const int8_t& dir) {
+    // TODO: blocking findLine method, to
+}
+
 LineFollower lineFollower;

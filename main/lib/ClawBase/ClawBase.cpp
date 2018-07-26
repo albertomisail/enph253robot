@@ -101,4 +101,8 @@ bool ClawBase::pickEwok(){
     return result;
 }
 
+void ClawBase::dropEwok() {
+    // TODO
+}
+
 ClawBase claw;

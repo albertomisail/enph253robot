@@ -25,6 +25,10 @@ public:
     int32_t lastCompTime;
 
     int32_t nextAvailableQRDTime=0;
+    //constexpr static int8_t infraredReceiver = PA5;
+
+    constexpr static int8_t DIR_LEFT = 0;
+    constexpr static int8_t DIR_RIGHT = 0; // TODO assign useful values of left, right
 
     void startQRD();
     bool QRDPoll();
@@ -37,6 +41,8 @@ public:
     void stop();
     bool poll();
     bool isMoving() const;
+
+    void findLine(const int8_t&);
 };
 
 extern LineFollower lineFollower;
