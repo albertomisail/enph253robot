@@ -14,7 +14,7 @@ void ZiplineLiftBase::init(){
     pinMode(Constants::backLift, OUTPUT);
     ZiplineLiftBase::positionFrontLift = analogRead(Constants::potFront);
     ZiplineLiftBase::positionBackLift = analogRead(Constants::potBack);
-    ZiplineLiftBase::liftFront();
+    //ZiplineLiftBase::liftFront();
 }
 void ZiplineLiftBase::moveLift(const uint8_t& motorPin, const uint16_t& position){
     if(motorPin == Constants::frontLift){

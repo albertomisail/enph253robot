@@ -39,7 +39,7 @@ public:
     constexpr static int8_t CLAW_ARM_PIN = PA2;
     constexpr static int8_t CLAW_PIN = PA3;
     constexpr static int16_t angleOut = 0;
-    constexpr static int16_t angleInit = 65;
+    constexpr static int16_t angleInit = 90;
     constexpr static int16_t angleIn = 70;
     constexpr static int16_t angleOpen = 0;
     constexpr static int16_t angleClose = 115;

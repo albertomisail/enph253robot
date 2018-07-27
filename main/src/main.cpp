@@ -21,15 +21,15 @@ void setup() {
     oled.setFont(SmallFont);
     Constants::init();
     lineFollower.init(0);
-    claw.init();
     motor.init();
     ziplineLift.init();
     infrared.init();
     pinMode(PA8, OUTPUT);
     digitalWrite(PA8,LOW);
+    claw.init();
 }
 
 void loop() {
-    // mainRun();
-    testLFandReverse();
+    mainRun();
+    //testLFandReverse();
 }

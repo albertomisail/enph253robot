@@ -1,5 +1,7 @@
 #include "LineFollower.h"
 
+constexpr int8_t LineFollower::DIR_LEFT, LineFollower::DIR_RIGHT;
+
 void LineFollower::init(int previousError_){
     motor.init();
     pinMode(Constants::QRD_POWER_PIN, OUTPUT);

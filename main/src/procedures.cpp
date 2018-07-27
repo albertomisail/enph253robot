@@ -107,14 +107,17 @@ void maneuverToDropLocation() {
     //Turning left
     oled.print(const_cast<char*>("TRY turn"), 0, 0);
     oled.update();
-    mvt.start(-1, 1, 10, 10, 100);
+    mvt.start(-1, 1, 4, 4, 100);
     while(mvt.poll()) {}
     delay(500);
     //Backing up more
-    oled.print(const_cast<char*>("TRY more turn"), 0, 0);
-    oled.update();
-    mvt.start(-1, -1, 6, 6, 100);
-    while(mvt.poll()) {}
+    // oled.print(const_cast<char*>("TRY more turn"), 0, 0);
+    // oled.update();
+    // mvt.start(-1, -1, 6, 6, 100);
+    // while(mvt.poll()) {}
+    // delay(500);
+    // mvt.start(1, 1, 3, 3, 100);
+    // while(mvt.poll()) {}
 }
 
 /**
@@ -126,7 +129,8 @@ void handleFirstEwok(Encoder& leftEnc, Encoder& rightEnc) {
 
     Movement mvt;
     // ~120 degree turn to face toward ewok
-    mvt.start(1, -1, 20, 20, 100);
+    mvt.start(1, -1, 20, 20, 80);
+    while(mvt.poll()){}
 
     bool foundEwok = lookForEwok(Constants::distantInfraredThreshold1, 12, 3, 5);
 
@@ -317,11 +321,11 @@ void mainRun() {
 
     initialLineFollow(leftEnc, rightEnc);
 
-    // maneuverToDropLocation();
+    maneuverToDropLocation();
 
-    // claw.deployBridge();
+    claw.deployBridge();
 
-    // handleFirstEwok(leftEnc, rightEnc);
+    handleFirstEwok(leftEnc, rightEnc);
 
     // // we want to return to drop location so we go back onto the bridge
     // maneuverToDropLocation();
