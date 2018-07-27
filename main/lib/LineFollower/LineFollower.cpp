@@ -20,6 +20,14 @@ void LineFollower::start() {
     lastG = 0;
     state = 0;
     movingState = true;
+    edgeStopThreshold = Constants::EDGE_THRESHOLD.getVal();
+    rightStopThreshold = 4096;
+    leftStopThreshold = 4096;
+}
+void LineFollower::start(int leftStopThreshold_, int rightStopThreshold_, int edgeStopThreshold_) {
+    leftStopThreshold = leftStopThreshold_;
+    rightStopThreshold = rightStopThreshold_;
+    edgeStopThreshold = edgeStopThreshold_;
 }
 void LineFollower::stop() {
     movingState = false;
@@ -59,7 +67,9 @@ bool LineFollower::poll(){
     sensorRightReading = (sensorRightReadingAmb-sensorRightReadingPow);
     sensorEdgeReading = (sensorEdgeReadingAmb-sensorEdgeReadingPow);
 
-    if(sensorEdgeReading < Constants::EDGE_THRESHOLD.getVal()) {
+    if(sensorLeftReading < leftStopThreshold
+    && sensorRightReading < rightStopThreshold
+    && sensorEdgeReading < edgeStopThreshold) {
         if(++consec > 1) {
             motor.speed(Constants::MOTOR_LEFT, -255);
             motor.speed(Constants::MOTOR_RIGHT, -255);
