@@ -160,7 +160,7 @@ void handleFirstEwok(Encoder& leftEnc, Encoder& rightEnc) {
         oled.print("Picked up ewok",0,20);
         oled.update();
 
-        mvt.start(1, 1, 6, 6, 100);
+        mvt.start(1, 1, 9, 9, 100);
         while(mvt.poll()){}
 
 
@@ -181,11 +181,18 @@ void handleFirstEwok(Encoder& leftEnc, Encoder& rightEnc) {
         leftEnc.reset();
         rightEnc.reset();
 
-        lineFollower.start();
+        lineFollower.start(4096,4096,0);
 
         // TODO determine distance to end of track when returning first ewok
         // OR write a better method of finding the end for example, line follow for
         // 90 steps, then go straight until edge detected. Then reverse by 40.
+        while(lineFollower.poll()) {
+            if(leftEnc.getPosition() > 40) {
+                break;
+            }
+        }
+
+        lineFollower.start();
         while(lineFollower.poll()) {
             if(leftEnc.getPosition() > 90) {
                 break;
@@ -250,7 +257,7 @@ bool handleSecondEwok() {
  * Continue until seenig an edge.
  */
 void crossArch() {
-    lineFollower.findLine(LineFollower::DIR_LEFT, 80);
+    lineFollower.findLine(LineFollower::DIR_LEFT, 100);
     lineFollower.start();
     while(lineFollower.poll()) {}
     // TODO: do we need to slow down at the end, so we don't go off the edge?

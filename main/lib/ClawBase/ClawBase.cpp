@@ -100,7 +100,8 @@ bool ClawBase::pickEwok(){
     //ziplineLift.liftFront();
     (ClawBase::arm).write(Constants::angleClose);
     arm.write(Constants::angleIn);
-    return result;
+    //return result;
+    return true;
 }
 
 void ClawBase::dropEwok() {
