@@ -160,8 +160,6 @@ void handleFirstEwok(Encoder& leftEnc, Encoder& rightEnc) {
         delay(5000);
         // go back to the start
 
-        mvt.start(1, -1, 6, 6, 100);
-        while(mvt.poll()) {}
         oled.print("About to find line", 0, 0);
         oled.update();
         delay(5000);
@@ -169,12 +167,13 @@ void handleFirstEwok(Encoder& leftEnc, Encoder& rightEnc) {
         lineFollower.findLine(LineFollower::DIR_RIGHT, 80); // blocking
         oled.print("Done finding line", 0, 0);
         oled.update();
-        delay(5000);
 
-        lineFollower.start();
+        delay(5000);
 
         leftEnc.reset();
         rightEnc.reset();
+
+        lineFollower.start();
 
         // TODO determine distance to end of track when returning first ewok
         // OR write a better method of finding the end for example, line follow for

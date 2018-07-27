@@ -12,6 +12,13 @@ void LineFollower::init(int previousError_){
     this->previousError = previousError_;
 }
 void LineFollower::start() {
+    lastTime = 0;
+    previousError = 0;
+    deltaT = 0, previousTime = 0;
+    consec = 0;
+    counter = 0;
+    lastG = 0;
+    state = 0;
     movingState = true;
 }
 void LineFollower::stop() {
@@ -157,16 +164,24 @@ void LineFollower::findLine(const int8_t& dir, const int16_t& spd) {
     Movement mvt;
     mvt.start(dir,-dir,LineFollower::A_LOT_OF_TURNS,LineFollower::A_LOT_OF_TURNS,spd);
     this->startQRD();
-    for(int32_t i=0;mvt.poll();){
+    for(int32_t i=0;mvt.poll();) {
         if(!this->QRDPoll()) {
             if(i++>0){
-                if(dir==LineFollower::DIR_RIGHT){
+                if(dir==LineFollower::DIR_RIGHT) {
                     if(this->QRDMeasurement('r')<=Constants::RIGHT_THRESHOLD.getVal()){
-                    break;
+                        oled.clrScr();
+                        oled.printNumI(QRDMeasurement('r'), 0, 50);
+                        oled.print("R", 40, 50);
+                        oled.update();
+                        break;
                     }
-                }else{
-                    if(this->QRDMeasurement('l')<=Constants::RIGHT_THRESHOLD.getVal()){
-                    break;
+                } else{
+                    if(this->QRDMeasurement('l')<=Constants::LEFT_THRESHOLD.getVal()){
+                        oled.clrScr();
+                        oled.printNumI(QRDMeasurement('l'), 0, 50);
+                        oled.print("L", 40, 50);
+                        oled.update();
+                        break;
                     }
                 }
             }
@@ -175,6 +190,8 @@ void LineFollower::findLine(const int8_t& dir, const int16_t& spd) {
     }
     motor.speed(Constants::MOTOR_LEFT, 0);
     motor.speed(Constants::MOTOR_RIGHT, 0);
+
+    delay(5000);
 }
 
 LineFollower lineFollower;
