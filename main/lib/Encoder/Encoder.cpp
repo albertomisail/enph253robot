@@ -53,7 +53,7 @@ void Encoder::poll() {
 }
 
 void Encoder::reset() {
-    distances[encoderPins[ind]] = 0;
+    distances[ind] = 0;
 }
 
 int16_t Encoder::getPosition() const {
