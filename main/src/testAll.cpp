@@ -119,9 +119,14 @@ void testLFandReverse() {
     Encoder rightEnc(Constants::RIGHT_ENC_PIN);
     leftEnc.reset(); rightEnc.reset();
     oled.invertText(false);
-    for(int32_t i=0;lineFollower.poll();++i) {
+    int32_t i=0;
+    for(;lineFollower.poll();++i) {
         Encoder::poll();
         if(rightEnc.getPosition()>=145){
+            oled.clrScr();
+            oled.printNumI(leftEnc.getPosition(), 0, 0);
+            oled.update();
+            delay(5000);
             break;
         }
         if(i%10000 == 0)
@@ -159,6 +164,11 @@ void testLFandReverse() {
     int16_t rightEncStore = rightEnc.getPosition();
     motor.speed(0, 0);
     motor.speed(1, 0);
+
+    oled.print("i=", 0, 10);
+    oled.printNumI(i, 20, 10);
+    oled.update();
+    delay(1000);
 
 
     /*
