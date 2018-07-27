@@ -122,6 +122,25 @@ void maneuverToDropLocation() {
     // while(mvt.poll()) {}
 }
 
+void maneuverToBridge() {
+    Movement mvt;
+    // ~120 degree turn to face toward ewok
+    mvt.start(-1,-1,6,6,100);
+    while(mvt.poll()){}
+	delay(500);
+    mvt.start(-1,1,8,8,100);
+    while(mvt.poll()){}
+	delay(500);
+    mvt.start(-1,-1,6,6,100);
+    while(mvt.poll()){}
+	delay(500);
+    mvt.start(1,-1,4,4,100);
+    while(mvt.poll()){}
+	delay(500);
+    mvt.start(1,1,40,40,100);
+    while(mvt.poll()){}
+}
+
 /**
  * Starting from the drop location, get the first ewok, return it to the start,
  * and get back to the edge. If the ewok isn't found, then give up on it and just
@@ -393,7 +412,7 @@ void mainRun() {
     handleFirstEwok(leftEnc, rightEnc);
 
     // // we want to return to drop location so we go back onto the bridge
-    // maneuverToDropLocation();
+    maneuverToBridge();
 
     // getToSecondEwok();
 
