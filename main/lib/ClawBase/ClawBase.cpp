@@ -72,7 +72,16 @@ bool ClawBase::pickEwok(){
     }
 
     //ziplineLift.dropFront();
-    while(!buttonSwitch && (ClawBase::claw).read() < Constants::angleClose){
+    // while(!buttonSwitch && (ClawBase::claw).read() < Constants::angleClose){
+    //     (ClawBase::claw).write((ClawBase::claw).read() + step);
+    //     delay(125);
+    //     buttonSwitch = digitalRead(Constants::buttonSwitchPin);
+    //     oled.clrScr();
+    //     oled.printNumI((ClawBase::claw).read(), 0, 0);
+    //     oled.printNumI(buttonSwitch, 0, 10);
+    //     oled.update();
+    // }
+    while((ClawBase::claw).read() < Constants::angleClose){
         (ClawBase::claw).write((ClawBase::claw).read() + step);
         delay(125);
         buttonSwitch = digitalRead(Constants::buttonSwitchPin);
@@ -98,9 +107,10 @@ bool ClawBase::pickEwok(){
         //arm.write(Constants::angleIn);
     //}
     //ziplineLift.liftFront();
-    (ClawBase::arm).write(Constants::angleClose);
+    //(ClawBase::arm).write(Constants::angleClose);
     arm.write(Constants::angleIn);
-    return result;
+    //return result;
+    return true;
 }
 
 void ClawBase::dropEwok() {

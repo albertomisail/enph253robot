@@ -23,13 +23,13 @@ public:
 
     constexpr static int8_t trigPins[] = {PB12}; constexpr static int8_t echoPins[] = {PB13};
 
-    constexpr static int8_t highPwmPins[] = {PB8, PB0, PB6};
-    constexpr static int8_t lowPwmPins[] = {PB9, PB1, PB7};
+    constexpr static int8_t highPwmPins[] = {PB8, PB6};
+    constexpr static int8_t lowPwmPins[] = {PB9, PB7};
 
     constexpr static int16_t ENCODER_POLL_TIME = 2; // milliseconds
 
     // TODO: Assign real pin values
-    constexpr static int8_t infraredLeds[] = {PB3};
+    constexpr static int8_t infraredLeds[] = {PA8};
     constexpr static int8_t infraredReceiver = PA5;
     constexpr static int16_t pickUpInfraredThreshold = 2700;
     constexpr static int16_t distantInfraredThreshold = 900;

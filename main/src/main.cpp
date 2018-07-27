@@ -30,8 +30,6 @@ void setup() {
     motor.init();
     ziplineLift.init();
     infrared.init();
-    pinMode(PA8, OUTPUT);
-    digitalWrite(PA8,LOW);
     // put your setup code here, to run once:
     // ultrasound.init();
     //claw.init();
@@ -41,7 +39,14 @@ void setup() {
     //pinMode(PA1, INPUT);
 }
 
-void loop() {
+void loop() {/*
+    pinMode(PA8, OUTPUT);
+    //while(true) {
+        digitalWrite(PA8, HIGH);
+        delay(1000);
+        digitalWrite(PA8, LOW);
+        delay(1000);
+    }*/
     // put your main code here, to run repeatedly:
     //oled.print("HI-", 0, 0);
     //oled.update();
