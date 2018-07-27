@@ -385,23 +385,12 @@ void IRBeacon() {
 }
 
 void mainRun() {
+    //ziplineLift.liftFront();
     Menu m;
     m.run();
     Encoder leftEnc(Constants::LEFT_ENC_PIN);
     Encoder rightEnc(Constants::RIGHT_ENC_PIN);
     oled.invertText(false);
-    ziplineLift.liftFront();
-    delay(1000);
-    ziplineLift.dropFront();
-    delay(1000);
-    ziplineLift.liftFront();
-    delay(1000);
-    ziplineLift.dropFront();
-    delay(1000);
-    ziplineLift.moveToIR();
-    delay(1000);
-    ziplineLift.liftFront();
-    delay(500);
 
     initialLineFollow(leftEnc, rightEnc);
 

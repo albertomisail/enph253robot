@@ -71,7 +71,7 @@ bool ClawBase::pickEwok(){
         delay(10);
     }
 
-    ziplineLift.dropFront();
+    //ziplineLift.dropFront();
     while(!buttonSwitch && (ClawBase::claw).read() < Constants::angleClose){
         (ClawBase::claw).write((ClawBase::claw).read() + step);
         delay(125);
