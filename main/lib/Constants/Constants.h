@@ -23,16 +23,16 @@ public:
 
     constexpr static int8_t trigPins[] = {PB12}; constexpr static int8_t echoPins[] = {PB13};
 
-    constexpr static int8_t highPwmPins[] = {PB8, PB0, PB6};
-    constexpr static int8_t lowPwmPins[] = {PB9, PB1, PB7};
+    constexpr static int8_t highPwmPins[] = {PB8, /*PB0,*/ PB6};
+    constexpr static int8_t lowPwmPins[] = {PB9, /*PB1,*/ PB7};
 
     constexpr static int16_t ENCODER_POLL_TIME = 2; // milliseconds
 
     // TODO: Assign real pin values
     constexpr static int8_t infraredLeds[] = {PB3};
     constexpr static int8_t infraredReceiver = PA5;
-    constexpr static int16_t pickUpInfraredThreshold1 = 3100;
-    constexpr static int16_t distantInfraredThreshold1 = 500;
+    constexpr static int16_t pickUpInfraredThreshold1 = 2900;
+    constexpr static int16_t distantInfraredThreshold1 = 1500;
     constexpr static int16_t pickUpInfraredThreshold2 = 1800;
     constexpr static int16_t distantInfraredThreshold2 = 1400;
     constexpr static int16_t ewokPulseDuration = 15; // m
@@ -47,7 +47,7 @@ public:
     //constexpr static int16_t angleFullClose = 20;
     constexpr static int8_t buttonSwitchPin = PA15;
 
-    constexpr static uint8_t IR_BEACON_PIN = PA5;
+    constexpr static uint8_t IR_BEACON_PIN = PA8;
 
     //constexpr static uint8_t LIFT_MOTOR = 1;
     constexpr static uint8_t frontLift = 2;
