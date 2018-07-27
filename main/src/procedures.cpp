@@ -355,8 +355,15 @@ void IRBeacon() {
 }
 
 void mainRun() {
+    motor.init();
     Menu m;
     m.run();
+
+    motor.speed(Constants::MOTOR_LEFT, 120);
+    motor.speed(Constants::MOTOR_RIGHT, 120);
+
+    delay(10000);
+
     Encoder leftEnc(Constants::LEFT_ENC_PIN);
     Encoder rightEnc(Constants::RIGHT_ENC_PIN);
     oled.invertText(false);

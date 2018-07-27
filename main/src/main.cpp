@@ -30,6 +30,6 @@ void setup() {
 }
 
 void loop() {
-    mainRun();
-    //testLFandReverse();
+    //mainRun();
+    testLFandReverse();
 }

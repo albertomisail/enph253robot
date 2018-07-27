@@ -23,8 +23,8 @@ public:
 
     constexpr static int8_t trigPins[] = {PB12}; constexpr static int8_t echoPins[] = {PB13};
 
-    constexpr static int8_t highPwmPins[] = {PB8, PB0, PB6};
-    constexpr static int8_t lowPwmPins[] = {PB9, PB1, PB7};
+    constexpr static int8_t highPwmPins[] = {PB8,/* PB0,*/ PB6};
+    constexpr static int8_t lowPwmPins[] = {PB9,/* PB1,*/ PB7};
 
     constexpr static int16_t ENCODER_POLL_TIME = 2; // milliseconds
 
@@ -39,7 +39,7 @@ public:
     constexpr static int8_t CLAW_ARM_PIN = PA2;
     constexpr static int8_t CLAW_PIN = PA3;
     constexpr static int16_t angleOut = 0;
-    constexpr static int16_t angleInit = 90;
+    constexpr static int16_t angleInit = 60;
     constexpr static int16_t angleIn = 70;
     constexpr static int16_t angleOpen = 0;
     constexpr static int16_t angleClose = 115;

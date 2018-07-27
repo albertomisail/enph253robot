@@ -114,9 +114,10 @@ void testLFandReverse() {
     Menu m;
     m.run();
 
-    lineFollower.start();
+    lineFollower.start(-4096,-4096,-4096);
     Encoder leftEnc(Constants::LEFT_ENC_PIN);
     Encoder rightEnc(Constants::RIGHT_ENC_PIN);
+    leftEnc.reset(); rightEnc.reset();
     oled.invertText(false);
     for(int32_t i=0;lineFollower.poll();++i) {
         Encoder::poll();
@@ -159,7 +160,7 @@ void testLFandReverse() {
     motor.speed(0, 0);
     motor.speed(1, 0);
 
-   
+
     /*
     for(int i = 0; i < 10; i++){
         if(infrared.objectDetected(Constants::distantInfaredThreshold)){
