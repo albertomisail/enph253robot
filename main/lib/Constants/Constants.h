@@ -31,8 +31,8 @@ public:
     // TODO: Assign real pin values
     constexpr static int8_t infraredLeds[] = {PB3};
     constexpr static int8_t infraredReceiver = PA5;
-    constexpr static int16_t pickUpInfraredThreshold1 = 2700;
-    constexpr static int16_t distantInfraredThreshold1 = 900;
+    constexpr static int16_t pickUpInfraredThreshold1 = 2200;
+    constexpr static int16_t distantInfraredThreshold1 = 500;
     constexpr static int16_t pickUpInfraredThreshold2 = 1800;
     constexpr static int16_t distantInfraredThreshold2 = 1400;
     constexpr static int16_t ewokPulseDuration = 15; // m

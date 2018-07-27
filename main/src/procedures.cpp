@@ -11,7 +11,7 @@
 bool lookForEwok(int threshold, int movementRange, int forwardAmount, int tries) {
     bool foundEwok = false;
     Movement mvt;
-    for(int i=0;i<5;++i) {
+    for(int i=0;i<tries;++i) {
 
         mvt.start(-1, 1, movementRange/2, movementRange/2, 120);
         while(mvt.poll()) {}
@@ -27,6 +27,7 @@ bool lookForEwok(int threshold, int movementRange, int forwardAmount, int tries)
                 infrared.startMeasurement();
             }
         }
+        if(foundEwok) break;
         // these ones go faster cause they don't need to look for ewoks
         mvt.start(1, 1, forwardAmount, forwardAmount, 120);
         while(mvt.poll()) {}
@@ -35,6 +36,7 @@ bool lookForEwok(int threshold, int movementRange, int forwardAmount, int tries)
     }
     motor.speed(Constants::MOTOR_LEFT, 0);
     motor.speed(Constants::MOTOR_RIGHT, 0);
+    return foundEwok;
 }
 
 bool moveForwardToEwok(int threshold, int maxDistance) {
@@ -129,19 +131,46 @@ void handleFirstEwok(Encoder& leftEnc, Encoder& rightEnc) {
 
     Movement mvt;
     // ~120 degree turn to face toward ewok
-    mvt.start(1, -1, 20, 20, 80);
-    while(mvt.poll()){}
+    mvt.start(1,-1,6,6,90);
+    while(mvt.poll()){};
+    mvt.start(-1,-1,16,16,90);
+    while(mvt.poll()){};
+
+    // mvt.start(1, -1, 20, 20, 80);
+    // while(mvt.poll()){}
 
     bool foundEwok = lookForEwok(Constants::distantInfraredThreshold1, 12, 3, 5);
+    oled.clrScr();
+    oled.printNumI(foundEwok,0,0);
+    oled.update();
+    delay(5000);
 
     if(foundEwok) {
         // TODO add the method to move foward to toward the ewok
-        {}
+        bool foundEwok2 = moveForwardToEwok(Constants::pickUpInfraredThreshold1, 10);
+
+        oled.clrScr();
+        oled.printNumI(foundEwok2,0,10);
+        oled.update();
 
         claw.pickEwok();
-
+        oled.clrScr();
+        oled.print("Picked up ewok",0,20);
+        oled.update();
+        delay(5000);
         // go back to the start
+
+        mvt.start(1, -1, 6, 6, 100);
+        while(mvt.poll()) {}
+        oled.print("About to find line", 0, 0);
+        oled.update();
+        delay(5000);
+
         lineFollower.findLine(LineFollower::DIR_RIGHT, 80); // blocking
+        oled.print("Done finding line", 0, 0);
+        oled.update();
+        delay(5000);
+
         lineFollower.start();
 
         leftEnc.reset();
