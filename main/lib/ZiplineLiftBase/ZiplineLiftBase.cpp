@@ -31,7 +31,7 @@ void ZiplineLiftBase::moveLift(const uint8_t& motorPin, const uint16_t& position
                     motor.speed(motorPin, Constants::speedLiftDown);
                     int a = abs(positionFrontLift-position);
                     ZiplineLiftBase::positionFrontLift = analogRead(Constants::potFront);
-                    if (count%1 == 0) {
+                    if (count%10 == 0) {
                         oled.clrScr();
                         oled.printNumI(positionFrontLift, 0, 20);
                         oled.print(const_cast<char*>("DROPING"), 0, 10);
@@ -48,7 +48,7 @@ void ZiplineLiftBase::moveLift(const uint8_t& motorPin, const uint16_t& position
                     motor.speed(motorPin, -Constants::speedLiftUp);
                     int a = abs(positionFrontLift-position);
                     ZiplineLiftBase::positionFrontLift = analogRead(Constants::potFront);
-                    if (count%1 == 0) {
+                    if (count%10 == 0) {
                         oled.printNumI(positionFrontLift, 0, 20);
                         oled.print(const_cast<char*>("LIFTING"), 0, 10);
                         oled.printNumI(a, 0, 30);
@@ -104,6 +104,9 @@ void ZiplineLiftBase::liftFront(){
 }
 void ZiplineLiftBase::dropFront(){
     ZiplineLiftBase::moveLift(Constants::frontLift, Constants::voltageDownFront);
+}
+void ZiplineLiftBase::moveToIR(){
+    ZiplineLiftBase::moveLift(Constants::frontLift, Constants::voltageIRFront);
 }
 void ZiplineLiftBase::liftBack(){
     ZiplineLiftBase::moveLift(Constants::backLift, Constants::voltageUpBack);

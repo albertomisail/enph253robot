@@ -16,6 +16,7 @@ class ZiplineLiftBase{
         void dropFront();
         void liftBack();
         void dropBack();
+        void moveToIR();
 };
 
 extern ZiplineLiftBase ziplineLift;

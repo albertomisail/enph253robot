@@ -201,7 +201,6 @@ void LineFollower::findLine(const int8_t& dir, const int16_t& spd) {
     motor.speed(Constants::MOTOR_LEFT, 0);
     motor.speed(Constants::MOTOR_RIGHT, 0);
 
-    delay(5000);
 }
 
 LineFollower lineFollower;

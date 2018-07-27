@@ -160,7 +160,7 @@ void handleFirstEwok(Encoder& leftEnc, Encoder& rightEnc) {
         oled.print("Picked up ewok",0,20);
         oled.update();
 
-        mvt.start(1, 1, 9, 9, 100);
+        mvt.start(1, 1, 9, 9, 110);
         while(mvt.poll()){}
 
 
@@ -170,18 +170,26 @@ void handleFirstEwok(Encoder& leftEnc, Encoder& rightEnc) {
 
         oled.print("About to find line", 0, 0);
         oled.update();
-        delay(5000);
+        delay(1000);
 
-        lineFollower.findLine(LineFollower::DIR_LEFT, 80); // blocking
+        lineFollower.findLine(LineFollower::DIR_LEFT, 100); // blocking
         oled.print("Done finding line", 0, 0);
         oled.update();
 
-        delay(5000);
+        delay(1000);
 
         leftEnc.reset();
         rightEnc.reset();
 
-        lineFollower.start(4096,4096,0);
+        int16_t leftEncPos = leftEnc.getPosition();
+        int16_t rightEncPos = rightEnc.getPosition();
+
+        oled.clrScr();
+        oled.printNumI(leftEncPos, 0, 0);
+        oled.printNumI(rightEncPos, 50, 0);
+        oled.update();
+
+        lineFollower.start(0,0,0);
 
         // TODO determine distance to end of track when returning first ewok
         // OR write a better method of finding the end for example, line follow for
@@ -198,6 +206,9 @@ void handleFirstEwok(Encoder& leftEnc, Encoder& rightEnc) {
                 break;
             }
         }
+
+        mvt.start(1, 1, 20, 20, 100);
+        while(mvt.poll()){};
 
         // TODO write the drop ewok method
         claw.dropEwok();
@@ -360,6 +371,17 @@ void mainRun() {
     Encoder leftEnc(Constants::LEFT_ENC_PIN);
     Encoder rightEnc(Constants::RIGHT_ENC_PIN);
     oled.invertText(false);
+    ziplineLift.liftFront();
+    delay(1000);
+    ziplineLift.dropFront();
+    delay(1000);
+    ziplineLift.liftFront();
+    delay(1000);
+    ziplineLift.dropFront();
+    delay(1000);
+    ziplineLift.moveToIR();
+    delay(1000);
+    ziplineLift.liftFront();
     delay(500);
 
     initialLineFollow(leftEnc, rightEnc);

@@ -31,7 +31,7 @@ public:
     // TODO: Assign real pin values
     constexpr static int8_t infraredLeds[] = {PB3};
     constexpr static int8_t infraredReceiver = PA5;
-    constexpr static int16_t pickUpInfraredThreshold1 = 2800;
+    constexpr static int16_t pickUpInfraredThreshold1 = 3100;
     constexpr static int16_t distantInfraredThreshold1 = 500;
     constexpr static int16_t pickUpInfraredThreshold2 = 1800;
     constexpr static int16_t distantInfraredThreshold2 = 1400;
@@ -39,7 +39,7 @@ public:
     constexpr static int8_t CLAW_ARM_PIN = PA2;
     constexpr static int8_t CLAW_PIN = PA3;
     constexpr static int16_t angleOut = 0;
-    constexpr static int16_t angleInit = 90;
+    constexpr static int16_t angleInit = 70;
     constexpr static int16_t angleIn = 70;
     constexpr static int16_t angleOpen = 0;
     constexpr static int16_t angleClose = 115;
@@ -55,12 +55,12 @@ public:
     constexpr static uint8_t potFront = PA0;
     constexpr static uint8_t potBack = PB13;
     constexpr static uint16_t voltageUpFront = 1231;
-    constexpr static uint16_t voltageDownFront = 1528;
+    constexpr static uint16_t voltageDownFront = 1470;
     constexpr static uint16_t voltageUpBack = 1050;
     constexpr static uint16_t voltageDownBack = 850;
-    constexpr static uint16_t speedLiftDown = 180;
+    constexpr static uint16_t speedLiftDown = 200;
     constexpr static uint16_t speedLiftUp = 200;
-    constexpr static uint16_t voltageIRFront = (voltageUpFront-voltageDownFront)/3 + voltageDownFront;
+    constexpr static uint16_t voltageIRFront = (voltageUpFront-voltageDownFront)/2 + voltageDownFront;
 
     constexpr static uint8_t LEFT_QRD_PIN = PA6;
     constexpr static uint8_t RIGHT_QRD_PIN = PA7; //PA3;
