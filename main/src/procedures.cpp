@@ -132,14 +132,16 @@ void handleFirstEwok(Encoder& leftEnc, Encoder& rightEnc) {
     Movement mvt;
     // ~120 degree turn to face toward ewok
     mvt.start(1,-1,6,6,90);
-    while(mvt.poll()){};
-    mvt.start(-1,-1,16,16,90);
-    while(mvt.poll()){};
+    while(mvt.poll()){}
+    mvt.start(-1,-1,14,14,90);
+    while(mvt.poll()){}
+    mvt.start(1, -1, 3, 3, 90);
+    while(mvt.poll()){}
 
     // mvt.start(1, -1, 20, 20, 80);
     // while(mvt.poll()){}
 
-    bool foundEwok = lookForEwok(Constants::distantInfraredThreshold1, 12, 3, 5);
+    bool foundEwok = lookForEwok(Constants::distantInfraredThreshold1, 6, 3, 5);
     oled.clrScr();
     oled.printNumI(foundEwok,0,0);
     oled.update();
@@ -157,14 +159,20 @@ void handleFirstEwok(Encoder& leftEnc, Encoder& rightEnc) {
         oled.clrScr();
         oled.print("Picked up ewok",0,20);
         oled.update();
-        delay(5000);
+
+        mvt.start(1, 1, 6, 6, 100);
+        while(mvt.poll()){}
+
+
+        mvt.start(-1, 1, 12, 12, 100);
+        while(mvt.poll()){}
         // go back to the start
 
         oled.print("About to find line", 0, 0);
         oled.update();
         delay(5000);
 
-        lineFollower.findLine(LineFollower::DIR_RIGHT, 80); // blocking
+        lineFollower.findLine(LineFollower::DIR_LEFT, 80); // blocking
         oled.print("Done finding line", 0, 0);
         oled.update();
 

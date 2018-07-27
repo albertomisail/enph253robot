@@ -8,7 +8,7 @@
 class Movement {
 private:
     bool moveState = false;
-    int8_t leftDir = 0, rightDir = 0, leftAmt = 0, rightAmt = 0;
+    int16_t leftDir = 0, rightDir = 0, leftAmt = 0, rightAmt = 0;
     Encoder leftEnc, rightEnc;
     int16_t leftInit = 0, rightInit = 0;
     int16_t correctionSpeed = 0;
@@ -27,5 +27,5 @@ public:
     bool isMoving() const;
     bool poll();
     bool oneSideFinished(int16_t, int16_t);
-    
+
 };
