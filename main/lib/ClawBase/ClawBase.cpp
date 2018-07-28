@@ -9,8 +9,8 @@ void ClawBase::init(){
     (ClawBase::arm).attach(Constants::CLAW_ARM_PIN);
     (ClawBase::arm).write(Constants::angleInit);
     (ClawBase::claw).attach(Constants::CLAW_PIN);
-    //(ClawBase::claw).write(Constants::angleClose);
-    (ClawBase::claw).write(Constants::angleOpen);
+    (ClawBase::claw).write(Constants::angleClose);
+    //(ClawBase::claw).write(Constants::angleOpen);
     ClawBase::buttonSwitch = true;
     ClawBase::bridge = true;
     pinMode(Constants::buttonSwitchPin, INPUT);
@@ -59,7 +59,7 @@ bool ClawBase::pickEwok(){
     ClawBase::buttonSwitch = false;
 
     (ClawBase::claw).write(Constants::angleOpen);
-    delay(250);
+    delay(1000);
 
     Serial.println("here");
 

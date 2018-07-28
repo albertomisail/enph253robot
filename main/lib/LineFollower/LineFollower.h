@@ -21,6 +21,7 @@ public:
     int32_t sensorLeftReading, sensorRightReading, sensorEdgeReading, g;
     int32_t sensorLeftReadingAmb, sensorRightReadingAmb, sensorEdgeReadingAmb;
     int32_t sensorLeftReadingPow, sensorRightReadingPow, sensorEdgeReadingPow;
+    int32_t edgeStopThreshold, leftStopThreshold, rightStopThreshold;
     int16_t error;
     int32_t lastCompTime;
 
@@ -38,6 +39,7 @@ public:
 
     void init(int);
     void start();
+    void start(int ,int, int);
     void stop();
     bool poll();
     bool isMoving() const;

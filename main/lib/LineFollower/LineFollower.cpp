@@ -12,7 +12,20 @@ void LineFollower::init(int previousError_)
 }
 
 void LineFollower::start() {
+    start(4096,4096,Constants::EDGE_THRESHOLD.getVal());
+}
+void LineFollower::start(int leftStopThreshold_, int rightStopThreshold_, int edgeStopThreshold_) {
+    lastTime = 0;
+    previousError = 0;
+    deltaT = 0, previousTime = 0;
+    consec = 0;
+    counter = 0;
+    lastG = 0;
+    state = 0;
     movingState = true;
+    leftStopThreshold = leftStopThreshold_;
+    rightStopThreshold = rightStopThreshold_;
+    edgeStopThreshold = edgeStopThreshold_;
 }
 void LineFollower::stop() {
     movingState = false;
@@ -61,7 +74,9 @@ bool LineFollower::poll()
 
     //digitalWrite(Constants::QRD_POWER_PIN, LOW);
 
-    if(sensorEdgeReading < Constants::EDGE_THRESHOLD.getVal()) {
+    if(sensorLeftReading < leftStopThreshold
+    && sensorRightReading < rightStopThreshold
+    && sensorEdgeReading < edgeStopThreshold) {
         if(++consec > 1) {
             motor.speed(Constants::MOTOR_LEFT, -255);
             motor.speed(Constants::MOTOR_RIGHT, -255);

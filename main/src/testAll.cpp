@@ -174,7 +174,7 @@ void testLFandReverse() {
     oled.update();
     delay(1000);
     uint16_t cnt;
-    mvt.start(1,-1,12,12,80);
+    mvt.start(1,-1,12,12,100);
     infrared.startMeasurement();
     for(int i=0;mvt.poll();) {
         if(!infrared.poll()) {
@@ -295,21 +295,25 @@ void testLFandReverse() {
     oled.print("Picked up Ewok, looking for line",0,0);
     oled.update();
     delay(2000);
-    mvt.start(1,1,7,5,100);
+    mvt.start(1,1,11,9,100);
     while(mvt.poll()){}
     mvt.start(1,-1,800,800,75);
     oled.print("mvt.start",0,0);
     oled.update();
     lineFollower.startQRD();
+    int leftInitEnc = leftEnc.getPosition();
+    int rightInitEnc = rightEnc.getPosition();
     for(int32_t i=0;mvt.poll();){
         if(!lineFollower.QRDPoll()) {
             // Serial.println("i=" + i);
+            Encoder::poll();
             if(i++>0){
                 // if(i%1 == 0) {
                 //     Serial.println(lineFollower.QRDMeasurement('r'));
                 //     Serial.println("bla");
                 // }
-                if(lineFollower.QRDMeasurement('r')<=Constants::RIGHT_THRESHOLD.getVal()){
+                if(lineFollower.QRDMeasurement('r')<=Constants::RIGHT_THRESHOLD.getVal()
+                && rightEnc.getPosition() - rightInitEnc > 12){
                     oled.clrScr();
                     oled.print("see black",0,0);
                     oled.printNumI(i, 0, 10);
