@@ -39,6 +39,7 @@ bool LineFollower::poll(){
     if(movingState == false) {
         digitalWrite(Constants::QRD_POWER_PIN, LOW);
         return false;
+        // return true;
     }
     int32_t now = millis();
     if(state == 0) {
@@ -78,6 +79,7 @@ bool LineFollower::poll(){
             motor.speed(Constants::MOTOR_RIGHT, 0);
             movingState = false;
             return false;
+            // return true;
         }
     } else {
         consec = 0;
@@ -198,9 +200,11 @@ void LineFollower::findLine(const int8_t& dir, const int16_t& spd) {
             this->startQRD();
         }
     }
+    motor.speed(Constants::MOTOR_RIGHT, 255);
+    motor.speed(Constants::MOTOR_LEFT, -255);
+    delay(20);
     motor.speed(Constants::MOTOR_LEFT, 0);
     motor.speed(Constants::MOTOR_RIGHT, 0);
-
 }
 
 LineFollower lineFollower;

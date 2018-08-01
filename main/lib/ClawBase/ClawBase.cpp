@@ -55,52 +55,31 @@ void ClawBase::pickEwok(){
 */
 bool ClawBase::pickEwok(){
     int step = (Constants::angleClose - Constants::angleOpen) / Constants::numSteps;
-    int step2 = (Constants::angleIn - Constants::angleOut) / Constants::numSteps;
-    ClawBase::buttonSwitch = false;
+    int step2 = (Constants::angleOut - Constants::angleIn) / Constants::numSteps;
 
     (ClawBase::claw).write(Constants::angleOpen);
-    delay(250);
-
-    Serial.println("here");
+    delay(500);
 
     int step_dir = Constants::angleOut-arm.read();
     step_dir = step_dir/abs(step_dir);
     for(int i=arm.read();abs(arm.read()-Constants::angleOut) > 0;i += step_dir)
     {
         arm.write(i);
-        delay(10);
+        delay(20);
     }
 
-    //ziplineLift.dropFront();
-    while(!buttonSwitch && (ClawBase::claw).read() < Constants::angleClose){
+    while((ClawBase::claw).read() < Constants::angleClose){
         (ClawBase::claw).write((ClawBase::claw).read() + step);
         delay(125);
-        buttonSwitch = digitalRead(Constants::buttonSwitchPin);
-        oled.clrScr();
-        oled.printNumI((ClawBase::claw).read(), 0, 0);
-        oled.printNumI(buttonSwitch, 0, 10);
-        oled.update();
     }
     delay(250);
-    Serial.println("here2");
-    delay(250);
-    boolean result = false;
-    //if(buttonSwitch) {
-        // while((ClawBase::arm).read() < Constants::angleIn) {
-        //     (ClawBase::arm).write((ClawBase::arm).read() + step2);
-        //     delay(250);
-        // }
-        //(ClawBase::arm).write(Constants::angleIn);
-        //result = true;
-        //(ClawBase::claw).write(Constants::angleOpen);
-    //} else {
-        //(ClawBase::claw).write(Constants::angleOpen);
-        //arm.write(Constants::angleIn);
-    //}
-    //ziplineLift.liftFront();
-    (ClawBase::arm).write(Constants::angleClose);
-    arm.write(Constants::angleIn);
-    //return result;
+    while((ClawBase::arm).read() < Constants::angleIn) {
+        (ClawBase::arm).write((ClawBase::arm).read() + step2);
+        delay(250);
+    }
+    (ClawBase::arm).write(Constants::angleIn);
+    delay(500);
+    // (ClawBase::claw).write(Constants::angleOpen);
     return true;
 }
 

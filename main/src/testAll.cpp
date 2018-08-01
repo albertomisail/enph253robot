@@ -120,7 +120,7 @@ void testLFandReverse() {
     oled.invertText(false);
     for(int32_t i=0;lineFollower.poll();++i) {
         Encoder::poll();
-        if(rightEnc.getPosition()>=145){
+        if(rightEnc.getPosition()>=155){
             break;
         }
         if(i%10000 == 0)
