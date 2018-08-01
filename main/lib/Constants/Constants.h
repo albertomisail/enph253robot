@@ -60,13 +60,13 @@ public:
     constexpr static uint8_t speedLiftDown = 180;
     constexpr static uint8_t speedLiftUp = 200;
 
-    constexpr static uint8_t LEFT_QRD_PIN = PA6;
-    constexpr static uint8_t RIGHT_QRD_PIN = PA7; //PA3;
+    constexpr static uint8_t LEFT_QRD_PIN = PA4;
+    constexpr static uint8_t RIGHT_QRD_PIN = PA7; //PA3;hkujj
     constexpr static uint8_t EDGE_QRD_PIN = PA5; //PA2;
     constexpr static uint8_t QRD_POWER_PIN = PB4;
 
-    constexpr static uint8_t MOTOR_LEFT = 0;
-    constexpr static uint8_t MOTOR_RIGHT = 1;
+    constexpr static uint8_t MOTOR_LEFT = 1;
+    constexpr static uint8_t MOTOR_RIGHT = 0;
     constexpr static uint8_t MOTOR_FRONT_LIFT = 2;
     constexpr static int16_t LINE_FOLLOW_POLL_TIME = 3; // millis
 

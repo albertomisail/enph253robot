@@ -30,7 +30,9 @@ void setup() {
 
 void loop() {
     digitalWrite(PB5, HIGH);
-    testLFandReverse();
+    motor.speed(Constants::MOTOR_LEFT, 120);
+    while(true){};
+    // testLFandReverse();
     // delay(1000);
     // digitalWrite(LED_BUILTIN, HIGH);
     // delay(1000);
