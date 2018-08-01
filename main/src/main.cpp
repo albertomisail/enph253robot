@@ -29,6 +29,21 @@ void setup() {
 }
 
 void loop() {
+    int cnt = 0;
+    digitalWrite(PB5, LOW);
+    infrared.startMeasurement();
+    while(true) {
+        if(!infrared.poll()) {
+            if((cnt++)%30 == 0) {
+                oled.clrScr();
+                oled.printNumI(infrared.lastMeasurement(), 0, 0);
+                oled.update();
+            }
+            infrared.startMeasurement();
+        }
+    }
+
+
     digitalWrite(PB5, HIGH);
     mainRun();
 }
