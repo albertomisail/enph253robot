@@ -27,4 +27,5 @@ void setup() {
 void loop() {
     digitalWrite(PB5, HIGH);
     mainRun();
+    delay(10000);
 }
