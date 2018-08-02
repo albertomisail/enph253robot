@@ -258,73 +258,32 @@ void handleSecondEwok(){
 }
 
 void IRBeacon() {
-    fft.init();
-    float totalAmount;
-    //Movement mvt;
-    //mvt.start(1, -1, 3, 3, 100);
-    //while(mvt.poll()) {}
-    bool foundIRBeacon = false;
+
+    float f10, f1;
+    int32_t last1kTime = millis()-1000;
     while(true) {
-        //mvt.start(-1, 1, 6, 6, 90);
-        //while(mvt.poll()) {
-        while(true) {  
-            float f10=0, f1=0;
-            for(int i=0;i<10;++i) {
-                FFTPair fftPair = fft.sample();
-                f10 += fftPair.highAmount;
-                f1 += fftPair.lowAmount;
+        for(int i=0;i<10;++i) {
+            FFTPair fftPair = fft.sample();
+            f10 += fftPair.highAmount;
+            f1 += fftPair.lowAmount;
+        }
+        float totalAmount = sqrt(f10*f10 + f1*f1);
+        if(totalAmount > Constants::FFT_THRESHOLD_TOTAL)
+        {
+            if(f10 != 0 && f1/f10 > Constants::FFT_THRESHOLD_1K_FACTOR) {
+                last1kTime = millis();
             }
-            totalAmount = sqrt(f10*f10 + f1*f1);
-            if(totalAmount > Constants::FFT_THRESHOLD_TOTAL)
-            {
-                foundIRBeacon = true;
+            if(f1 != 0 && f10/f1 > Constants::FFT_THRESHOLD_10K_FACTOR
+            && millis()-last1kTime < 200) {
                 break;
             }
         }
-        if(foundIRBeacon) {
-            break;
-        }
-        //mvt.start(1, -1, 6, 6, 90);
-        //while(mvt.poll()) {}
-    }
-    //motor.speed(Constants::MOTOR_LEFT, 0);
-    //motor.speed(Constants::MOTOR_RIGHT, 0);
-    oled.clrScr();
-    oled.print("ir beacon found", 0, 0);
-    oled.printNumI(totalAmount,0,10);
-    oled.update();
-    int32_t lastOne = 0;
-    while(true) {
-        //mvt.start(-1, 1, 6, 6, 90);
-        //while(mvt.poll()) {
-        while(true) {  
-            float f10=0, f1=0;
-            for(int i=0;i<10;++i) {
-                FFTPair fftPair = fft.sample();
-                f10 += fftPair.highAmount;
-                f1 += fftPair.lowAmount;
-            }
-            if(totalAmount > Constants::FFT_THRESHOLD_TOTAL)
-            {
-                if(f10/f1 > Constants::FFT_THRESHOLD_10K_FACTOR && millis()-lastOne < 200) {
-                    break;
-                } else if(f1/f10 > Constants::FFT_THRESHOLD_1K_FACTOR) {
-                    lastOne = millis();
-                }
-            }
-        }
-        if(foundIRBeacon) {
-            break;
-        }
-
-        //mvt.start(1, -1, 6, 6, 90);
-        //while(mvt.poll()) {}
+        delay(10);
     }
 
     oled.clrScr();
-    oled.print("GO!", 0,0);
+    oled.print("got 10khz!", 0, 0);
     oled.update();
-    delay(1000);
 }
 
 void mainRun() {
