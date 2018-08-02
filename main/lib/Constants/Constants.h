@@ -30,7 +30,7 @@ public:
 
     // TODO: Assign real pin values
     constexpr static int8_t infraredLeds[] = {PB3};
-    constexpr static int8_t infraredReceiver = PA5;
+    constexpr static int8_t infraredReceiver = PA1;
     constexpr static int16_t pickUpInfraredThreshold = 2900;
     constexpr static int16_t distantInfraredThreshold = 1500;
     constexpr static int16_t distantInfraredThreshold1 = distantInfraredThreshold;
@@ -47,7 +47,7 @@ public:
     //constexpr static int16_t angleFullClose = 20;
     constexpr static int8_t buttonSwitchPin = PA15;
 
-    constexpr static uint8_t IR_BEACON_PIN = PA5;
+    constexpr static uint8_t IR_BEACON_PIN = PA1;
 
     //constexpr static uint8_t LIFT_MOTOR = 1;
     constexpr static uint8_t frontLift = 2;
@@ -78,4 +78,5 @@ public:
     constexpr static uint8_t RIGHT_ENC_PIN = PB15;
 
     constexpr static uint8_t MULTIPLEXER_PIN = PB5;
+    constexpr static uint8_t BRIDGE_SERVO_PIN = PA8;
 };

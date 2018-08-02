@@ -27,5 +27,6 @@ public:
     bool isMoving() const;
     bool poll();
     bool oneSideFinished(int16_t, int16_t);
+    void move(int8_t, int8_t, int16_t, int16_t, int16_t);
 
 };

@@ -23,12 +23,13 @@ void setup() {
     lineFollower.init(0);
     motor.init();
     //ziplineLift.init();
-    //infrared.init();
+    infrared.init();
     claw.init();
     pinMode(PB5, OUTPUT);
 }
 
 void loop() {
+    /*
     int cnt = 0;
     digitalWrite(PB5, LOW);
     infrared.startMeasurement();
@@ -41,7 +42,7 @@ void loop() {
             }
             infrared.startMeasurement();
         }
-    }
+    } */
 
 
     digitalWrite(PB5, HIGH);

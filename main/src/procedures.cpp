@@ -7,6 +7,7 @@
 #include <Movement.h>
 #include <InfraredBase.h>
 #include <FFT.h>
+#include <Bridge.h>
 
 bool lookForEwok(int threshold, int movementRange, int forwardAmount, int tries) {
     bool foundEwok = false;
@@ -160,7 +161,7 @@ void maneuverToDropLocation(Encoder& leftEnc, Encoder& rightEnc) {
 //  */
 void handleFirstEwok(Encoder& leftEnc, Encoder& rightEnc) {
 
-    // Movement mvt;
+    Movement mvt;
     // // ~120 degree turn to face toward ewok
     // mvt.start(1,-1,6,6,90);
     // while(mvt.poll()){}
@@ -178,89 +179,89 @@ void handleFirstEwok(Encoder& leftEnc, Encoder& rightEnc) {
     oled.update();
     delay(5000);
 
-    // if(foundEwok) {
-    //     // TODO add the method to move foward to toward the ewok
-    //     bool foundEwok2 = moveForwardToEwok(Constants::pickUpInfraredThreshold1, 10);
+    if(foundEwok) {
+        // TODO add the method to move foward to toward the ewok
+        bool foundEwok2 = moveForwardToEwok(Constants::pickUpInfraredThreshold1, 10);
 
-    //     oled.clrScr();
-    //     oled.printNumI(foundEwok2,0,10);
-    //     oled.update();
+        oled.clrScr();
+        oled.printNumI(foundEwok2,0,10);
+        oled.update();
 
-    //     claw.pickEwok();
-    //     oled.clrScr();
-    //     oled.print("Picked up ewok",0,20);
-    //     oled.update();
+        claw.pickEwok();
+        oled.clrScr();
+        oled.print("Picked up ewok",0,20);
+        oled.update();
 
-    //     mvt.start(1, 1, 9, 9, 110);
-    //     while(mvt.poll()){}
+        mvt.start(1, 1, 9, 9, 110);
+        while(mvt.poll()){}
 
 
-    //     mvt.start(-1, 1, 12, 12, 100);
-    //     while(mvt.poll()){}
-    //     // go back to the start
+        mvt.start(-1, 1, 12, 12, 100);
+        while(mvt.poll()){}
+        // go back to the start
 
-    //     oled.print("About to find line", 0, 0);
-    //     oled.update();
-    //     delay(1000);
+        oled.print("About to find line", 0, 0);
+        oled.update();
+        delay(1000);
 
-    //     lineFollower.findLine(LineFollower::DIR_LEFT, 100); // blocking
-    //     oled.print("Done finding line", 0, 0);
-    //     oled.update();
+        lineFollower.findLine(LineFollower::DIR_LEFT, 100); // blocking
+        oled.print("Done finding line", 0, 0);
+        oled.update();
 
-    //     delay(1000);
+        delay(1000);
 
-    //     leftEnc.reset();
-    //     rightEnc.reset();
+        leftEnc.reset();
+        rightEnc.reset();
 
-    //     int16_t leftEncPos = leftEnc.getPosition();
-    //     int16_t rightEncPos = rightEnc.getPosition();
+        int16_t leftEncPos = leftEnc.getPosition();
+        int16_t rightEncPos = rightEnc.getPosition();
 
-    //     oled.clrScr();
-    //     oled.printNumI(leftEncPos, 0, 0);
-    //     oled.printNumI(rightEncPos, 50, 0);
-    //     oled.update();
+        oled.clrScr();
+        oled.printNumI(leftEncPos, 0, 0);
+        oled.printNumI(rightEncPos, 50, 0);
+        oled.update();
 
-    //     lineFollower.start(0,0,0);
+        lineFollower.start(0,0,0);
 
-    //     // TODO determine distance to end of track when returning first ewok
-    //     // OR write a better method of finding the end for example, line follow for
-    //     // 90 steps, then go straight until edge detected. Then reverse by 40.
-    //     while(lineFollower.poll()) {
-    //         if(leftEnc.getPosition() > 40) {
-    //             break;
-    //         }
-    //     }
+        // TODO determine distance to end of track when returning first ewok
+        // OR write a better method of finding the end for example, line follow for
+        // 90 steps, then go straight until edge detected. Then reverse by 40.
+        while(lineFollower.poll()) {
+            if(leftEnc.getPosition() > 40) {
+                break;
+            }
+        }
 
-    //     lineFollower.start();
-    //     while(lineFollower.poll()) {
-    //         if(leftEnc.getPosition() > 90) {
-    //             break;
-    //         }
-    //     }
+        lineFollower.start();
+        while(lineFollower.poll()) {
+            if(leftEnc.getPosition() > 90) {
+                break;
+            }
+        }
 
-    //     mvt.start(1, 1, 20, 20, 100);
-    //     while(mvt.poll()){};
+        mvt.start(1, 1, 20, 20, 100);
+        while(mvt.poll()){};
 
-    //     // TODO write the drop ewok method
-    //     claw.dropEwok();
+        // TODO write the drop ewok method
+        claw.dropEwok();
 
-    //     lineFollower.findLine(LineFollower::DIR_RIGHT, 80);
-    //     lineFollower.start();
-    //     while(lineFollower.poll()) {} // go until we get to the edge
-    // } else {
-    //     // go back onto the line and follow until the edge
-    //     mvt.start(-1, 1, 8, 8, 100);
-    //     while(mvt.poll()) {}
-    //     mvt.start(-1, -1, 40, 40, 100);
-    //     while(mvt.poll()) {}
-    //     mvt.start(1, -1, 8, 8, 100);
-    //     while(mvt.poll()) {}
+        lineFollower.findLine(LineFollower::DIR_RIGHT, 80);
+        lineFollower.start();
+        while(lineFollower.poll()) {} // go until we get to the edge
+    } else {
+        // go back onto the line and follow until the edge
+        mvt.start(-1, 1, 8, 8, 100);
+        while(mvt.poll()) {}
+        mvt.start(-1, -1, 40, 40, 100);
+        while(mvt.poll()) {}
+        mvt.start(1, -1, 8, 8, 100);
+        while(mvt.poll()) {}
 
-    //     // follow the line until the end
-    //     lineFollower.findLine(LineFollower::DIR_LEFT, 80);
-    //     lineFollower.start();
-    //     while(lineFollower.poll()) {}
-    // }
+        // follow the line until the end
+        lineFollower.findLine(LineFollower::DIR_LEFT, 80);
+        lineFollower.start();
+        while(lineFollower.poll()) {}
+    }
 }
 
 // /**
@@ -398,6 +399,14 @@ void handleFirstEwok(Encoder& leftEnc, Encoder& rightEnc) {
 //     // Wait until 10k signal is > 10x 1k signal for 5 consecutive readings
 // }
 
+void prepareForBridge(Encoder& leftEnc, Encoder& rightEnc) {
+    Movement mvt;
+    mvt.move(1, -1, 6, 6, 100);
+    mvt.move(1, 1, 6, 6, 100);
+    mvt.move(1, -1, 10, 10, 100);
+    bridge.dropBridge();
+}
+
 void mainRun() {
     //ziplineLift.liftFront();
     Menu m;
@@ -406,9 +415,9 @@ void mainRun() {
     Encoder rightEnc(Constants::RIGHT_ENC_PIN);
     oled.invertText(false);
 
-    // initialLineFollow(leftEnc, rightEnc);
+    initialLineFollow(leftEnc, rightEnc);
 
-    // handleFirstEwok(leftEnc, rightEnc);
+    handleFirstEwok(leftEnc, rightEnc);
 
     maneuverToDropLocation(leftEnc, rightEnc);
 
