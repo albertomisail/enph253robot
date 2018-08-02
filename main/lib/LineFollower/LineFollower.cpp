@@ -12,18 +12,7 @@ void LineFollower::init(int previousError_){
     this->previousError = previousError_;
 }
 void LineFollower::start() {
-    lastTime = 0;
-    previousError = 0;
-    deltaT = 0, previousTime = 0;
-    consec = 0;
-    counter = 0;
-    lastG = 0;
-    state = 0;
-    movingState = true;
-    edgeStopThreshold = Constants::EDGE_THRESHOLD.getVal();
-    rightStopThreshold = 4096;
-    leftStopThreshold = 4096;
-
+    start(4096, 4096, Constants::EDGE_THRESHOLD.getVal());
 }
 void LineFollower::start(int leftStopThreshold_, int rightStopThreshold_, int edgeStopThreshold_) {
     start(leftStopThreshold_, rightStopThreshold_, edgeStopThreshold_, Constants::LEFT_THRESHOLD.getVal(), Constants::RIGHT_THRESHOLD.getVal());
@@ -32,7 +21,16 @@ void LineFollower::start(int leftStopThreshold_, int rightStopThreshold_, int ed
     leftStopThreshold = leftStopThreshold_;
     rightStopThreshold = rightStopThreshold_;
     edgeStopThreshold = edgeStopThreshold_;
-    leftTh
+    leftThreshold = leftThreshold_;
+    rightThreshold = rightThresold_;
+    lastTime = 0;
+    previousError = 0;
+    deltaT = 0, previousTime = 0;
+    consec = 0;
+    counter = 0;
+    lastG = 0;
+    state = 0;
+    movingState = true;
 }
 void LineFollower::stop() {
     movingState = false;
@@ -90,18 +88,18 @@ bool LineFollower::poll(){
         consec = 0;
     }
 
-    if(sensorLeftReading < Constants::LEFT_THRESHOLD.getVal()
-    && sensorRightReading < Constants:: RIGHT_THRESHOLD.getVal())
+    if(sensorLeftReading < leftThreshold
+    && sensorRightReading < rightThreshold)
     {
         error = 0;
     }
-    else if(sensorLeftReading < Constants::LEFT_THRESHOLD.getVal()
-         && sensorRightReading >= Constants::RIGHT_THRESHOLD.getVal())
+    else if(sensorLeftReading < leftThreshold
+         && sensorRightReading >= rightThreshold)
     {
         error = 1;
     }
-    else if(sensorLeftReading >= Constants::LEFT_THRESHOLD.getVal()
-         && sensorRightReading < Constants::RIGHT_THRESHOLD.getVal())
+    else if(sensorLeftReading >= leftThreshold
+         && sensorRightReading < rightThreshold)
     {
         error = -1;
     }
@@ -185,7 +183,7 @@ void LineFollower::findLine(const int8_t& dir, const int16_t& spd) {
         if(!this->QRDPoll()) {
             if(i++>0){
                 if(dir==LineFollower::DIR_RIGHT) {
-                    if(this->QRDMeasurement('r')<=Constants::RIGHT_THRESHOLD.getVal()){
+                    if(this->QRDMeasurement('r')<=rightThreshold){
                         oled.clrScr();
                         oled.printNumI(QRDMeasurement('r'), 0, 50);
                         oled.print("R", 40, 50);
@@ -193,7 +191,7 @@ void LineFollower::findLine(const int8_t& dir, const int16_t& spd) {
                         break;
                     }
                 } else{
-                    if(this->QRDMeasurement('l')<=Constants::LEFT_THRESHOLD.getVal()){
+                    if(this->QRDMeasurement('l')<=leftThreshold){
                         oled.clrScr();
                         oled.printNumI(QRDMeasurement('l'), 0, 50);
                         oled.print("L", 40, 50);

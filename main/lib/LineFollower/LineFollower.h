@@ -18,7 +18,7 @@ private:
 
     bool isQRDReading = false, hasQRDStarted = false;
 
-	int leftStopThreshold, rightStopThreshold, edgeStopThreshold;
+	int leftStopThreshold, rightStopThreshold, edgeStopThreshold, leftThreshold, rightThreshold;
 
 public:
     int32_t sensorLeftReading, sensorRightReading, sensorEdgeReading, g;
@@ -43,6 +43,7 @@ public:
     void init(int);
     void start();
 	void start(int, int, int);
+	void start(int, int, int, int, int);
     void stop();
     bool poll();
     bool isMoving() const;
