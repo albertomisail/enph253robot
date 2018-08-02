@@ -10,7 +10,7 @@ private:
     int16_t previousError = 0;
     int32_t deltaT = 0,
             previousTime = 0;
-    uint8_t consec = 0;
+    uint8_t consec = 0, consecFindLine = 0;
     int16_t counter = 0;
     int16_t lastG = 0;
     uint8_t state = 0;

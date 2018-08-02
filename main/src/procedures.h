@@ -17,4 +17,6 @@ void getToSecondEwok();
 
 void handleSecondEwok();
 
+void maneuverToIR();
+
 void crossArch();
