@@ -69,18 +69,27 @@
 //     oled.update();
 // }
 
-// void testFFT() {
-//     oled.clrScr();
-//     FFTPair fftPair = fft.sample();
-//     oled.print("1:", 0, 0);
-//     oled.print("10:", 0, 10);
-//     oled.printNumI(fftPair.lowAmount, 30, 0);
-//     oled.printNumI(fftPair.highAmount, 30, 10);
-//     oled.printNumI(analogRead(Constants::IR_BEACON_PIN), 30, 20);
-//     oled.printNumI(fft.sampleTime, 50, 30);
-//     oled.update();
-//     delay(50);
-// }
+void testFFT() {
+    fft.init();
+    oled.clrScr();
+    FFTPair fftPair = fft.sample();
+    oled.print("1:", 0, 0);
+    oled.print("10:", 0, 10);
+    oled.printNumI(fftPair.lowAmount, 30, 0);
+    oled.printNumI(fftPair.highAmount, 30, 10);
+    oled.printNumI(analogRead(Constants::IR_BEACON_PIN), 30, 20);
+    oled.printNumI(fft.sampleTime, 50, 30);
+    oled.update();
+    delay(50);
+   
+    // Serial.println("Before fft.sample()");
+    // FFTPair fftPair = fft.sample();
+    // Serial.println("1:" + fftPair.lowAmount);
+    // Serial.println("10:" + fftPair.highAmount);
+    // Serial.println(analogRead(Constants::IR_BEACON_PIN));
+    // Serial.println(fft.sampleTime);
+    // delay(50);
+}
 
 // void testEncoders(){
 

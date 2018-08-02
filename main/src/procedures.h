@@ -17,4 +17,7 @@ void getToSecondEwok();
 
 void handleSecondEwok();
 
+void IRBeacon();
+
 void crossArch();
+

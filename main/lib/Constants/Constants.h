@@ -21,27 +21,13 @@ public:
 
     constexpr static int8_t oledPins[] = {PB11, PB10};
 
-<<<<<<< HEAD
-    constexpr static int8_t trigPins[] = {PB12}; constexpr static int8_t echoPins[] = {PB13};
-
-    constexpr static int8_t highPwmPins[] = {PB8, /*PB0,*/ PB6};
-    constexpr static int8_t lowPwmPins[] = {PB9, /*PB1,*/ PB7};
-=======
     constexpr static int8_t highPwmPins[] = {PB9, PB7};
     constexpr static int8_t lowPwmPins[] = {PB8, PB6};
->>>>>>> 4a9eaa281f926b649335c909e050fe0ce53f4d12
 
     constexpr static int16_t ENCODER_POLL_TIME = 2; // milliseconds
 
     // TODO: Assign real pin values
     constexpr static int8_t infraredLeds[] = {PB3};
-<<<<<<< HEAD
-    constexpr static int8_t infraredReceiver = PA5;
-    constexpr static int16_t pickUpInfraredThreshold1 = 2900;
-    constexpr static int16_t distantInfraredThreshold1 = 1500;
-    constexpr static int16_t pickUpInfraredThreshold2 = 1800;
-    constexpr static int16_t distantInfraredThreshold2 = 1400;
-=======
     constexpr static int8_t infraredReceiver = PA1;
     constexpr static int16_t pickUpInfraredThreshold = 3300;
     constexpr static int16_t distantInfraredThreshold = 1500;
@@ -49,7 +35,6 @@ public:
     constexpr static int16_t pickUpInfraredThreshold1 = pickUpInfraredThreshold;
     constexpr static int16_t distantInfraredThreshold2 = distantInfraredThreshold;
     constexpr static int16_t pickUpInfraredThreshold2 = pickUpInfraredThreshold;
->>>>>>> 4a9eaa281f926b649335c909e050fe0ce53f4d12
     constexpr static int16_t ewokPulseDuration = 15; // m
     constexpr static int8_t CLAW_ARM_PIN = PA2;
     constexpr static int8_t CLAW_PIN = PA8;
@@ -60,24 +45,10 @@ public:
     constexpr static int16_t numSteps = 10;
     constexpr static int8_t buttonSwitchPin = PA15;
 
-<<<<<<< HEAD
-    constexpr static uint8_t IR_BEACON_PIN = PA8;
-
-    //constexpr static uint8_t LIFT_MOTOR = 1;
-    constexpr static uint8_t frontLift = 2;
-    constexpr static uint8_t backLift = PB13;
-    constexpr static uint8_t potFront = PA0;
-    constexpr static uint8_t potBack = PB13;
-    constexpr static uint16_t voltageUpFront = 1050;
-    constexpr static uint16_t voltageDownFront = 1500;
-    constexpr static uint16_t voltageUpBack = 1050;
-    constexpr static uint16_t voltageDownBack = 850;
-    constexpr static uint16_t speedLiftDown = 200;
-    constexpr static uint16_t speedLiftUp = 200;
-    constexpr static uint16_t voltageIRFront = (voltageUpFront-voltageDownFront)/2 + voltageDownFront;
-=======
     constexpr static uint8_t IR_BEACON_PIN = PA1;
->>>>>>> 4a9eaa281f926b649335c909e050fe0ce53f4d12
+    constexpr static int32_t FFT_THRESHOLD_TOTAL = 2e5;
+    constexpr static int32_t FFT_THRESHOLD_1K_FACTOR = 10;
+    constexpr static int32_t FFT_THRESHOLD_10K_FACTOR = 10;
 
     constexpr static uint8_t LEFT_QRD_PIN = PA4;
     constexpr static uint8_t RIGHT_QRD_PIN = PA7; //PA3;
