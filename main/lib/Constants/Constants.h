@@ -29,7 +29,7 @@ public:
     // TODO: Assign real pin values
     constexpr static int8_t infraredLeds[] = {PB3};
     constexpr static int8_t infraredReceiver = PA1;
-    constexpr static int16_t pickUpInfraredThreshold = 3300;
+    constexpr static int16_t pickUpInfraredThreshold = 2500;
     constexpr static int16_t distantInfraredThreshold = 1500;
     constexpr static int16_t distantInfraredThreshold1 = distantInfraredThreshold;
     constexpr static int16_t pickUpInfraredThreshold1 = pickUpInfraredThreshold;
@@ -64,6 +64,6 @@ public:
 
     constexpr static uint8_t MULTIPLEXER_PIN = PB5;
     constexpr static uint8_t BRIDGE_SERVO_PIN = PA3;
-    constexpr static int16_t positionLock = 10; //TODO change this
-    constexpr static int16_t positionUnlock = 30;
+    constexpr static int16_t positionLock = 180; //TODO change this
+    constexpr static int16_t positionUnlock = 90;
 };

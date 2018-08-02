@@ -26,11 +26,6 @@ void setup() {
 
 void loop() {
     digitalWrite(PB5, HIGH);
-    //Serial.print("A WORD");
-    //oled.clrScr();
-    //oled.print("A WORD",0,0);
-    //oled.update();
-    //mainRun();
-    //testFFT();
-    IRBeacon();
+    mainRun();
+    delay(10000);
 }
