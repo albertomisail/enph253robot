@@ -28,11 +28,12 @@ void LineFollower::start() {
 void LineFollower::start(int leftStopThreshold_, int rightStopThreshold_, int edgeStopThreshold_) {
     start(leftStopThreshold_, rightStopThreshold_, edgeStopThreshold_, Constants::LEFT_THRESHOLD.getVal(), Constants::RIGHT_THRESHOLD.getVal());
 }
-void LineFollower::start(int leftStopThreshold_, int rightStopThreshold_, int edgeStopThreshold_, int leftThreshold_, int rightThresold_) {
+void LineFollower::start(int leftStopThreshold_, int rightStopThreshold_, int edgeStopThreshold_, int leftThreshold_, int rightThreshold_) {
     leftStopThreshold = leftStopThreshold_;
     rightStopThreshold = rightStopThreshold_;
     edgeStopThreshold = edgeStopThreshold_;
-    leftTh
+    leftThreshold = leftThreshold_;
+    rightThreshold = rightThreshold_;
 }
 void LineFollower::stop() {
     movingState = false;

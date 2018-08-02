@@ -437,23 +437,6 @@ void testPickingUpEwok(){
 //     delay(5000);
 // }
 
-void testLift(){
-    while(true) {
-        oled.clrScr();
-        oled.print(const_cast<char*>("UP"), 0, 0);
-        oled.update();
-        delay(2000);
-        ziplineLift.liftFront();
-        delay(2000);
-        oled.clrScr();
-        oled.print(const_cast<char*>("DOWN"), 0, 0);
-        oled.update();
-        delay(2000);
-        ziplineLift.dropFront();
-        delay(2000);
-    }
-}
-
 // void pickUpFirstEwok() {
 //     Menu m;
 //     m.run();
