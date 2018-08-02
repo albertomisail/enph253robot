@@ -41,8 +41,8 @@ public:
     constexpr static int16_t angleOut = 180;
     constexpr static int16_t angleInit = 65;
     constexpr static int16_t angleIn = 80;
-    constexpr static int16_t angleOpen = 20;
-    constexpr static int16_t angleClose = 130;
+    constexpr static int16_t angleOpen = 180;
+    constexpr static int16_t angleClose = 110;
     constexpr static int16_t numSteps = 10;
     //constexpr static int16_t angleFullClose = 20;
     constexpr static int8_t buttonSwitchPin = PA15;

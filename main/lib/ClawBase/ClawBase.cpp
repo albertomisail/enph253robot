@@ -68,7 +68,7 @@ bool ClawBase::pickEwok(){
         delay(20);
     }
 
-    while((ClawBase::claw).read() < Constants::angleClose){
+    while((ClawBase::claw).read() > Constants::angleClose){
         (ClawBase::claw).write((ClawBase::claw).read() + step);
         delay(125);
     }
