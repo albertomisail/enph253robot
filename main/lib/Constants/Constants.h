@@ -62,5 +62,5 @@ public:
     constexpr static uint8_t MULTIPLEXER_PIN = PB5;
     constexpr static uint8_t BRIDGE_SERVO_PIN = PA3;
     constexpr static int16_t positionLock = 0; //TODO change this
-    constexpr static int16_t positionUnlock = 30;
+    constexpr static int16_t positionUnlock = 90;
 };
