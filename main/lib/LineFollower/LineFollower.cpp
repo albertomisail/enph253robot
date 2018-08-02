@@ -188,27 +188,27 @@ void LineFollower::findLine(const int8_t& dir, const int16_t& spd) {
             if(i++>0){
                 if(dir==LineFollower::DIR_RIGHT) {
                     if(this->QRDMeasurement('r')<=rightThreshold){
-                        if(++consecFindLine>0){
+                        if(++consecFindLine>1){
                             oled.clrScr();
                             oled.printNumI(QRDMeasurement('r'), 0, 50);
                             oled.print("R", 40, 50);
                             oled.update();
                             break;
-                        }else{
-                            consecFindLine = 0;
                         }
+                    }else{
+                            consecFindLine = 0;
                     }
                 } else{
                     if(this->QRDMeasurement('l')<=leftThreshold){
-                        if(++consecFindLine>0){
+                        if(++consecFindLine>1){
                             oled.clrScr();
                             oled.printNumI(QRDMeasurement('l'), 0, 50);
                             oled.print("L", 40, 50);
                             oled.update();
                             break;
-                        }else{
-                            consecFindLine = 0;
                         }
+                    }else{
+                            consecFindLine = 0;
                     }
                 }
             }
