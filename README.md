@@ -13,3 +13,7 @@ team 4
   + Touching wires
   + Loose wires that touch during acceleration etc.
   + Motors that are stuck, and running at high power (you can draw > 2A at max torque of a motor)
+-
+- **MOTORS**
+  + After "movement", 
+

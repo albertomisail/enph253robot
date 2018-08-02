@@ -2,7 +2,6 @@
 #include <Arduino.h>
 #include <Servo.h>
 #include <Constants.h>
-#include <ZiplineLiftBase.h>
 
 class ClawBase{
 private:

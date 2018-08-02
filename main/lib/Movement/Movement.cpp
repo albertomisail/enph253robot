@@ -44,7 +44,7 @@ bool Movement::oneSideFinished(int16_t leftPos, int16_t rightPos) {
 
 int cnt = 0;
 bool Movement::poll() {
-    
+
     cnt++;
     /*if(cnt%2) {
         oled.clrPixel(50, 50);
@@ -108,4 +108,10 @@ bool Movement::poll() {
     previousError = error;
     previousTime = now;
     return true;
+}
+
+void Movement::move(int8_t dirl, int8_t dirr, int16_t leftdist, int16_t rightdist, int16_t speed)
+{
+    start(dirl, dirr, leftdist, rightdist, speed);
+    while(poll()) {}
 }

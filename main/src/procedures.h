@@ -1,5 +1,6 @@
 #pragma once
 #include <Encoder.h>
+#include <Constants.h>
 
 void mainRun();
 void oneEwokRun();
@@ -14,6 +15,6 @@ void handleFirstEwok(Encoder& leftEnc, Encoder& rightEnc);
 
 void getToSecondEwok();
 
-bool handleSecondEwok();
+void handleSecondEwok();
 
 void crossArch();

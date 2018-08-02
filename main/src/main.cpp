@@ -4,11 +4,8 @@
 #include "Constants.h"
 #include <Menu.h>
 #include <ClawBase.h>
-#include <UltrasoundBase.h>
-#include <ZiplineLiftBase.h>
 #include <MotorBase.h>
 #include <Movement.h>
-
 #include "testAll.h"
 #include <procedures.h>
 
@@ -17,19 +14,17 @@ extern uint8_t SmallFont[];
 void setup() {
     Serial.begin(9600);
     delay(1000);
+    Constants::init();
     oled.begin();
     oled.setFont(SmallFont);
-    Constants::init();
     lineFollower.init(0);
     motor.init();
-    ziplineLift.init();
     infrared.init();
-    pinMode(PA8, OUTPUT);
-    digitalWrite(PA8,LOW);
     claw.init();
+    pinMode(PB5, OUTPUT);
 }
 
 void loop() {
+    digitalWrite(PB5, HIGH);
     mainRun();
-    //testLFandReverse();
 }
