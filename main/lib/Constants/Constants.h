@@ -31,7 +31,7 @@ public:
     // TODO: Assign real pin values
     constexpr static int8_t infraredLeds[] = {PB3};
     constexpr static int8_t infraredReceiver = PA1;
-    constexpr static int16_t pickUpInfraredThreshold = 2900;
+    constexpr static int16_t pickUpInfraredThreshold = 3100;
     constexpr static int16_t distantInfraredThreshold = 1500;
     constexpr static int16_t distantInfraredThreshold1 = distantInfraredThreshold;
     constexpr static int16_t pickUpInfraredThreshold1 = pickUpInfraredThreshold;
@@ -41,8 +41,8 @@ public:
     constexpr static int16_t angleOut = 180;
     constexpr static int16_t angleInit = 65;
     constexpr static int16_t angleIn = 80;
-    constexpr static int16_t angleOpen = 180;
-    constexpr static int16_t angleClose = 110;
+    constexpr static int16_t angleOpen = 20;
+    constexpr static int16_t angleClose = 130;
     constexpr static int16_t numSteps = 10;
     //constexpr static int16_t angleFullClose = 20;
     constexpr static int8_t buttonSwitchPin = PA15;

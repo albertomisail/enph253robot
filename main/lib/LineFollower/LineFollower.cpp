@@ -200,8 +200,8 @@ void LineFollower::findLine(const int8_t& dir, const int16_t& spd) {
             this->startQRD();
         }
     }
-    motor.speed(Constants::MOTOR_RIGHT, 255);
-    motor.speed(Constants::MOTOR_LEFT, -255);
+    motor.speed(Constants::MOTOR_RIGHT, dir*255);
+    motor.speed(Constants::MOTOR_LEFT, -dir*255);
     delay(20);
     motor.speed(Constants::MOTOR_LEFT, 0);
     motor.speed(Constants::MOTOR_RIGHT, 0);

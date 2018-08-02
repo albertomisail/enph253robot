@@ -146,28 +146,31 @@ void maneuverToDropLocation(Encoder& leftEnc, Encoder& rightEnc) {
             break;
         }
     }
+    mvt.move(1,1,15,15,100);
     motor.stop(Constants::MOTOR_LEFT);
     motor.stop(Constants::MOTOR_RIGHT);
+
+
 }
 
-// void maneuverToBridge() {
-//     Movement mvt;
-//     // ~120 degree turn to face toward ewok
-//     mvt.start(-1,-1,6,6,100);
-//     while(mvt.poll()){}
-// 	delay(500);
-//     mvt.start(-1,1,8,8,100);
-//     while(mvt.poll()){}
-// 	delay(500);
-//     mvt.start(-1,-1,6,6,100);
-//     while(mvt.poll()){}
-// 	delay(500);
-//     mvt.start(1,-1,4,4,100);
-//     while(mvt.poll()){}
-// 	delay(500);
-//     mvt.start(1,1,40,40,100);
-//     while(mvt.poll()){}
-// }
+void maneuverToBridge() {
+    Movement mvt;
+    // ~120 degree turn to face toward ewok
+    mvt.start(1,-1,12,12,100);
+    while(mvt.poll()){}
+	delay(500);
+    // mvt.start(-1,1,8,8,100);
+    // while(mvt.poll()){}
+	// delay(500);
+    // mvt.start(-1,-1,6,6,100);
+    // while(mvt.poll()){}
+	// delay(500);
+    // mvt.start(1,-1,4,4,100);
+    // while(mvt.poll()){}
+	// delay(500);
+    // mvt.start(1,1,40,40,100);
+    // while(mvt.poll()){}
+}
 
 // /**
 //  * Starting from the drop location, get the first ewok, return it to the start,
@@ -437,8 +440,12 @@ void mainRun() {
     handleFirstEwok(leftEnc, rightEnc);
 
     delay(2000);
-    //
-    // maneuverToDropLocation(leftEnc, rightEnc);
+
+    maneuverToDropLocation(leftEnc, rightEnc);
+
+    claw.dropEwok();
+
+    maneuverToBridge();
 
     // claw.deployBridge();
 
