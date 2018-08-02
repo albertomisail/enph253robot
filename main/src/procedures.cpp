@@ -61,7 +61,7 @@ void initialLineFollow(Encoder& leftEnc, Encoder& rightEnc) {
     lineFollower.start();
     for(int32_t i=0;lineFollower.poll();++i) {
         Encoder::poll();
-        if(rightEnc.getPosition()>=135) {
+        if(rightEnc.getPosition()>=132) {
             oled.clrScr();
             oled.print("!! 135", 0, 0);
             oled.update();
@@ -112,7 +112,7 @@ void handleFirstEwok(Encoder& leftEnc, Encoder& rightEnc) {
 
     Movement mvt;
 
-    bool foundEwok = lookForEwok(Constants::distantInfraredThreshold1, 6, 3, 5);
+    bool foundEwok = lookForEwok(Constants::distantInfraredThreshold1, 12, 3, 5);
     oled.clrScr();
     oled.printNumI(foundEwok,0,0);
     oled.update();
@@ -173,6 +173,7 @@ void maneuverToDropLocation(Encoder& leftEnc, Encoder& rightEnc) {
     }
     lineFollower.start(4096, 4096, Constants::EDGE_THRESHOLD.getVal(), 4096, 4096);
     while(lineFollower.poll()){}
+    mvt.start(-1, -1, 10,10, 100);
     mvt.start(1,-1,12,12,100);
     while(mvt.poll()) {}
 }
@@ -266,9 +267,9 @@ void mainRun() {
 
     maneuverToBridge();
 
-    deployBridge();
+    /*deployBridge();
 
-    handleSecondEwok();
+    handleSecondEwok(); */
 
     // // we want to return to drop location so we go back onto the bridge
     // maneuverToBridge();

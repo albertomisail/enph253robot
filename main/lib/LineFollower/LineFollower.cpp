@@ -22,7 +22,7 @@ void LineFollower::start(int leftStopThreshold_, int rightStopThreshold_, int ed
     rightStopThreshold = rightStopThreshold_;
     edgeStopThreshold = edgeStopThreshold_;
     leftThreshold = leftThreshold_;
-    rightThreshold = rightThresold_;
+    rightThreshold = rightThreshold_;
     lastTime = 0;
     previousError = 0;
     deltaT = 0, previousTime = 0;
@@ -176,6 +176,8 @@ bool LineFollower::QRDIsReading() const {
     return isQRDReading;
 }
 void LineFollower::findLine(const int8_t& dir, const int16_t& spd) {
+    rightThreshold = Constants::RIGHT_THRESHOLD.getVal();
+    leftThreshold = Constants::LEFT_THRESHOLD.getVal();
     Movement mvt;
     mvt.start(dir,-dir,LineFollower::A_LOT_OF_TURNS,LineFollower::A_LOT_OF_TURNS,spd);
     this->startQRD();
