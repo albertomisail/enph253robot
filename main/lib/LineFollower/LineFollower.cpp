@@ -23,11 +23,16 @@ void LineFollower::start() {
     edgeStopThreshold = Constants::EDGE_THRESHOLD.getVal();
     rightStopThreshold = 4096;
     leftStopThreshold = 4096;
+
 }
 void LineFollower::start(int leftStopThreshold_, int rightStopThreshold_, int edgeStopThreshold_) {
+    start(leftStopThreshold_, rightStopThreshold_, edgeStopThreshold_, Constants::LEFT_THRESHOLD.getVal(), Constants::RIGHT_THRESHOLD.getVal());
+}
+void LineFollower::start(int leftStopThreshold_, int rightStopThreshold_, int edgeStopThreshold_, int leftThreshold_, int rightThresold_) {
     leftStopThreshold = leftStopThreshold_;
     rightStopThreshold = rightStopThreshold_;
     edgeStopThreshold = edgeStopThreshold_;
+    leftTh
 }
 void LineFollower::stop() {
     movingState = false;
@@ -202,7 +207,7 @@ void LineFollower::findLine(const int8_t& dir, const int16_t& spd) {
     }
     motor.speed(Constants::MOTOR_RIGHT, dir*255);
     motor.speed(Constants::MOTOR_LEFT, -dir*255);
-    delay(20);
+    delay(25);
     motor.speed(Constants::MOTOR_LEFT, 0);
     motor.speed(Constants::MOTOR_RIGHT, 0);
 }

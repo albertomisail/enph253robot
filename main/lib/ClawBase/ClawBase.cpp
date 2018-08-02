@@ -70,12 +70,12 @@ bool ClawBase::pickEwok(){
 
     while((ClawBase::claw).read() < Constants::angleClose){
         (ClawBase::claw).write((ClawBase::claw).read() + step);
-        delay(125);
+        delay(70);
     }
     delay(250);
     while((ClawBase::arm).read() < Constants::angleIn) {
         (ClawBase::arm).write((ClawBase::arm).read() + step2);
-        delay(250);
+        delay(140);
     }
     (ClawBase::arm).write(Constants::angleIn);
     delay(500);

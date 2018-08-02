@@ -146,19 +146,22 @@ void maneuverToDropLocation(Encoder& leftEnc, Encoder& rightEnc) {
             break;
         }
     }
-    mvt.move(1,1,15,15,100);
-    motor.stop(Constants::MOTOR_LEFT);
-    motor.stop(Constants::MOTOR_RIGHT);
-
-
+    lineFollower.start(4096, 4096, Constants::EDGE_THRESHOLD.getVal(), 4096, 4096);
+    while(lineFollower.poll()){}
+    // motor.stop(Constants::MOTOR_LEFT);
+    // motor.stop(Constants::MOTOR_RIGHT);
+    mvt.start(1,-1,12,12,100);
+    while(mvt.poll()) {}
 }
 
 void maneuverToBridge() {
     Movement mvt;
     // ~120 degree turn to face toward ewok
-    mvt.start(1,-1,12,12,100);
-    while(mvt.poll()){}
-	delay(500);
+
+    lineFollower.findLine(LineFollower::DIR_RIGHT, 80);
+
+    lineFollower.start();
+    while(lineFollower.poll()) {}
     // mvt.start(-1,1,8,8,100);
     // while(mvt.poll()){}
 	// delay(500);
@@ -195,7 +198,7 @@ void handleFirstEwok(Encoder& leftEnc, Encoder& rightEnc) {
     oled.clrScr();
     oled.printNumI(foundEwok,0,0);
     oled.update();
-    delay(5000);
+    delay(2000);
 
     if(foundEwok) {
         // TODO add the method to move foward to toward the ewok
@@ -209,6 +212,8 @@ void handleFirstEwok(Encoder& leftEnc, Encoder& rightEnc) {
         oled.clrScr();
         oled.print("Picked up ewok",0,20);
         oled.update();
+
+        mvt.move(1,1,9,9,110);
         //
         // mvt.start(1, 1, 9, 9, 110);
         // while(mvt.poll()){}
