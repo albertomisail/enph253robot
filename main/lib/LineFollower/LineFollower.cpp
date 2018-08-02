@@ -175,7 +175,9 @@ int16_t LineFollower::QRDMeasurement(char c) const {
 bool LineFollower::QRDIsReading() const {
     return isQRDReading;
 }
+
 void LineFollower::findLine(const int8_t& dir, const int16_t& spd) {
+    consecFindLine = 0;
     rightThreshold = Constants::RIGHT_THRESHOLD.getVal();
     leftThreshold = Constants::LEFT_THRESHOLD.getVal();
     Movement mvt;
@@ -186,19 +188,27 @@ void LineFollower::findLine(const int8_t& dir, const int16_t& spd) {
             if(i++>0){
                 if(dir==LineFollower::DIR_RIGHT) {
                     if(this->QRDMeasurement('r')<=rightThreshold){
-                        oled.clrScr();
-                        oled.printNumI(QRDMeasurement('r'), 0, 50);
-                        oled.print("R", 40, 50);
-                        oled.update();
-                        break;
+                        if(++consecFindLine>0){
+                            oled.clrScr();
+                            oled.printNumI(QRDMeasurement('r'), 0, 50);
+                            oled.print("R", 40, 50);
+                            oled.update();
+                            break;
+                        }else{
+                            consecFindLine = 0;
+                        }
                     }
                 } else{
                     if(this->QRDMeasurement('l')<=leftThreshold){
-                        oled.clrScr();
-                        oled.printNumI(QRDMeasurement('l'), 0, 50);
-                        oled.print("L", 40, 50);
-                        oled.update();
-                        break;
+                        if(++consecFindLine>0){
+                            oled.clrScr();
+                            oled.printNumI(QRDMeasurement('l'), 0, 50);
+                            oled.print("L", 40, 50);
+                            oled.update();
+                            break;
+                        }else{
+                            consecFindLine = 0;
+                        }
                     }
                 }
             }

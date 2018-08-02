@@ -18,6 +18,7 @@ void getToSecondEwok();
 void handleSecondEwok();
 
 void IRBeacon();
+void maneuverToIR();
 
 void crossArch();
 
