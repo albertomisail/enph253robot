@@ -11,7 +11,7 @@ void initialLineFollow(Encoder&, Encoder&);
 
 void maneuverToDropLocation();
 
-void handleFirstEwok(Encoder& leftEnc, Encoder& rightEnc);
+bool handleFirstEwok(Encoder& leftEnc, Encoder& rightEnc);
 
 void getToSecondEwok();
 
