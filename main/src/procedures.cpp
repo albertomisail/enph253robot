@@ -10,7 +10,7 @@
 
 Servo bridgeServo;
 
-//1 for left to right -1 for right to left 
+//1 for left to right -1 for right to left
 bool lookForEwok(int threshold, int movementRange, int direction) {
     bool foundEwok = false;
     Movement mvt;
@@ -74,6 +74,8 @@ bool moveForwardToEwok(int threshold, int maxDistance) {
 }
 
 void initialLineFollow(Encoder& leftEnc, Encoder& rightEnc) {
+    leftEnc.reset();
+    rightEnc.reset();
     lineFollower.start();
     for(int32_t i=0;lineFollower.poll();++i) {
         Encoder::poll();

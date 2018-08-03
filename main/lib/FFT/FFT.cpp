@@ -5,7 +5,7 @@ constexpr float FFT::sampleRate; // to be set later
 constexpr float FFT::loFreq, FFT::hiFreq;
 constexpr int16_t FFT::loAngDelta;
 constexpr int16_t FFT::hiAngDelta;
-constexpr uint8_t FFT::sampleCount;
+constexpr int16_t FFT::sampleCount;
 constexpr int8_t FFT::sinVals[];
 
 // Define cbi, sbi macros if not defined already (clear bit, set bit)
