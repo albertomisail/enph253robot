@@ -1,5 +1,6 @@
 #include "FFT.h"
 
+int32_t fftcnt;
 
 constexpr float FFT::sampleRate; // to be set later
 constexpr float FFT::loFreq, FFT::hiFreq;
@@ -60,14 +61,15 @@ inline int16_t FFT::waitForSample() const {
 
     return (uint16)(regs->DR & ADC_DR_DATA);
 }
-
 int16_t FFT::baselineAverage() const {
     setupSample();
     int32_t sum = 0;
+    fftcnt = 0;
     for(int i = 0;i<sampleCount;++i)
     {
         sum += waitForSample();
         setupSample();
+        ++fftcnt;
     }
     waitForSample();
     sum += (sampleCount/2);
@@ -87,13 +89,14 @@ void FFT::init() {
     }
     adc_set_prescaler(adc_prescaler::ADC_PRE_PCLK2_DIV_8);
     adc_set_sample_rate(dev, adc_smp_rate::ADC_SMPR_71_5);
+    //adc_set_sample_rate(dev, adc_smp_rate::ADC_SMPR_239_5);
     digitalWrite(Constants::MULTIPLEXER_PIN, LOW);
 }
 
-inline int32_t FFT::sampleFrequency(const int16_t& ang_delta,
+inline int64_t FFT::sampleFrequency(const int16_t& ang_delta,
                                     const int16_t& times,
                                     const int16_t& baseline) {
-    int32_t sinAmt=0, cosAmt=0;
+    int64_t sinAmt=0, cosAmt=0;
     setupSample();
     int16_t ang = 0;
     sampleTime = micros();
@@ -106,7 +109,7 @@ inline int32_t FFT::sampleFrequency(const int16_t& ang_delta,
     }
     sampleTime = micros()-sampleTime;
     waitForSample();
-    return (int32_t) sqrt((float)sinAmt*sinAmt + (float)cosAmt*cosAmt);
+    return (int64_t) sqrt((float)sinAmt*sinAmt + (float)cosAmt*cosAmt);
 }
 
 FFTPair FFT::sample() {
@@ -116,7 +119,7 @@ FFTPair FFT::sample() {
     noInterrupts();
     int16_t baseline = baselineAverage();
     ans.lowAmount = sampleFrequency(loAngDelta, sampleCount, baseline);
-    ans.highAmount = sampleFrequency(hiAngDelta, sampleCount/4, baseline)*4;
+    ans.highAmount = sampleFrequency(hiAngDelta, sampleCount/10, baseline)*10;
     interrupts();
     return ans;
 }
