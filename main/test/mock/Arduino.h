@@ -12,5 +12,7 @@ void digitalWrite(uint8_t, int16_t);
 int16_t analogRead(uint8_t);
 void analogWrite(uint8_t, int16_t);
 void pinMode(uint8_t, uint8_t);
+void interrupts();
+void noInterrupts();
 
 struct String {};

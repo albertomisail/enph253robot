@@ -3,7 +3,7 @@
 #include <cstdint>
 #include <cmath>
 
-typedef int16_t int16;
+typedef uint16_t uint16;
 typedef std::size_t size_t;
 typedef bool boolean;
 typedef uint8_t byte;
@@ -42,3 +42,5 @@ constexpr uint8_t PA0 = 0,
 constexpr uint8_t INPUT = 0,
                   OUTPUT = 1,
                   INPUT_ANALOG = 2;
+constexpr uint8_t LOW = 0,
+                  HIGH = 1;
