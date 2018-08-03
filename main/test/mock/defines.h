@@ -7,6 +7,7 @@ typedef uint16_t uint16;
 typedef std::size_t size_t;
 typedef bool boolean;
 typedef uint8_t byte;
+
 constexpr uint8_t PA0 = 0,
                   PA1 = 1,
                   PA2 = 2,

@@ -32,5 +32,5 @@ constexpr int ADC_DR_DATA = 2,
               ADC_CR2_SWSTART = 4,
               ADC_SR_EOC = 8;
 
-adc_pin_thing PIN_MAP[40];
+extern adc_pin_thing PIN_MAP[40];
 

@@ -23,10 +23,10 @@ add_executable(testDriver test/testDriver.cpp test/mock/AllMock.cpp
                lib/InfraredBase/InfraredBase.cpp
                lib/LineFollower/LineFollower.cpp
                lib/Menu/Menu.cpp
+			   lib/Menu/MenuScreen.cpp
                lib/MenuItem/MenuItem.cpp
                lib/MotorBase/MotorBase.cpp
-               lib/Movement/Movement.cpp
-               lib/OLED_I2C/OLED_I2C.cpp)
+               lib/Movement/Movement.cpp)
 
 target_include_directories(testDriver PUBLIC test test/gtest test/mock
                            lib/ClawBase
@@ -38,7 +38,6 @@ target_include_directories(testDriver PUBLIC test test/gtest test/mock
                            lib/Menu
                            lib/MenuItem
                            lib/MotorBase
-                           lib/Movement
-                           lib/OLED_I2C)
+                           lib/Movement)
 
 target_link_libraries(testDriver gtest)
