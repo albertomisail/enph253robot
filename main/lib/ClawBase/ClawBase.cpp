@@ -46,7 +46,7 @@ bool ClawBase::pickEwok(){
 void ClawBase::dropEwok() {
     arm.write(Constants::angleOut);
     delay(500);
-    (ClawBase::claw).write(Constants::angleOpen);
+    (ClawBase::claw).write(Constants::angleDrop);
     delay(500);
     arm.write(Constants::angleIn);
     delay(500);

@@ -87,6 +87,7 @@ void FFT::init() {
     }
     adc_set_prescaler(adc_prescaler::ADC_PRE_PCLK2_DIV_8);
     adc_set_sample_rate(dev, adc_smp_rate::ADC_SMPR_71_5);
+    digitalWrite(Constants::MULTIPLEXER_PIN, LOW);
 }
 
 inline int32_t FFT::sampleFrequency(const int16_t& ang_delta,

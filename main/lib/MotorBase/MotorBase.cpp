@@ -43,6 +43,11 @@ void MotorBase::stop(const int8_t& motorNum) {
     MotorBase::speed(motorNum, 0);
     speeds[motorNum] = 0;
 }
+// void MotorBase::hardStop() {
+//     for(int i=0;i<sizeof speeds;++i) {
+//         speeds[i]/abs(speeds[i])
+//     }
+// }
 void MotorBase::shut_down(){
     for(int8_t i = 0; i < MotorBase::size(); i++){
         MotorBase::stop(i);
