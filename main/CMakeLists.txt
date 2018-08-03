@@ -15,5 +15,30 @@ target_include_directories(gtest PUBLIC test test/gtest test/gtest/include)
 target_compile_options(gtest PUBLIC -pthread)
 target_link_libraries(gtest pthread)
 
-add_executable(testDriver test/testDriver.cpp)
+add_executable(testDriver test/testDriver.cpp test/mock/AllMock.cpp
+               lib/ClawBase/ClawBase.cpp
+               lib/Constants/Constants.cpp
+               lib/Encoder/Encoder.cpp
+               lib/FFT/FFT.cpp
+               lib/InfraredBase/InfraredBase.cpp
+               lib/LineFollower/LineFollower.cpp
+               lib/Menu/Menu.cpp
+               lib/MenuItem/MenuItem.cpp
+               lib/MotorBase/MotorBase.cpp
+               lib/Movement/Movement.cpp
+               lib/OLED_I2C/OLED_I2C.cpp)
+
+target_include_directories(testDriver PUBLIC test test/gtest test/mock
+                           lib/ClawBase
+                           lib/Constants
+                           lib/Encoder
+                           lib/FFT
+                           lib/InfraredBase
+                           lib/LineFollower
+                           lib/Menu
+                           lib/MenuItem
+                           lib/MotorBase
+                           lib/Movement
+                           lib/OLED_I2C)
+
 target_link_libraries(testDriver gtest)
