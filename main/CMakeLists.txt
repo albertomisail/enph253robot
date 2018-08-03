@@ -15,7 +15,7 @@ target_include_directories(gtest PUBLIC test test/gtest test/gtest/include)
 target_compile_options(gtest PUBLIC -pthread)
 target_link_libraries(gtest pthread)
 
-add_executable(testDriver test/testDriver.cpp test/mock/AllMock.cpp
+add_executable(testDriver test/testDriver.cpp test/mock/AllMock.cpp test/AllTests.cpp
                lib/ClawBase/ClawBase.cpp
                lib/Constants/Constants.cpp
                lib/Encoder/Encoder.cpp
