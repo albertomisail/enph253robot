@@ -1,10 +1,15 @@
 #include "gtest/gtest.h"
 #include <Movement.h>
+#include "TestHelper.h"
 
 class MovementTest : public ::testing::Test {
 protected:
 	virtual void SetUp() {}
 	virtual void TearDown() {}
+public:
+	//static void checkMovementResponse(int leftEncoderVal, int rightEncoderVal, ) {
+
+	//}
 };
 
 TEST_F(MovementTest,isMoving) {
@@ -18,3 +23,6 @@ TEST_F(MovementTest,isMoving) {
 	m.stop();
 	ASSERT_FALSE(m.isMoving());
 }
+
+
+// TODO: The rest of the movement tests

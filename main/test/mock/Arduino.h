@@ -4,6 +4,11 @@
 #include "ADC.h"
 #include "Servo.h"
 
+namespace RobotTest {
+	void setDigitalValue(uint8_t, uint8_t);
+	void setMillis(int32_t);
+};
+
 void delay(int32_t);
 int32_t millis();
 int32_t micros();

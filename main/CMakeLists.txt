@@ -39,5 +39,6 @@ target_include_directories(testDriver PUBLIC test test/gtest test/mock
                            lib/MenuItem
                            lib/MotorBase
                            lib/Movement)
+target_compile_options(testDriver PUBLIC -Wno-write-strings)
 
 target_link_libraries(testDriver gtest)
