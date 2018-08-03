@@ -25,11 +25,32 @@ bool lookForEwok(int threshold, int movementRange, int direction) {
             infrared.startMeasurement();
         }
     }
-    motor.speed(Constants::MOTOR_LEFT, -255);
-    motor.speed(Constants::MOTOR_RIGHT, 255);
-    delay(20);
-    motor.speed(Constants::MOTOR_LEFT, 0);
-    motor.speed(Constants::MOTOR_RIGHT, 0);
+    if(!foundEwok){
+        mvt.start(1,1,2,2,80);
+        while(mvt.poll()){}
+        mvt.start(-direction, direction, movementRange, movementRange, 100);
+        infrared.startMeasurement();
+        while(mvt.poll()) {
+            if(!infrared.poll()) {
+                if(infrared.objectDetected(threshold)){
+                    foundEwok = true;
+                    break;
+                }
+                infrared.startMeasurement();
+            }
+        }
+        motor.speed(Constants::MOTOR_LEFT, direction*255);
+        motor.speed(Constants::MOTOR_RIGHT, -direction*255);
+        delay(20);
+        motor.speed(Constants::MOTOR_LEFT,0);
+        motor.speed(Constants::MOTOR_RIGHT,0);
+    }else{
+        motor.speed(Constants::MOTOR_LEFT, -direction*255);
+        motor.speed(Constants::MOTOR_RIGHT, direction*255);
+        delay(20);
+        motor.speed(Constants::MOTOR_LEFT,0);
+        motor.speed(Constants::MOTOR_RIGHT,0);
+    }
     return foundEwok;
 }
 
@@ -167,17 +188,33 @@ void maneuverToDropLocation(Encoder& leftEnc, Encoder& rightEnc) {
         }
     }
 
+    oled.clrScr();
+    oled.print("Go until the edge", 0, 0);
+    oled.update();
+
     //linefollow until we see the edge
     lineFollower.start(4096, 4096, Constants::EDGE_THRESHOLD.getVal(), 4096, 4096);
     while(lineFollower.poll()){}
+
+    oled.clrScr();
+    oled.print("EDGE!", 0, 0);
+    oled.update();
 
     //backup
     mvt.start(-1, -1, 10,10, 100);
     while(mvt.poll()){};
 
+    oled.clrScr();
+    oled.print("DONE BACKUP", 0, 0);
+    oled.update();
+
     //turn to drop location
     mvt.start(1,-1,20,20,100);
     while(mvt.poll()) {}
+
+    oled.clrScr();
+    oled.print("DROP LOCATION, ABOUT TO DROP", 0, 0);
+    oled.update();
 }
 
 void maneuverToBridge() {
@@ -213,7 +250,7 @@ void deployBridge(){
     motor.speed(Constants::MOTOR_RIGHT, 0);
 
     //go backwards across the bridge
-    mvt.start(-1,-1,56,56,80);
+    mvt.start(-1,-1,56,62,80);
     while(mvt.poll()){}
     delay(500);
 }
@@ -221,11 +258,11 @@ void deployBridge(){
 void handleSecondEwok(){
     Movement mvt;
 
-    mvt.start(-1,1,20,20,80);
+    mvt.start(-1,1,23,23,80);
     while(mvt.poll()){}
     delay(500);
 
-    bool foundEwok = lookForEwok(Constants::distantInfraredThreshold2, 6, -1);
+    bool foundEwok = lookForEwok(Constants::distantInfraredThreshold2, 18, -1);
     oled.clrScr();
     oled.printNumI(foundEwok,0,0);
     oled.update();
@@ -250,14 +287,25 @@ void handleSecondEwok(){
 }
 
 void IRBeacon() {
-
+    fft.init();
+    digitalWrite(Constants::MULTIPLEXER_PIN, LOW);
     float f10, f1;
     int32_t last1kTime = millis()-1000;
+    int cnt = 0;
     while(true) {
+        f1=0,f10=0;
         for(int i=0;i<10;++i) {
             FFTPair fftPair = fft.sample();
             f10 += fftPair.highAmount;
             f1 += fftPair.lowAmount;
+        }
+        if((++cnt)%10 == 0) {
+            oled.clrScr();
+            oled.print("1K :", 0, 0);
+            oled.print("10K:", 0, 10);
+            oled.printNumI(f1, 30, 0);
+            oled.printNumI(f10, 30, 10);
+            oled.update();
         }
         float totalAmount = sqrt(f10*f10 + f1*f1);
         if(totalAmount > Constants::FFT_THRESHOLD_TOTAL)
@@ -279,6 +327,85 @@ void IRBeacon() {
 }
 void maneuverToIR(){
     lineFollower.findLine(LineFollower::DIR_LEFT, 80);
+    Movement mvt;
+    mvt.move(-1, 1, 1, 1, 120);
+}
+
+void maneuverToSecondDropLocation(Encoder& leftEnc, Encoder& rightEnc){
+    leftEnc.reset();
+    rightEnc.reset();
+
+    lineFollower.start();
+    while(lineFollower.poll()) {
+        Encoder::poll();
+        if(leftEnc.getPosition() > 140) {
+            break;
+        }
+    }
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+    
+    delay(500);
+
+    Movement mvt;
+    mvt.start(-1,1,16,16,80);
+    while(mvt.poll()){}
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+
+    delay(500);
+
+    int32_t timeLimit = millis()+2000;
+
+    mvt.start(1,1,5,5,80);
+    while(mvt.poll()){
+        if(millis() > timeLimit) break;
+    }
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+}
+
+void handleThirdEwok(){
+    Movement mvt;
+    mvt.start(-1,-1,10,10,80);
+    while(mvt.poll()){}
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+
+    delay(200);
+
+    mvt.start(1,-1,5,5,80);
+    while(mvt.poll()){}
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+
+    delay(200);
+
+    bool foundEwok = lookForEwok(Constants::distantInfraredThreshold3, 12, 1);
+    oled.clrScr();
+    oled.printNumI(foundEwok,0,0);
+    oled.update();
+    delay(2000);
+
+    if(foundEwok) {
+        // TODO add the method to move foward to toward the ewok
+        bool foundEwok2 = moveForwardToEwok(Constants::pickUpInfraredThreshold3, 10);
+
+        oled.clrScr();
+        oled.printNumI(foundEwok2,0,10);
+        oled.update();
+
+        claw.pickEwok();
+        oled.clrScr();
+        oled.print("Picked up ewok",0,20);
+        oled.update();
+    }
+
+    //turn off leds
+    digitalWrite(Constants::infraredLeds[0], LOW);
+
+    mvt.start(-1,1,10,10,80);
+    while(mvt.poll()){}
 }
 
 void mainRun() {
@@ -291,46 +418,46 @@ void mainRun() {
     oled.invertText(false);
     delay(5000);
 
-    initialLineFollow(leftEnc, rightEnc);
+    // initialLineFollow(leftEnc, rightEnc);
 
-    oled.clrScr();
-    oled.print("Initial line follow", 0, 0);
-    oled.update();
+    // oled.clrScr();
+    // oled.print("Initial line follow", 0, 0);
+    // oled.update();
 
-    delay(2000);
+    // delay(2000);
 
-    handleFirstEwok(leftEnc, rightEnc);
+    // handleFirstEwok(leftEnc, rightEnc);
 
-    oled.clrScr();
-    oled.print("First ewok handled", 0, 0);
-    oled.update();
+    // oled.clrScr();
+    // oled.print("First ewok handled", 0, 0);
+    // oled.update();
 
-    delay(2000);
+    // delay(2000);
 
-    maneuverToDropLocation(leftEnc, rightEnc);
+    // maneuverToDropLocation(leftEnc, rightEnc);
 
-    oled.clrScr();
-    oled.print("Maneuvered to drop location",0,0);
-    oled.update();
+    // oled.clrScr();
+    // oled.print("Maneuvered to drop location",0,0);
+    // oled.update();
 
-    delay(2000);
+    // delay(2000);
 
-    claw.dropEwok();
+    // claw.dropEwok();
 
-    oled.clrScr();
-    oled.print("Ewok droped",0,0);
-    oled.update();
+    // oled.clrScr();
+    // oled.print("Ewok droped",0,0);
+    // oled.update();
 
-    delay(2000);
+    // delay(2000);
 
-    maneuverToBridge();
+    // maneuverToBridge();
 
-    oled.clrScr();
-    oled.print("Manuvered to bridge", 0, 0);
-    oled.update();
+    // oled.clrScr();
+    // oled.print("Manuvered to bridge", 0, 0);
+    // oled.update();
 
-    delay(2000);
-
+    // delay(2000);
+    
     deployBridge();
 
     handleSecondEwok();
@@ -340,6 +467,21 @@ void mainRun() {
     delay(1000);
 
     IRBeacon();
+    // delay(5200);
+
+    maneuverToSecondDropLocation(leftEnc, rightEnc);
+
+    delay(1000);
+
+    claw.dropEwok();
+
+    delay(1000);
+
+    handleThirdEwok();
+
+    claw.dropEwok();
+
+    delay(10000);
 
     // // we want to return to drop location so we go back onto the bridge
     // maneuverToBridge();

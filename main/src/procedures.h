@@ -19,6 +19,5 @@ void handleSecondEwok();
 
 void IRBeacon();
 void maneuverToIR();
-
-void crossArch();
-
+void maneuverToSecondDropLocation(Encoder&, Encoder&);
+void handleThirdEwok();
