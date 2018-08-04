@@ -45,4 +45,25 @@ TEST_F(EncoderTest,singletonness) {
 	ASSERT_EQ(0, enc_copy.getPosition());
 }
 
+TEST_F(EncoderTest,destructor) {
+	pinMode(PB0, INPUT);
+	pinMode(PB1, INPUT);
+	pinMode(PB2, INPUT);
+	pinMode(PB3, INPUT);
+	pinMode(PB4, INPUT);
+	Encoder enc0(PB0);
+	Encoder enc1(PB1);
+	Encoder enc2(PB2);
+	Encoder enc3(PB3);
+	enc0.~Encoder();
+	enc1.~Encoder();
+	enc2.~Encoder();
+	enc3.~Encoder();
+	Encoder enc4(PB4);
+	enc4.reset();
+	ASSERT_EQ(0, enc4.getPosition());
+	RobotTest::mockEncoderSteps(PB4, 10, 0);
+	ASSERT_EQ(10, enc4.getPosition());
+}
+
 // TODO: the rest of the encoder tests!

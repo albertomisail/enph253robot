@@ -3,6 +3,7 @@
 #include "defines.h"
 #include "ADC.h"
 #include "Servo.h"
+#include "gtest/gtest.h"
 
 namespace RobotTest {
 	void setDigitalValue(uint8_t, uint8_t);
