@@ -50,7 +50,7 @@ void ClawBase::dropEwok() {
     delay(1000);
     arm.write(Constants::angleIn);
     delay(500);
-    arm.write(Constants::angleClose);
+    claw.write(Constants::angleClose);
 }
 
 ClawBase claw;

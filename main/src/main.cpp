@@ -26,6 +26,11 @@ void setup() {
 
 void loop() {
     digitalWrite(PB5, HIGH);
-    mainRun();
+    while(true){
+        digitalWrite(Constants::infraredLeds[0], HIGH);
+        delay(100);
+        digitalWrite(Constants::infraredLeds[0], LOW);
+        delay(100);
+    }
     delay(10000);
 }
