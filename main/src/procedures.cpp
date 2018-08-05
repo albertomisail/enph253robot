@@ -388,19 +388,6 @@ void maneuverToSecondDropLocation(Encoder& leftEnc, Encoder& rightEnc){
     lineFollower.start(0,0,0);
     while(lineFollower.poll()) {
         Encoder::poll();
-<<<<<<< HEAD
-        if(leftEnc.getPosition() > 120) {
-            break;
-        }
-    }
-
-    lineFollower.start();
-    while(lineFollower.poll()){}
-
-    motor.speed(Constants::MOTOR_LEFT, -255);
-    motor.speed(Constants::MOTOR_RIGHT, -255);
-    delay(25);
-=======
         if(leftEnc.getPosition() > 140) {
             break;
         }
@@ -410,12 +397,9 @@ void maneuverToSecondDropLocation(Encoder& leftEnc, Encoder& rightEnc){
     motor.speed(Constants::MOTOR_LEFT, -255);
     motor.speed(Constants::MOTOR_RIGHT, -255);
     delay(30);
->>>>>>> 61b239d3ea93b186aa1674b0091b3a3cb663be0b
     motor.speed(Constants::MOTOR_LEFT, 0);
     motor.speed(Constants::MOTOR_RIGHT, 0);
 
-<<<<<<< HEAD
-=======
     Movement mvt;
     mvt.move(-1, -1, 35, 35, 100);
 
@@ -435,25 +419,16 @@ void maneuverToSecondDropLocation(Encoder& leftEnc, Encoder& rightEnc){
     //
     // delay(500);
     //
->>>>>>> 61b239d3ea93b186aa1674b0091b3a3cb663be0b
     // Movement mvt;
     // mvt.start(-1,1,16,16,80);
     // while(mvt.poll()){}
     // motor.speed(Constants::MOTOR_LEFT, 0);
     // motor.speed(Constants::MOTOR_RIGHT, 0);
-<<<<<<< HEAD
-
-    // delay(500);
-
-    // int32_t timeLimit = millis()+2000;
-
-=======
     //
     // delay(500);
     //
     // int32_t timeLimit = millis()+2000;
     //
->>>>>>> 61b239d3ea93b186aa1674b0091b3a3cb663be0b
     // mvt.start(1,1,5,5,80);
     // while(mvt.poll()){
     //     if(millis() > timeLimit) break;
@@ -523,78 +498,36 @@ void mainRun() {
     Encoder leftEnc(Constants::LEFT_ENC_PIN);
     Encoder rightEnc(Constants::RIGHT_ENC_PIN);
     oled.invertText(false);
-    // delay(5000);
 
-    // initialLineFollow(leftEnc, rightEnc);
-<<<<<<< HEAD
-
-    // oled.clrScr();
-    // oled.print("Initial line follow", 0, 0);
-    // oled.update();
-
-    // delay(2000);
-
-    // handleFirstEwok(leftEnc, rightEnc);
-
-    // oled.clrScr();
-    // oled.print("First ewok handled", 0, 0);
-    // oled.update();
-
-    // delay(2000);
-
-    // maneuverToDropLocation(leftEnc, rightEnc);
-
-    // oled.clrScr();
-    // oled.print("Maneuvered to drop location",0,0);
-    // oled.update();
-
-    // delay(2000);
-
-    // claw.dropEwok();
-
-    // oled.clrScr();
-    // oled.print("Ewok droped",0,0);
-    // oled.update();
-
-    // delay(2000);
-
-    // maneuverToBridge();
-
-    // oled.clrScr();
-    // oled.print("Manuvered to bridge", 0, 0);
-    // oled.update();
-
-    // delay(2000);
+    initialLineFollow(leftEnc, rightEnc);
     
-=======
-    //
-    // oled.clrScr();
-    // oled.print("Initial line follow", 0, 0);
-    // oled.update();
-    //
-    // delay(2000);
-    //
-    // handleFirstEwok(leftEnc, rightEnc);
-    //
-    // oled.clrScr();
-    // oled.print("First ewok handled", 0, 0);
-    // oled.update();
-    //
-    // delay(2000);
-    //
-    // maneuverToDropLocation(leftEnc, rightEnc);
-    //
-    // oled.clrScr();
-    // oled.print("Maneuvered to drop location",0,0);
-    // oled.update();
-    //
-    // delay(2000);
-    //
-    // claw.dropEwok();
-    //
-    // oled.clrScr();
-    // oled.print("Ewok droped",0,0);
-    // oled.update();
+    oled.clrScr();
+    oled.print("Initial line follow", 0, 0);
+    oled.update();
+    
+    delay(2000);
+    
+    handleFirstEwok(leftEnc, rightEnc);
+    
+    oled.clrScr();
+    oled.print("First ewok handled", 0, 0);
+    oled.update();
+    
+    delay(2000);
+    
+    maneuverToDropLocation(leftEnc, rightEnc);
+    
+    oled.clrScr();
+    oled.print("Maneuvered to drop location",0,0);
+    oled.update();
+    
+    delay(2000);
+    
+    claw.dropEwok();
+    
+    oled.clrScr();
+    oled.print("Ewok droped",0,0);
+    oled.update();
     //
     // delay(2000);
 
@@ -606,7 +539,6 @@ void mainRun() {
     //
     // delay(2000);
 
->>>>>>> 61b239d3ea93b186aa1674b0091b3a3cb663be0b
     deployBridge();
 
     // handleSecondEwok();

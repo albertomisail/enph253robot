@@ -26,11 +26,19 @@ void setup() {
 
 void loop() {
     digitalWrite(PB5, HIGH);
-    while(true){
-        digitalWrite(Constants::infraredLeds[0], HIGH);
-        delay(100);
-        digitalWrite(Constants::infraredLeds[0], LOW);
-        delay(100);
-    }
-    delay(10000);
+    delay(1000);
+    motor.speed(Constants::MOTOR_LEFT, 100);
+    motor.speed(Constants::MOTOR_RIGHT, 100);
+    delay(1000);
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+    delay(20);
+    motor.speed(Constants::MOTOR_LEFT, -100);
+    motor.speed(Constants::MOTOR_RIGHT, -100);
+    delay(1000);
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+    delay(5000);
+    //mainRun();
+    //delay(10000);
 }

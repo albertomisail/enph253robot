@@ -21,8 +21,8 @@ public:
 
     constexpr static int8_t oledPins[] = {PB11, PB10};
 
-    constexpr static int8_t highPwmPins[] = {PB9, PB7};
-    constexpr static int8_t lowPwmPins[] = {PB8, PB6};
+    constexpr static int8_t highPwmPins[] = {PB9, PB6};
+    constexpr static int8_t lowPwmPins[] = {PB8, PB7};
 
     constexpr static int16_t ENCODER_POLL_TIME = 2; // milliseconds
 
