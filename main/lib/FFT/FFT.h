@@ -3,9 +3,11 @@
 #include "Constants.h"
 #include <OLED_I2C.h>
 
+extern int32_t fftcnt;
+
 class FFTPair {
 public:
-    int32_t highAmount, lowAmount;
+    int64_t highAmount, lowAmount;
 };
 
 class FFT {
@@ -19,6 +21,7 @@ private:
     // NOTE: sample rate _should_ be 72MHz/prescaler/adc_smp_rate...
     //constexpr static float sampleRate = 72000/8/84; // to be set later
     constexpr static float sampleRate = 104.42;
+    //constexpr static float sampleRate = 37.5;
     constexpr static float loFreq = 1, hiFreq = 10;
     constexpr static int16_t loAngDelta = (int16_t) (loFreq/sampleRate*1024);
     constexpr static int16_t hiAngDelta = (int16_t) (hiFreq/sampleRate*1024);
@@ -29,8 +32,10 @@ private:
 
     static int8_t sin_t(int16_t x);
     static int8_t cos_t(int16_t x);
+public:
     int16_t baselineAverage() const;
-    int32_t sampleFrequency(const int16_t&, const int16_t&, const int16_t&);
+private:
+    int64_t sampleFrequency(const int16_t&, const int16_t&, const int16_t&);
 
 public:
     int32_t sampleTime;

@@ -49,9 +49,9 @@ public:
     constexpr static int8_t buttonSwitchPin = PA15;
 
     constexpr static uint8_t IR_BEACON_PIN = PA1;
-    constexpr static int32_t FFT_THRESHOLD_TOTAL = 2e5;
-    constexpr static int32_t FFT_THRESHOLD_1K_FACTOR = 4;
-    constexpr static int32_t FFT_THRESHOLD_10K_FACTOR = 10;
+    constexpr static int32_t FFT_THRESHOLD_TOTAL = 2;
+    constexpr static float FFT_THRESHOLD_1K_FACTOR = 1;
+    constexpr static float FFT_THRESHOLD_10K_FACTOR = 1;
 
     constexpr static uint8_t LEFT_QRD_PIN = PA4;
     constexpr static uint8_t RIGHT_QRD_PIN = PA7; //PA3;

@@ -232,30 +232,55 @@ void maneuverToBridge() {
 }
 
 void deployBridge(){
+    Encoder leftEnc(Constants::LEFT_ENC_PIN);
+    Encoder rightEnc(Constants::RIGHT_ENC_PIN);
     Movement mvt;
-
-    mvt.start(1,-1,28,28,80);
-    while(mvt.poll()){}
-    delay(500);
-    mvt.start(-1,-1,3,3,80);
-    while(mvt.poll()){}
-    delay(500);
+    mvt.start(1,-1,26,26,100);
+    int32_t cc = 0;
+    while(mvt.poll()){
+        if((++cc)%10000 == 0) {
+            oled.clrScr();
+            oled.print("LEFT :", 0, 0);
+            oled.print("RIGHT:", 0, 10);
+            oled.printNumI(leftEnc.getPosition(), 50, 0);
+            oled.printNumI(rightEnc.getPosition(), 50, 10);
+            oled.update();
+        }
+    }
     motor.speed(Constants::MOTOR_LEFT, 255);
+    motor.speed(Constants::MOTOR_RIGHT, -255);
+    delay(20);
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+    delay(500);
+    mvt.start(-1,-1,3,3,100);
+    while(mvt.poll()){}
+    delay(500);
+    // motor.speed(Constants::MOTOR_LEFT, 255);
+    // motor.speed(Constants::MOTOR_RIGHT, 255);
+    // delay(30);
+    // motor.speed(Constants::MOTOR_LEFT, 0);
+    // motor.speed(Constants::MOTOR_RIGHT, 0);
+
+    bridgeServo.write(Constants::positionUnlock);
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+    delay(100);
+    //Go forward so that bridge drops
+    motor.speed(Constants::MOTOR_LEFT, 255);
+    motor.speed(Constants::MOTOR_RIGHT, 255);
+    delay(80);
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+    delay(2);
+    motor.speed(Constants::MOTOR_LEFT, -255);
     motor.speed(Constants::MOTOR_RIGHT, -255);
     delay(30);
     motor.speed(Constants::MOTOR_LEFT, 0);
     motor.speed(Constants::MOTOR_RIGHT, 0);
 
-    bridgeServo.write(Constants::positionUnlock);
-    delay(100);
-    //Go forward so that bridge drops
-    mvt.start(1,1,4,4,110);
-    while(mvt.poll()){}
-    motor.speed(Constants::MOTOR_LEFT, 0);
-    motor.speed(Constants::MOTOR_RIGHT, 0);
-
     //go backwards across the bridge
-    mvt.start(-1,-1,56,62,80);
+    mvt.start(-1,-1,57,62,80);
     while(mvt.poll()){}
     delay(500);
 }
@@ -296,25 +321,45 @@ void IRBeacon() {
     digitalWrite(Constants::MULTIPLEXER_PIN, LOW);
     float f10, f1;
     int32_t last1kTime = millis()-1000;
+    int seen1k = 0, seen10k = 0;
     int cnt = 0;
     while(true) {
         f1=0,f10=0;
-        for(int i=0;i<10;++i) {
+        int32_t ha, la;
+        for(int i=0;i<20;++i) {
             FFTPair fftPair = fft.sample();
             f10 += fftPair.highAmount;
             f1 += fftPair.lowAmount;
+            ha = fftPair.highAmount;
+            la = fftPair.lowAmount;
         }
-        if((++cnt)%10 == 0) {
+        if((++cnt)%1 == 0) {
             oled.clrScr();
             oled.print("1K :", 0, 0);
             oled.print("10K:", 0, 10);
             oled.printNumI(f1, 30, 0);
             oled.printNumI(f10, 30, 10);
+            oled.printNumI(la, 90, 0);
+            oled.printNumI(ha, 90, 10);
             oled.update();
         }
         float totalAmount = sqrt(f10*f10 + f1*f1);
         if(totalAmount > Constants::FFT_THRESHOLD_TOTAL)
         {
+            // if(f10 > f1) {
+            //     seen1k = 0;
+            //     if(++seen10k > 1) {
+            //         if(millis()-last1kTime < 500) {
+            //             break;
+            //         }
+            //     }
+            // } else {
+            //     seen10k=0;
+            //     if(seen1k > 1) {
+            //         last1kTime = millis();
+            //     }
+            // }
+            //
             if(f10 != 0 && f1/f10 > Constants::FFT_THRESHOLD_1K_FACTOR) {
                 last1kTime = millis();
             }
@@ -343,6 +388,7 @@ void maneuverToSecondDropLocation(Encoder& leftEnc, Encoder& rightEnc){
     lineFollower.start(0,0,0);
     while(lineFollower.poll()) {
         Encoder::poll();
+<<<<<<< HEAD
         if(leftEnc.getPosition() > 120) {
             break;
         }
@@ -354,21 +400,60 @@ void maneuverToSecondDropLocation(Encoder& leftEnc, Encoder& rightEnc){
     motor.speed(Constants::MOTOR_LEFT, -255);
     motor.speed(Constants::MOTOR_RIGHT, -255);
     delay(25);
+=======
+        if(leftEnc.getPosition() > 140) {
+            break;
+        }
+    }
+    lineFollower.start();
+    while(lineFollower.poll()) {}
+    motor.speed(Constants::MOTOR_LEFT, -255);
+    motor.speed(Constants::MOTOR_RIGHT, -255);
+    delay(30);
+>>>>>>> 61b239d3ea93b186aa1674b0091b3a3cb663be0b
     motor.speed(Constants::MOTOR_LEFT, 0);
     motor.speed(Constants::MOTOR_RIGHT, 0);
-    
-    delay(500);
 
+<<<<<<< HEAD
+=======
+    Movement mvt;
+    mvt.move(-1, -1, 35, 35, 100);
+
+
+    // leftEnc.reset();
+    // rightEnc.reset();
+    //
+    // lineFollower.start();
+    // while(lineFollower.poll()) {
+    //     Encoder::poll();
+    //     if(leftEnc.getPosition() > 160) {
+    //         break;
+    //     }
+    // }
+    // motor.speed(Constants::MOTOR_LEFT, 0);
+    // motor.speed(Constants::MOTOR_RIGHT, 0);
+    //
+    // delay(500);
+    //
+>>>>>>> 61b239d3ea93b186aa1674b0091b3a3cb663be0b
     // Movement mvt;
     // mvt.start(-1,1,16,16,80);
     // while(mvt.poll()){}
     // motor.speed(Constants::MOTOR_LEFT, 0);
     // motor.speed(Constants::MOTOR_RIGHT, 0);
+<<<<<<< HEAD
 
     // delay(500);
 
     // int32_t timeLimit = millis()+2000;
 
+=======
+    //
+    // delay(500);
+    //
+    // int32_t timeLimit = millis()+2000;
+    //
+>>>>>>> 61b239d3ea93b186aa1674b0091b3a3cb663be0b
     // mvt.start(1,1,5,5,80);
     // while(mvt.poll()){
     //     if(millis() > timeLimit) break;
@@ -379,7 +464,7 @@ void maneuverToSecondDropLocation(Encoder& leftEnc, Encoder& rightEnc){
 
 void handleThirdEwok(){
     Movement mvt;
-    mvt.start(-1,-1,10,10,80);
+    //mvt.start(-1,-1,10,10,80);
     while(mvt.poll()){}
     motor.speed(Constants::MOTOR_LEFT, 0);
     motor.speed(Constants::MOTOR_RIGHT, 0);
@@ -441,6 +526,7 @@ void mainRun() {
     // delay(5000);
 
     // initialLineFollow(leftEnc, rightEnc);
+<<<<<<< HEAD
 
     // oled.clrScr();
     // oled.print("Initial line follow", 0, 0);
@@ -480,6 +566,47 @@ void mainRun() {
 
     // delay(2000);
     
+=======
+    //
+    // oled.clrScr();
+    // oled.print("Initial line follow", 0, 0);
+    // oled.update();
+    //
+    // delay(2000);
+    //
+    // handleFirstEwok(leftEnc, rightEnc);
+    //
+    // oled.clrScr();
+    // oled.print("First ewok handled", 0, 0);
+    // oled.update();
+    //
+    // delay(2000);
+    //
+    // maneuverToDropLocation(leftEnc, rightEnc);
+    //
+    // oled.clrScr();
+    // oled.print("Maneuvered to drop location",0,0);
+    // oled.update();
+    //
+    // delay(2000);
+    //
+    // claw.dropEwok();
+    //
+    // oled.clrScr();
+    // oled.print("Ewok droped",0,0);
+    // oled.update();
+    //
+    // delay(2000);
+
+    //maneuverToBridge();
+
+    // oled.clrScr();
+    // oled.print("Manuvered to bridge", 0, 0);
+    // oled.update();
+    //
+    // delay(2000);
+
+>>>>>>> 61b239d3ea93b186aa1674b0091b3a3cb663be0b
     deployBridge();
 
     // handleSecondEwok();
