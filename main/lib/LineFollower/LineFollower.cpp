@@ -75,6 +75,9 @@ bool LineFollower::poll(){
     && sensorRightReading < rightStopThreshold
     && sensorEdgeReading < edgeStopThreshold) {
         if(++consec > 1) {
+            motor.speed(Constants::MOTOR_LEFT, 0);
+            motor.speed(Constants::MOTOR_RIGHT, 0);
+            delay(2);
             motor.speed(Constants::MOTOR_LEFT, -255);
             motor.speed(Constants::MOTOR_RIGHT, -255);
             delay(40);
@@ -121,8 +124,8 @@ bool LineFollower::poll(){
 
     g = p+i+d;
 
-    motor.speed(Constants::MOTOR_LEFT, Constants::BASE_SPEED.getVal()-g);
-    motor.speed(Constants::MOTOR_RIGHT, Constants::BASE_SPEED.getVal()+g);
+    motor.speed(Constants::MOTOR_LEFT, max(0, Constants::BASE_SPEED.getVal()-g));
+    motor.speed(Constants::MOTOR_RIGHT, max(0, Constants::BASE_SPEED.getVal()+g));
 
     previousError = error;
     previousTime = now;
@@ -215,6 +218,9 @@ void LineFollower::findLine(const int8_t& dir, const int16_t& spd) {
             this->startQRD();
         }
     }
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+    delay(2);
     motor.speed(Constants::MOTOR_RIGHT, dir*255);
     motor.speed(Constants::MOTOR_LEFT, -dir*255);
     delay(25);

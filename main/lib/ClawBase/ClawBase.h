@@ -14,6 +14,8 @@ public:
     ClawBase();
     void init();
     void deployBridge();
+    void startPickEwok();
+    void finishPickEwok();
     bool pickEwok();
     void dropEwok();
 };

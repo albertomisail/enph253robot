@@ -14,9 +14,7 @@ void ClawBase::init(){
     pinMode(Constants::buttonSwitchPin, INPUT);
 }
 
-bool ClawBase::pickEwok(){
-    int step = (Constants::angleClose - Constants::angleOpen) / Constants::numSteps;
-    int step2 = (Constants::angleOut - Constants::angleIn) / Constants::numSteps;
+void ClawBase::startPickEwok() {
 
     (ClawBase::claw).write(Constants::angleOpen);
     delay(500);
@@ -28,7 +26,12 @@ bool ClawBase::pickEwok(){
         arm.write(i);
         delay(20);
     }
+}
 
+void ClawBase::finishPickEwok(){
+
+    int step = (Constants::angleClose - Constants::angleOpen) / Constants::numSteps;
+    int step2 = (Constants::angleOut - Constants::angleIn) / Constants::numSteps;
     while((ClawBase::claw).read() < Constants::angleClose){
         (ClawBase::claw).write((ClawBase::claw).read() + step);
         delay(70);
@@ -40,6 +43,11 @@ bool ClawBase::pickEwok(){
     }
     (ClawBase::arm).write(Constants::angleIn);
     delay(500);
+}
+
+bool ClawBase::pickEwok() {
+    startPickEwok();
+    finishPickEwok();
     return true;
 }
 

@@ -30,9 +30,9 @@ public:
     constexpr static int8_t infraredLeds[] = {PB3};
     constexpr static int8_t infraredReceiver = PA1;
     constexpr static int16_t distantInfraredThreshold = 1500;
-    constexpr static int16_t pickUpInfraredThreshold = 2800;
+    constexpr static int16_t pickUpInfraredThreshold = 4096;
     constexpr static int16_t distantInfraredThreshold1 = 1500;
-    constexpr static int16_t pickUpInfraredThreshold1 = 2800;
+    constexpr static int16_t pickUpInfraredThreshold1 = 3700;
     constexpr static int16_t distantInfraredThreshold2 = 1500;
     constexpr static int16_t pickUpInfraredThreshold2 = 3300;
     constexpr static int16_t distantInfraredThreshold3 = 1500;
