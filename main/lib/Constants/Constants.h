@@ -32,9 +32,9 @@ public:
     constexpr static int16_t distantInfraredThreshold = 1500;
     constexpr static int16_t pickUpInfraredThreshold = 4096;
     constexpr static int16_t distantInfraredThreshold1 = 1500;
-    constexpr static int16_t pickUpInfraredThreshold1 = 3700;
+    constexpr static int16_t pickUpInfraredThreshold1 = 3600;
     constexpr static int16_t distantInfraredThreshold2 = 1500;
-    constexpr static int16_t pickUpInfraredThreshold2 = 3300;
+    constexpr static int16_t pickUpInfraredThreshold2 = 3750;
     constexpr static int16_t distantInfraredThreshold3 = 1500;
     constexpr static int16_t pickUpInfraredThreshold3 = 3300;
     constexpr static int16_t ewokPulseDuration = 15; // m
