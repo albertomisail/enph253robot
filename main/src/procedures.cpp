@@ -146,7 +146,7 @@ void handleFirstEwok(Encoder& leftEnc, Encoder& rightEnc) {
     oled.clrScr();
     oled.printNumI(foundEwok,0,0);
     oled.update();
-    delay(2000);
+    //delay(2000);
 
     if(foundEwok) {
         // TODO add the method to move foward to toward the
@@ -183,14 +183,14 @@ void maneuverToDropLocation(Encoder& leftEnc, Encoder& rightEnc) {
     oled.clrScr();
     oled.print("About to find line", 0, 0);
     oled.update();
-    delay(1000);
+    //delay(1000);
 
     lineFollower.findLine(LineFollower::DIR_RIGHT, 80); // blocking
     oled.clrScr();
     oled.print("Done finding line", 0, 0);
     oled.update();
 
-    delay(1000);
+    delay(100);
 
     leftEnc.reset();
     rightEnc.reset();
@@ -203,7 +203,10 @@ void maneuverToDropLocation(Encoder& leftEnc, Encoder& rightEnc) {
             break;
         }
     }
-    delay(250);
+    //delay(250);
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+    delay(2);
 
     oled.clrScr();
     oled.print("Go until the edge", 0, 0);
@@ -213,6 +216,8 @@ void maneuverToDropLocation(Encoder& leftEnc, Encoder& rightEnc) {
     lineFollower.start(4096, 4096, Constants::EDGE_THRESHOLD.getVal(), 4096, 4096);
     while(lineFollower.poll()){}
 
+    delay(2);
+
     oled.clrScr();
     oled.print("EDGE!", 0, 0);
     oled.update();
@@ -221,6 +226,8 @@ void maneuverToDropLocation(Encoder& leftEnc, Encoder& rightEnc) {
     mvt.start(-1, -1, 15,15, 100);
     while(mvt.poll()){};
 
+    delay(2);
+
     oled.clrScr();
     oled.print("DONE BACKUP", 0, 0);
     oled.update();
@@ -228,6 +235,7 @@ void maneuverToDropLocation(Encoder& leftEnc, Encoder& rightEnc) {
     //turn to drop location
     mvt.start(1,-1,20,20,100);
     while(mvt.poll()) {}
+    delay(2);
 
     oled.clrScr();
     oled.print("DROP LOCATION, ABOUT TO DROP", 0, 0);
@@ -250,10 +258,10 @@ void deployBridge(){
     //while(mvt.poll()){}
     mvt.start(1,-1,25,25,80);
     while(mvt.poll()){}
-    delay(500);
-    mvt.start(-1,-1,5,5,80);
+    delay(250);
+    mvt.start(-1,-1,7,7,80);
     while(mvt.poll()){}
-    delay(500);
+    delay(250);
     motor.speed(Constants::MOTOR_LEFT, 255);
     motor.speed(Constants::MOTOR_RIGHT, -255);
     delay(30);
@@ -262,6 +270,13 @@ void deployBridge(){
 
     bridgeServo.write(Constants::positionUnlock);
     delay(100);
+    /*
+    motor.speed(Constants::MOTOR_LEFT, 255);
+    motor.speed(Constants::MOTOR_RIGHT, 255);
+    delay(20);
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+    delay(2); */
     //Go forward so that bridge drops
     mvt.start(1,1,5,5,110);
     while(mvt.poll()){}
@@ -291,7 +306,7 @@ void handleSecondEwok(){
     oled.clrScr();
     oled.printNumI(foundEwok,0,0);
     oled.update();
-    delay(2000);
+    delay(200);
 
     if(foundEwok) {
         // TODO add the method to move foward to toward the ewok
@@ -414,7 +429,7 @@ void maneuverToSecondDropLocation(Encoder& leftEnc, Encoder& rightEnc){
     delay(250);
 
     int32_t timeLimit = millis()+2000;
-    
+
     mvt.start(1,1,8,8,80);
     while(mvt.poll()){
         if(millis() > timeLimit) break;
@@ -445,7 +460,7 @@ void handleThirdEwok(){
     oled.clrScr();
     oled.printNumI(foundEwok,0,0);
     oled.update();
-    delay(2000);
+    delay(200);
 
     if(foundEwok) {
         // TODO add the method to move foward to toward the ewok
@@ -481,6 +496,32 @@ void handleThirdEwok(){
     motor.speed(Constants::MOTOR_RIGHT, 0);
 }
 
+void maneuverToSecondBridge() {
+    Movement mvt;
+    mvt.move(-1, -1, 5, 5, 100);
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+    delay(2);
+    lineFollower.findLine(LineFollower::DIR_RIGHT, 80);
+    delay(2);
+    lineFollower.start();
+    while(lineFollower.poll()) {}
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+    delay(2);
+    motor.speed(Constants::MOTOR_LEFT, -255);
+    motor.speed(Constants::MOTOR_RIGHT, -255);
+    delay(25);
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+    delay(2);
+
+    mvt.move(-1, 1, 24, 24, 90);
+    delay(2);
+
+    
+}
+
 void mainRun() {
     bridgeServo.attach(Constants::BRIDGE_SERVO_PIN);
     bridgeServo.write(Constants::positionLock);
@@ -497,7 +538,7 @@ void mainRun() {
     oled.print("Initial line follow", 0, 0);
     oled.update();
 
-    delay(2000);
+    //delay(2000);
 
     handleFirstEwok(leftEnc, rightEnc);
 
@@ -505,7 +546,7 @@ void mainRun() {
     oled.print("First ewok handled", 0, 0);
     oled.update();
 
-    delay(2000);
+    //delay(2000);
 
     maneuverToDropLocation(leftEnc, rightEnc);
 
@@ -513,16 +554,16 @@ void mainRun() {
     oled.print("Maneuvered to drop location",0,0);
     oled.update();
 
-    delay(2000);
+    //delay(2000);
 
     claw.dropEwok();
-    
+
 
     oled.clrScr();
     oled.print("Ewok droped",0,0);
     oled.update();
 
-    delay(2000);
+    //delay(2000);
 
     maneuverToBridge();
 
@@ -530,7 +571,7 @@ void mainRun() {
     oled.print("Manuvered to bridge", 0, 0);
     oled.update();
 
-    delay(2000);
+    delay(200);
 
     deployBridge();
 
@@ -538,18 +579,18 @@ void mainRun() {
 
     maneuverToIR();
 
-    delay(1000);
+    //delay(1000);
 
     IRBeacon();
     // delay(5000);
 
     maneuverToSecondDropLocation(leftEnc, rightEnc);
 
-    delay(1000);
+    //delay(1000);
 
     claw.dropEwok();
 
-    delay(1000);
+    //delay(1000);
 
     handleThirdEwok();
 

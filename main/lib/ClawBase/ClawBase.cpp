@@ -24,7 +24,7 @@ void ClawBase::startPickEwok() {
     for(int i=arm.read();abs(arm.read()-Constants::angleOut) > 0;i += step_dir)
     {
         arm.write(i);
-        delay(20);
+        delay(10);
     }
 }
 
