@@ -105,7 +105,7 @@ inline int64_t FFT::sampleFrequency(const int16_t& ang_delta,
         int16_t sampleValue = waitForSample();
         setupSample();
         sinAmt += ((sampleValue-baseline)>>2)*sin_t(ang);
-        //cosAmt += ((sampleValue-baseline)>>2)*cos_t(ang);
+        cosAmt += ((sampleValue-baseline)>>2)*cos_t(ang);
         ang += ang_delta;
     }
     sampleTime = micros()-sampleTime;
