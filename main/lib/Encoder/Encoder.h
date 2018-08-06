@@ -4,9 +4,10 @@
 #include <Constants.h>
 
 // Currently, this does not handle direction.
-class Encoder{
-private:
+class Encoder {
+public:
     constexpr static uint8_t MAX_ENCODERS = 4;
+private:
     static int8_t encoderPins[MAX_ENCODERS];
     static int8_t encoderPinCnt[MAX_ENCODERS];
     static int16_t distances[MAX_ENCODERS];
