@@ -23,10 +23,10 @@ void noInterrupts();
 size_t strlen(char* s);
 
 template<typename T, typename U>
-T min(const T&, const U&) {
-    // TODO
+T min(const T& x, const U& y) {
+    return (x < y ? x : static_cast<T>(y));
 }
 template<typename T, typename U>
-T max(const T&, const U&) {
-    // TODO
+T max(const T& x, const U& y) {
+    return (x > y ? x : static_cast<T>(y));
 }

@@ -29,19 +29,19 @@ int32_t micros() {
 
 uint8_t digitalRead(uint8_t pin) {
     // TODO
-	ASSERT_EQ(INPUT, RobotTest::pinModeValue[pin]);
+	//ASSERT_EQ(INPUT, RobotTest::pinModeValue[pin]);
 	return RobotTest::digitalValue[pin];
 }
 void digitalWrite(uint8_t pin, int16_t val) {
-	ASSERT_EQ(OUTPUT, RobotTest::pinModeValue[pin]);
+	//ASSERT_EQ(OUTPUT, RobotTest::pinModeValue[pin]);
 	RobotTest::digitalValue[pin] = val;
 }
 int16_t analogRead(uint8_t pin) {
-	ASSERT_EQ(INPUT, RobotTest::pinModeValue[pin]);
-	RobotTest::analogValue[pin] = val;
+	//ASSERT_EQ(INPUT, RobotTest::pinModeValue[pin]);
+	RobotTest::analogValue[pin];
 }
 void analogWrite(uint8_t pin, int16_t val) {
-	ASSERT_EQ(OUTPUT, RobotTest::pinModeValue[pin]);
+	//ASSERT_EQ(OUTPUT, RobotTest::pinModeValue[pin]);
 	RobotTest::analogValue[pin] = val;
 }
 

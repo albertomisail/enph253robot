@@ -26,7 +26,8 @@ add_executable(testDriver test/testDriver.cpp test/mock/AllMock.cpp test/AllTest
 			   lib/Menu/MenuScreen.cpp
                lib/MenuItem/MenuItem.cpp
                lib/MotorBase/MotorBase.cpp
-               lib/Movement/Movement.cpp)
+               lib/Movement/Movement.cpp
+		       lib/PIDSpeed/PIDSpeed.cpp)
 
 target_include_directories(testDriver PUBLIC test test/gtest test/mock
                            lib/ClawBase
@@ -38,7 +39,8 @@ target_include_directories(testDriver PUBLIC test test/gtest test/mock
                            lib/Menu
                            lib/MenuItem
                            lib/MotorBase
-                           lib/Movement)
+                           lib/Movement
+                           lib/PIDSpeed)
 target_compile_options(testDriver PUBLIC -Wno-write-strings)
 
 target_link_libraries(testDriver gtest)

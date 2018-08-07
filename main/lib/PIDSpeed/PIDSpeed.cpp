@@ -1,6 +1,7 @@
+#include <iostream>
 #include "PIDSpeed.h"
 
-constexpr int16_t PIDSpeed::maxSpeed, PIDSpeed::minSpeed = 0;
+constexpr int16_t PIDSpeed::maxSpeed, PIDSpeed::minSpeed;
 
 void PIDSpeed::start(int16_t baseSpeed_, int16_t timePerEncoder_) {
     start(baseSpeed_, timePerEncoder_, Encoder(Constants::LEFT_ENC_PIN), Encoder(Constants::RIGHT_ENC_PIN));
@@ -13,14 +14,14 @@ void PIDSpeed::start(int16_t baseSpeed_, int16_t timePerEncoder_, Encoder enc) {
     enc1InitVal = enc1.getPosition();
     initValues();
 }
-void PIDSpeed::start(int16_t, int16_t, Encoder encoder1, Encoder encoder2) {
+void PIDSpeed::start(int16_t baseSpeed_, int16_t timePerEncoder_, Encoder encoder1, Encoder encoder2) {
     baseSpeed = baseSpeed_;
     timePerEncoder = timePerEncoder_;
     enc1 = encoder1;
     enc2 = encoder2;
     encoderCount = 2;
     enc1InitVal = enc1.getPosition();
-    enc12nitVal = enc2.getPosition();
+    enc2InitVal = enc2.getPosition();
     initValues();
 }
 void PIDSpeed::initValues() {
@@ -42,7 +43,7 @@ bool PIDSpeed::poll() {
     lastTime = millis();
 
     int32_t goalTime = timePerEncoder*getEncoderVal();
-    int32_t error = goalTime-millis();
+    int32_t error = millis()-goalTime;
     int32_t previousError = error;
 
     int32_t p = error*Constants::SPEED_P/1000;
@@ -53,7 +54,7 @@ bool PIDSpeed::poll() {
         counter = 1;
     }
     int32_t d = (int32_t)Constants::DERIVATIVE.getVal() * (error-previousError) / (deltaT*counter) / 1000;
-    ans = p+i+d;
+    ans = p+i+d+ baseSpeed;
     ans = min(maxSpeed, max(minSpeed, ans));
 }
 int16_t PIDSpeed::getSpeed() const {

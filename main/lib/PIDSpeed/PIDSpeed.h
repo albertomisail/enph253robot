@@ -1,15 +1,16 @@
 #pragma once
 #include <Arduino.h>
 #include <Encoder.h>
+#include <Constants.h>
 
 class PIDSpeed {
 private:
     int16_t baseSpeed;
     int16_t timePerEncoder;
-    Encoder enc1, enc2;
+    Encoder enc1 = Encoder(Constants::LEFT_ENC_PIN), enc2 = Encoder(Constants::RIGHT_ENC_PIN);
     int8_t encoderCount = 0;
     int16_t error, previousError;
-    int32_t initTime, counter;
+    int32_t initTime, counter, lastTime;
     bool movingState = false;
     int16_t enc1InitVal, enc2InitVal;
     int16_t ans;
