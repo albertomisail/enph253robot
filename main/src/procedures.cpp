@@ -487,7 +487,7 @@ void handleThirdEwok(){
     motor.speed(Constants::MOTOR_RIGHT,0);
     delay(2);
 
-    mvt.start(1, 1, 5, 5, 80);
+    mvt.start(1, 1, 8, 8, 80);
     int32_t timeout = millis()+1500;
     while(mvt.poll()){
         if(timeout < millis()) break;
@@ -549,9 +549,12 @@ void maneuverToSecondBridge() {
     while(mvt.poll()) {
         if(t < millis()) break;
     }
-    delay(5000);
+    // delay(5000);
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+    delay(2);
 
-    mvt.move(-1, -1, 36,36, 90);
+    mvt.move(-1, -1, 56,56, 90);
     delay(2);
     motor.speed(Constants::MOTOR_LEFT, 0);
     motor.speed(Constants::MOTOR_RIGHT, 0);
