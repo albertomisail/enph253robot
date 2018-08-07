@@ -516,6 +516,9 @@ void maneuverToSecondBridge() {
     motor.speed(Constants::MOTOR_RIGHT, 0);
     delay(2);
 
+    lineFollower.alignWithEdge();
+    // delay(10000);
+
     mvt.move(-1, -1, 13, 13, 90);
     delay(2);
     motor.speed(Constants::MOTOR_LEFT, 0);
@@ -541,10 +544,19 @@ void maneuverToSecondBridge() {
     motor.speed(Constants::MOTOR_RIGHT, 0);
     delay(2);
 
-    mvt.move(-1, -1, 31, 31, 90);
+    mvt.move(-1, -1, 36, 36, 90);
 
     bridgeServo.write(Constants::positionSecondUnlock);
 
+    delay(1000);
+
+    int32_t timeout = millis() + 2000;
+    mvt.start(-1,-1,10,10,70);
+    while(mvt.poll()) {
+        if(timeout > millis()) break;
+    }
+
+    mvt.move(-1, -1, 30, 30, 150);
 
 }
 
