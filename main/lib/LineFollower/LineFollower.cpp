@@ -250,7 +250,8 @@ void LineFollower::alignWithEdge(){
     
     if(this->QRDMeasurement('e')<=edgeStopThreshold){
         Movement mvt;
-        mvt.start(-1,1,LineFollower::A_LOT_OF_TURNS,LineFollower::A_LOT_OF_TURNS, 80);
+        //FOr second bridge dropping purposely turn a bit more when going towards the gap then only rotate right wheel to lineup with edge
+        mvt.start(-1,1,0,LineFollower::A_LOT_OF_TURNS, 80);
         this->startQRD();
         //move until you see edge on the right
         while(mvt.poll()){
