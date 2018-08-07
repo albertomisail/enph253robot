@@ -516,10 +516,36 @@ void maneuverToSecondBridge() {
     motor.speed(Constants::MOTOR_RIGHT, 0);
     delay(2);
 
-    mvt.move(-1, 1, 24, 24, 90);
+    mvt.move(-1, -1, 13, 13, 90);
+    delay(2);
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+    delay(2);
+    motor.speed(Constants::MOTOR_LEFT, 255);
+    motor.speed(Constants::MOTOR_RIGHT, 255);
+    delay(20);
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
     delay(2);
 
-    
+    mvt.move(-1, 1, 18, 18, 90);
+    delay(2);
+    delay(2);
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+    delay(2);
+    motor.speed(Constants::MOTOR_LEFT, 255);
+    motor.speed(Constants::MOTOR_RIGHT, -255);
+    delay(20);
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+    delay(2);
+
+    mvt.move(-1, -1, 31, 31, 90);
+
+    bridgeServo.write(Constants::positionSecondUnlock);
+
+
 }
 
 void mainRun() {
@@ -531,7 +557,7 @@ void mainRun() {
     Encoder rightEnc(Constants::RIGHT_ENC_PIN);
 
     oled.invertText(false);
-
+/*
     initialLineFollow(leftEnc, rightEnc);
 
     oled.clrScr();
@@ -594,7 +620,9 @@ void mainRun() {
 
     handleThirdEwok();
 
-    claw.dropEwok();
+    claw.dropEwok(); */
+
+    maneuverToSecondBridge();
 
     delay(10000);
 }
