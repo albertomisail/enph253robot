@@ -30,7 +30,6 @@ int32_t micros() {
 
 uint8_t digitalRead(uint8_t pin) {
     // TODO
-<<<<<<< HEAD
 	//ASSERT_EQ(INPUT, RobotTest::pinModeValue[pin]);
 	return RobotTest::digitalValue[pin];
 }
