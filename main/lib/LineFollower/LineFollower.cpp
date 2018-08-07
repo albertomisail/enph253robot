@@ -111,7 +111,7 @@ bool LineFollower::poll(){
 
     int32_t p = (int32_t)Constants::PROPORTIONAL.getVal()*error;
     int32_t i = (int32_t)Constants::INTEGRAL.getVal()*error*now+i;
-    i = min(max(i, -8), 8);
+    i = min(max(i, -64), 64);
 
     if(error == previousError) {
         ++counter;
@@ -120,7 +120,7 @@ bool LineFollower::poll(){
     }
     int32_t d = (int32_t)Constants::DERIVATIVE.getVal() * (error-previousError) / (deltaT*counter);
 
-    g = p+i+d;
+    g = p+i/16+d;
 
     motor.speed(Constants::MOTOR_LEFT, max(0, Constants::BASE_SPEED.getVal()-g));
     motor.speed(Constants::MOTOR_RIGHT, max(0, Constants::BASE_SPEED.getVal()+g));
