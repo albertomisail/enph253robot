@@ -544,7 +544,7 @@ void maneuverToSecondBridge() {
     motor.speed(Constants::MOTOR_RIGHT, 0);
     delay(2);
 
-    int32_t t = millis() + 3000;
+    int32_t t = millis() + 1500;
     mvt.start(1,1,36,36,80);
     while(mvt.poll()) {
         if(t < millis()) break;
@@ -554,7 +554,7 @@ void maneuverToSecondBridge() {
     motor.speed(Constants::MOTOR_RIGHT, 0);
     delay(2);
 
-    mvt.move(-1, -1, 56,56, 90);
+    mvt.move(-1, -1, 53,53, 90);
     delay(2);
     motor.speed(Constants::MOTOR_LEFT, 0);
     motor.speed(Constants::MOTOR_RIGHT, 0);
