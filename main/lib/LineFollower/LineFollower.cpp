@@ -111,7 +111,7 @@ bool LineFollower::poll(){
 
     int32_t p = (int32_t)Constants::PROPORTIONAL.getVal()*error;
     int32_t i = (int32_t)Constants::INTEGRAL.getVal()*error*now+i;
-    i = min(max(i, -((1L)<<12)), (1L)<<12);
+    i = min(max(i, -8), 8);
 
     if(error == previousError) {
         ++counter;
@@ -247,7 +247,7 @@ void LineFollower::alignWithEdge(){
     delay(25);
     motor.speed(Constants::MOTOR_LEFT, 0);
     motor.speed(Constants::MOTOR_RIGHT, 0);
-    
+
     if(this->QRDMeasurement('e')<=edgeStopThreshold){
         Movement mvt;
         //FOr second bridge dropping purposely turn a bit more when going towards the gap then only rotate right wheel to lineup with edge

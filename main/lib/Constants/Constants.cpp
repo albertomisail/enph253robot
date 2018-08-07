@@ -25,7 +25,7 @@ void Constants::init() {
     RIGHT_THRESHOLD = MenuItem("RT", 0, 4096, 1024);
     */
     PROPORTIONAL = MenuItem("P", 0, 256, 24);
-    INTEGRAL = MenuItem("I", 0, 20, 0);
+    INTEGRAL = MenuItem("I", 0, 20, 2);
     DERIVATIVE = MenuItem("D", 0, 40, 4);
     BASE_SPEED = MenuItem("BS", 0, 256, 130);
     LEFT_THRESHOLD = MenuItem("LT", 0, 4096, 3100);
