@@ -516,10 +516,140 @@ void maneuverToSecondBridge() {
     motor.speed(Constants::MOTOR_RIGHT, 0);
     delay(2);
 
-    mvt.move(-1, 1, 24, 24, 90);
+    // Choice 1: Align with edge first then rotate 90 degrees and backup to drop bridge
+    //lineFollower.alignWithEdge();
+    // delay(10000);
+
+    mvt.move(-1, -1, 13, 13, 90);
+    delay(2);
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+    delay(2);
+    motor.speed(Constants::MOTOR_LEFT, 255);
+    motor.speed(Constants::MOTOR_RIGHT, 255);
+    delay(20);
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
     delay(2);
 
-    
+    mvt.move(-1, 1, 17, 17, 90);
+    delay(2);
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+    delay(2);
+    motor.speed(Constants::MOTOR_LEFT, 255);
+    motor.speed(Constants::MOTOR_RIGHT, -255);
+    delay(20);
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+    delay(2);
+
+    int32_t t = millis() + 3000;
+    mvt.start(1,1,36,36,80);
+    while(mvt.poll()) {
+        if(t < millis()) break;
+    }
+    delay(5000);
+
+    mvt.move(-1, -1, 36,36, 90);
+    delay(2);
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+    delay(2);
+    motor.speed(Constants::MOTOR_LEFT, 255);
+    motor.speed(Constants::MOTOR_RIGHT, 255);
+    delay(20);
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+    delay(2);
+
+    // //Choice 2: Rotate 90 degrees, lineup with gap edge and rotate 180 then drop bridge
+    // mvt.move(-1, -1, 13, 13, 90);
+    // delay(2);
+    // motor.speed(Constants::MOTOR_LEFT, 0);
+    // motor.speed(Constants::MOTOR_RIGHT, 0);
+    // delay(2);
+    // motor.speed(Constants::MOTOR_LEFT, 255);
+    // motor.speed(Constants::MOTOR_RIGHT, 255);
+    // delay(20);
+    // motor.speed(Constants::MOTOR_LEFT, 0);
+    // motor.speed(Constants::MOTOR_RIGHT, 0);
+    // delay(2);
+
+    // mvt.move(1, -1, 16, 16, 90);
+    // delay(2);
+    // motor.speed(Constants::MOTOR_LEFT, 0);
+    // motor.speed(Constants::MOTOR_RIGHT, 0);
+    // delay(2);
+    // motor.speed(Constants::MOTOR_LEFT, -255);
+    // motor.speed(Constants::MOTOR_RIGHT, 255);
+    // delay(20);
+    // motor.speed(Constants::MOTOR_LEFT, 0);
+    // motor.speed(Constants::MOTOR_RIGHT, 0);
+    // delay(2);
+
+    // delay(1000);
+
+    // mvt.move(1, 1, 26, 26, 90);
+    // delay(2);
+    // motor.speed(Constants::MOTOR_LEFT, 0);
+    // motor.speed(Constants::MOTOR_RIGHT, 0);
+    // delay(2);
+    // motor.speed(Constants::MOTOR_LEFT, -255);
+    // motor.speed(Constants::MOTOR_RIGHT, -255);
+    // delay(20);
+    // motor.speed(Constants::MOTOR_LEFT, 0);
+    // motor.speed(Constants::MOTOR_RIGHT, 0);
+    // delay(2);
+
+    // delay(1000);
+
+    // lineFollower.alignWithEdge();
+    // delay(1000);
+
+    // mvt.move(1, -1, 29, 29, 90);
+    // delay(2);
+    // motor.speed(Constants::MOTOR_LEFT, 0);
+    // motor.speed(Constants::MOTOR_RIGHT, 0);
+    // delay(2);
+    // motor.speed(Constants::MOTOR_LEFT, -255);
+    // motor.speed(Constants::MOTOR_RIGHT, 255);
+    // delay(20);
+    // motor.speed(Constants::MOTOR_LEFT, 0);
+    // motor.speed(Constants::MOTOR_RIGHT, 0);
+    // delay(2);
+
+    // mvt.move(-1, -1, 7, 7, 90);
+    // delay(2);
+    // motor.speed(Constants::MOTOR_LEFT, 0);
+    // motor.speed(Constants::MOTOR_RIGHT, 0);
+    // delay(2);
+    // motor.speed(Constants::MOTOR_LEFT, 255);
+    // motor.speed(Constants::MOTOR_RIGHT, 255);
+    // delay(20);
+    // motor.speed(Constants::MOTOR_LEFT, 0);
+    // motor.speed(Constants::MOTOR_RIGHT, 0);
+    // delay(2);
+
+    delay(2000);
+    bridgeServo.write(Constants::positionSecondUnlock);
+
+
+    // mvt.start(1,1,3,3,110);
+    // while(mvt.poll()){}
+    // motor.speed(Constants::MOTOR_LEFT, 0);
+    // motor.speed(Constants::MOTOR_RIGHT, 0);
+
+    delay(1000);
+
+    int32_t timeout = millis() + 2000;
+    mvt.start(-1,-1,20,20,80);
+    while(mvt.poll()) {
+        if(timeout < millis()) break;
+    }
+
+    mvt.move(-1, -1, 40, 40, 150);
+
 }
 
 void mainRun() {
@@ -594,7 +724,9 @@ void mainRun() {
 
     handleThirdEwok();
 
-    claw.dropEwok();
+    claw.dropEwok(); 
+
+    maneuverToSecondBridge();
 
     delay(10000);
 }

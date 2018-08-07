@@ -42,7 +42,6 @@ bool LineFollower::poll(){
     if(movingState == false) {
         digitalWrite(Constants::QRD_POWER_PIN, LOW);
         return false;
-        // return true;
     }
     int32_t now = millis();
     if(state == 0) {
@@ -85,7 +84,6 @@ bool LineFollower::poll(){
             motor.speed(Constants::MOTOR_RIGHT, 0);
             movingState = false;
             return false;
-            // return true;
         }
     } else {
         consec = 0;
@@ -143,7 +141,6 @@ void LineFollower::QRDGetInitialReading() {
     sensorRightReadingAmb = analogRead(Constants::RIGHT_QRD_PIN);
     sensorEdgeReadingAmb = analogRead(Constants::EDGE_QRD_PIN);
     digitalWrite(Constants::QRD_POWER_PIN, HIGH);
-    //Serial.println("QRDGetInitialReading()");
     hasQRDStarted = true;
     nextAvailableQRDTime = millis()+2;
 }
@@ -226,6 +223,77 @@ void LineFollower::findLine(const int8_t& dir, const int16_t& spd) {
     delay(25);
     motor.speed(Constants::MOTOR_LEFT, 0);
     motor.speed(Constants::MOTOR_RIGHT, 0);
+}
+void LineFollower::alignWithEdge(){
+    Movement mvt;
+    mvt.start(1,1,LineFollower::A_LOT_OF_TURNS, LineFollower::A_LOT_OF_TURNS, 80);
+    this->startQRD();
+    //move until you see edge
+    while(mvt.poll()){
+        if(!this->QRDPoll()) {
+            if(this->QRDMeasurement('r')<=edgeStopThreshold ||
+                this->QRDMeasurement('l')<=edgeStopThreshold ||
+                this->QRDMeasurement('e')<=edgeStopThreshold){
+                    break;
+                }
+            this->startQRD();
+        }
+    }
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+    delay(2);
+    motor.speed(Constants::MOTOR_RIGHT, -255);
+    motor.speed(Constants::MOTOR_LEFT, -255);
+    delay(25);
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+    
+    if(this->QRDMeasurement('e')<=edgeStopThreshold){
+        Movement mvt;
+        //FOr second bridge dropping purposely turn a bit more when going towards the gap then only rotate right wheel to lineup with edge
+        mvt.start(-1,1,0,LineFollower::A_LOT_OF_TURNS, 80);
+        this->startQRD();
+        //move until you see edge on the right
+        while(mvt.poll()){
+            if(!this->QRDPoll()) {
+                if(this->QRDMeasurement('r')<=edgeStopThreshold){
+                        break;
+                    }
+                this->startQRD();
+            }
+        }
+
+        motor.speed(Constants::MOTOR_LEFT, 0);
+        motor.speed(Constants::MOTOR_RIGHT, 0);
+        delay(2);
+        motor.speed(Constants::MOTOR_RIGHT, -255);
+        motor.speed(Constants::MOTOR_LEFT, 255);
+        delay(25);
+        motor.speed(Constants::MOTOR_LEFT, 0);
+        motor.speed(Constants::MOTOR_RIGHT, 0);
+    }else{
+        Movement mvt;
+        mvt.start(1,-1,LineFollower::A_LOT_OF_TURNS, LineFollower::A_LOT_OF_TURNS, 80);
+        this->startQRD();
+        //move until you see edge on the right
+        while(mvt.poll()){
+            if(!this->QRDPoll()) {
+                if(this->QRDMeasurement('e')<=edgeStopThreshold){
+                        break;
+                    }
+                this->startQRD();
+            }
+        }
+
+        motor.speed(Constants::MOTOR_LEFT, 0);
+        motor.speed(Constants::MOTOR_RIGHT, 0);
+        delay(2);
+        motor.speed(Constants::MOTOR_RIGHT, 255);
+        motor.speed(Constants::MOTOR_LEFT, -255);
+        delay(25);
+        motor.speed(Constants::MOTOR_LEFT, 0);
+        motor.speed(Constants::MOTOR_RIGHT, 0);
+    }
 }
 
 LineFollower lineFollower;

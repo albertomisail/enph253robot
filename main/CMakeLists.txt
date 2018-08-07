@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.10.0)
 
+set (CMAKE_CXX_STANDARD 11)
 if(EXISTS test/gtest/src/gtest-all.cc)
 else()
 	execute_process(COMMAND mkdir test/gtest)

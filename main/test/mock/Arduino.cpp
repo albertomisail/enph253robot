@@ -24,11 +24,13 @@ int32_t millis() {
 }
 int32_t micros() {
     // TODO
+    return -1;
 }
 
 
 uint8_t digitalRead(uint8_t pin) {
     // TODO
+<<<<<<< HEAD
 	//ASSERT_EQ(INPUT, RobotTest::pinModeValue[pin]);
 	return RobotTest::digitalValue[pin];
 }
