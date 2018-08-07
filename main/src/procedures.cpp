@@ -544,7 +544,7 @@ void maneuverToSecondBridge() {
     motor.speed(Constants::MOTOR_RIGHT, 0);
     delay(2);
 
-    mvt.move(-1, -1, 36, 36, 90);
+    mvt.move(-1, -1, 37,37, 90);
 
     bridgeServo.write(Constants::positionSecondUnlock);
 
