@@ -1,5 +1,6 @@
 #include "Movement.h"
 #include "OLED_I2C.h"
+
 Movement::Movement() : leftEnc(Constants::LEFT_ENC_PIN), rightEnc(Constants::RIGHT_ENC_PIN) {}
 
 void Movement::start(MovementInstruction instruction) {

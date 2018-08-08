@@ -1,4 +1,3 @@
-#include <iostream>
 #include "PIDSpeed.h"
 
 constexpr int16_t PIDSpeed::maxSpeed, PIDSpeed::minSpeed;

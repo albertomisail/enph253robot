@@ -14,6 +14,7 @@ constexpr uint8_t Constants::LEFT_ENC_PIN;
 constexpr uint8_t Constants::RIGHT_ENC_PIN;
 constexpr int8_t Constants::infraredLeds[];
 constexpr int8_t Constants::infraredReceiver;
+constexpr uint8_t Constants::MOTOR_LEFT, Constants::MOTOR_RIGHT;
 
 void Constants::init() {
     /*
