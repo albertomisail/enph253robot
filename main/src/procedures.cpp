@@ -740,7 +740,7 @@ void mainRun() {
 
     handleThirdEwok();
 
-    claw.dropEwok(); 
+    claw.dropEwok();
 
     maneuverToSecondBridge();
 

@@ -2,6 +2,10 @@
 #include "OLED_I2C.h"
 Movement::Movement() : leftEnc(Constants::LEFT_ENC_PIN), rightEnc(Constants::RIGHT_ENC_PIN) {}
 
+void Movement::start(MovementInstruction instruction) {
+    start(instruction.leftDir, instruction.rightDir, instruction.leftAmt, instruction.rightAmt, instruction.correctionSpeed);
+}
+
 void Movement::start(int8_t leftDir_, int8_t rightDir_, int16_t leftAmt_, int16_t rightAmt_, int16_t correctionSpeed_)
 {
     previousTime = millis();
@@ -114,4 +118,20 @@ void Movement::move(int8_t dirl, int8_t dirr, int16_t leftdist, int16_t rightdis
 {
     start(dirl, dirr, leftdist, rightdist, speed);
     while(poll()) {}
+}
+
+void Movement::move(MovementInstruction instruction) {
+    move(instruction.leftDir, instruction.rightDir, instruction.leftAmt, instruction.rightAmt, instruction.correctionSpeed);
+}
+
+
+MovementInstruction Movement::reverseLast()
+{
+    MovementInstruction ans;
+    ans.leftDir = -leftDir;
+    ans.rightDir = -rightDir;
+    ans.leftAmt = leftEnc.getPosition()-leftInit;
+    ans.rightAmt = rightEnc.getPosition()-rightInit;
+    ans.correctionSpeed = correctionSpeed;
+    return ans;
 }

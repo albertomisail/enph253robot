@@ -5,6 +5,14 @@
 #include <Encoder.h>
 #include <OLED_I2C.h>
 
+struct MovementInstruction {
+    int8_t leftDir;
+    int8_t rightDir;
+    int16_t leftAmt;
+    int16_t rightAmt;
+    int16_t correctionSpeed;
+};
+
 class Movement {
 private:
     bool moveState = false;
@@ -23,10 +31,13 @@ public:
     Movement();
     void init();
     void start(int8_t, int8_t, int16_t, int16_t, int16_t);
+    void start(MovementInstruction);
     void stop();
     bool isMoving() const;
     bool poll();
     bool oneSideFinished(int16_t, int16_t);
     void move(int8_t, int8_t, int16_t, int16_t, int16_t);
+    void move(MovementInstruction);
+    MovementInstruction reverseLast();
 
 };
