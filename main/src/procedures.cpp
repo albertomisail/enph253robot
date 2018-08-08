@@ -123,6 +123,7 @@ void initialLineFollow(Encoder& leftEnc, Encoder& rightEnc) {
             oled.update();
         }
     }
+    lineFollower.powerOffLeds();
     motor.speed(Constants::MOTOR_LEFT,0);
     motor.speed(Constants::MOTOR_RIGHT,0);
     delay(2);
@@ -199,7 +200,10 @@ void maneuverToDropLocation(Encoder& leftEnc, Encoder& rightEnc) {
     oled.print("Done finding line", 0, 0);
     oled.update();
 
-    delay(100);
+    //mvt.start(1,-1,1,1,80);
+    //while(mvt.poll()){}
+
+    //delay(10000);
 
     leftEnc.reset();
     rightEnc.reset();

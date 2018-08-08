@@ -49,6 +49,7 @@ public:
     bool isMoving() const;
     void findLine(const int8_t&, const int16_t&);
     void alignWithEdge();
+    void powerOffLeds();
 };
 
 extern LineFollower lineFollower;

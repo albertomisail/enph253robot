@@ -25,7 +25,7 @@ void LineFollower::start(int leftStopThreshold_, int rightStopThreshold_, int ed
     leftThreshold = leftThreshold_;
     rightThreshold = rightThreshold_;
     lastTime = 0;
-    previousError = 0;
+    previousError = 0, error=0;
     deltaT = 0, previousTime = 0;
     consec = 0;
     counter = 0;
@@ -39,6 +39,9 @@ void LineFollower::stop() {
 }
 bool LineFollower::isMoving() const {
     return movingState;
+}
+void LineFollower::powerOffLeds() {
+    digitalWrite(Constants::QRD_POWER_PIN, LOW);
 }
 bool LineFollower::poll(){
     if(movingState == false) {
@@ -92,8 +95,7 @@ bool LineFollower::poll(){
     }
 
     if(sensorLeftReading < leftThreshold
-    && sensorRightReading < rightThreshold
-    && abs(sensorLeftReading-sensorRightReading) > 600)
+    && sensorRightReading < rightThreshold)
     {
         error = 0;
     }
@@ -104,13 +106,19 @@ bool LineFollower::poll(){
         error = 1;
     }
     else if(sensorLeftReading >= leftThreshold
-         && sensorRightReading < rightThreshold)
+         && sensorRightReading < rightThreshold
+         && abs(sensorLeftReading-sensorRightReading) > 600)
     {
         error = -1;
     }
-    else
+    else if(sensorLeftReading >= leftThreshold
+         && sensorRightReading >= rightThreshold)
     {
         error = max(min(previousError*4, 4), -4);
+    }
+    else
+    {
+        error = 0;
     }
 
     int32_t p = (int32_t)Constants::PROPORTIONAL.getVal()*error;
@@ -224,7 +232,7 @@ void LineFollower::findLine(const int8_t& dir, const int16_t& spd) {
     delay(2);
     motor.speed(Constants::MOTOR_RIGHT, dir*255);
     motor.speed(Constants::MOTOR_LEFT, -dir*255);
-    delay(25);
+    delay(15);
     motor.speed(Constants::MOTOR_LEFT, 0);
     motor.speed(Constants::MOTOR_RIGHT, 0);
 }
