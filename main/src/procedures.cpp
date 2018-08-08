@@ -274,7 +274,7 @@ void deployBridge(){
     mvt.start(1,-1,28,28,80);
     while(mvt.poll()){}
     delay(250);
-    mvt.start(-1,-1,5,5,80);
+    mvt.start(-1,-1,4,4,80);
     while(mvt.poll()){}
     delay(250);
     //Add wiggle for track outside
