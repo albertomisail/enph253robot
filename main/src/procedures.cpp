@@ -11,9 +11,8 @@
 Servo bridgeServo;
 
 //1 for left to right -1 for right to left
-bool lookForEwok(int threshold, int movementRange, int direction) {
+bool lookForEwok(int threshold, int movementRange, int direction, Movement& mvt, bool secondSweep) {
     bool foundEwok = false;
-    Movement mvt;
     mvt.start(direction, -direction, movementRange, movementRange, 100);
     infrared.startMeasurement();
     while(mvt.poll()) {
@@ -26,27 +25,29 @@ bool lookForEwok(int threshold, int movementRange, int direction) {
         }
     }
     if(!foundEwok){
-        mvt.start(1,1,2,2,80);
-        while(mvt.poll()){}
-        mvt.start(-direction, direction, movementRange, movementRange, 100);
-        infrared.startMeasurement();
-        while(mvt.poll()) {
-            if(!infrared.poll()) {
-                if(infrared.objectDetected(threshold)){
-                    foundEwok = true;
-                    break;
+        if(secondSweep) {
+            mvt.start(1,1,2,2,80);
+            while(mvt.poll()){}
+            mvt.start(-direction, direction, movementRange, movementRange, 100);
+            infrared.startMeasurement();
+            while(mvt.poll()) {
+                if(!infrared.poll()) {
+                    if(infrared.objectDetected(threshold)){
+                        foundEwok = true;
+                        break;
+                    }
+                    infrared.startMeasurement();
                 }
-                infrared.startMeasurement();
             }
+            motor.speed(Constants::MOTOR_LEFT,0);
+            motor.speed(Constants::MOTOR_RIGHT,0);
+            delay(2);
+            motor.speed(Constants::MOTOR_LEFT, direction*255);
+            motor.speed(Constants::MOTOR_RIGHT, -direction*255);
+            delay(20);
+            motor.speed(Constants::MOTOR_LEFT,0);
+            motor.speed(Constants::MOTOR_RIGHT,0);
         }
-        motor.speed(Constants::MOTOR_LEFT,0);
-        motor.speed(Constants::MOTOR_RIGHT,0);
-        delay(2);
-        motor.speed(Constants::MOTOR_LEFT, direction*255);
-        motor.speed(Constants::MOTOR_RIGHT, -direction*255);
-        delay(20);
-        motor.speed(Constants::MOTOR_LEFT,0);
-        motor.speed(Constants::MOTOR_RIGHT,0);
     }else{
         motor.speed(Constants::MOTOR_LEFT,0);
         motor.speed(Constants::MOTOR_RIGHT,0);
@@ -60,8 +61,13 @@ bool lookForEwok(int threshold, int movementRange, int direction) {
     return foundEwok;
 }
 
-bool moveForwardToEwok(int threshold, int maxDistance) {
+
+bool lookForEwok(int threshold, int movementRange, int direction) {
     Movement mvt;
+    lookForEwok(threshold, movementRange, direction, mvt, true);
+}
+
+bool moveForwardToEwok(int threshold, int maxDistance, Movement& mvt) {
     bool foundEwok = false;
     mvt.start(1, 1, maxDistance, maxDistance, 90);
     infrared.startMeasurement();
@@ -79,6 +85,10 @@ bool moveForwardToEwok(int threshold, int maxDistance) {
     return foundEwok;
 }
 
+bool moveForwardToEwok(int threshold, int maxDistance) {
+    Movement mvt;
+    moveForwardToEwok(threshold, maxDistance, mvt);
+}
 
 
 void initialLineFollow(Encoder& leftEnc, Encoder& rightEnc) {
@@ -416,7 +426,7 @@ void maneuverToSecondDropLocation(Encoder& leftEnc, Encoder& rightEnc){
     lineFollower.start(0,0,0);
     while(lineFollower.poll()) {
         Encoder::poll();
-        if(leftEnc.getPosition() > 140) {
+        if(leftEnc.getPosition() > 155) {
             break;
         }
     }
@@ -432,7 +442,7 @@ void maneuverToSecondDropLocation(Encoder& leftEnc, Encoder& rightEnc){
     motor.speed(Constants::MOTOR_RIGHT, 0);
 
     Movement mvt;
-    mvt.start(-1, -1, 40, 40, 100);
+    mvt.start(-1, -1, 35, 35, 100);
     while(mvt.poll()){}
     motor.speed(Constants::MOTOR_LEFT, 0);
     motor.speed(Constants::MOTOR_RIGHT, 0);
@@ -548,7 +558,7 @@ void maneuverToSecondBridge() {
     motor.speed(Constants::MOTOR_RIGHT, 0);
     delay(2);
 
-    mvt.move(-1, 1, 12, 12, 90);
+    mvt.move(-1, 1, 16, 16, 90);
     delay(2);
     motor.speed(Constants::MOTOR_LEFT, 0);
     motor.speed(Constants::MOTOR_RIGHT, 0);
@@ -666,15 +676,17 @@ void maneuverToSecondBridge() {
         if(timeout < millis()) break;
     }
 
-    mvt.move(-1, -1, 40, 40, 150);
+    mvt.move(-1, -1, 35, 35, 150);
 
 }
 
 void handleFourthEwok() {
     Movement mvt;
-    mvt.move(1,-1,15,15,80);
+    mvt.move(-1,1,25,25,80);
+    MovementInstruction initialTurnReverse = mvt.reverseLast();
 
-    bool foundEwok = lookForEwok(Constants::distantInfraredThreshold4, 12, 1);
+    bool foundEwok = lookForEwok(Constants::distantInfraredThreshold4, 15, -1, mvt, false);
+    MovementInstruction reverseLook = mvt.reverseLast();
     oled.clrScr();
     oled.printNumI(foundEwok,0,0);
     oled.update();
@@ -683,7 +695,8 @@ void handleFourthEwok() {
 
     if(foundEwok) {
         // TODO add the method to move foward to toward the
-        bool foundEwok2 = moveForwardToEwok(Constants::pickUpInfraredThreshold4, 6);
+        bool foundEwok2 = moveForwardToEwok(Constants::pickUpInfraredThreshold4, 6, mvt);
+        MovementInstruction reverseFromEwok = mvt.reverseLast();
         mvt.start(1,1,1,1,80);
         while(mvt.poll()){}
         delay(2);
@@ -697,7 +710,21 @@ void handleFourthEwok() {
         oled.clrScr();
         oled.print("Picked up ewok",0,20);
         oled.update();
+
+        mvt.move(reverseFromEwok);
     }
+
+    mvt.move(reverseLook);
+    mvt.move(initialTurnReverse);
+    mvt.move(1, 1, 50, 50, 80);
+    mvt.move(1, -1, 2, 2, 80);
+    int timeout = millis() + 3500;
+    mvt.start(1, 1, 50, 50, 80);
+    while(mvt.poll() && timeout > millis()) {}
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+    delay(2);
+    claw.dropEwok();
 }
 
 void mainRun() {
