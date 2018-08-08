@@ -25,9 +25,19 @@ void setup() {
 }
 
 void loop() {
+    // infrared.startMeasurement();
+    // while(true) {
+    //     if(!infrared.poll()) {
+    //         oled.clrScr();
+    //         oled.printNumI(infrared.lastMeasurement(), 0, 0);
+    //         oled.update();
+    //         infrared.startMeasurement();
+    //     }
+    // }
 
     digitalWrite(PB5, HIGH);
     delay(5000);
+    
     mainRun();
     //delay(10000);
 }

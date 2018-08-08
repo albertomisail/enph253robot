@@ -24,7 +24,7 @@ public:
     int32_t sensorLeftReading, sensorRightReading, sensorEdgeReading, g;
     int32_t sensorLeftReadingAmb, sensorRightReadingAmb, sensorEdgeReadingAmb;
     int32_t sensorLeftReadingPow, sensorRightReadingPow, sensorEdgeReadingPow;
-    int16_t error;
+    int16_t error, ii;
     int32_t lastCompTime;
 
     int32_t nextAvailableQRDTime=0;

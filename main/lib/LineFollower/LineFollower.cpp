@@ -9,6 +9,7 @@ void LineFollower::init(int previousError_){
     pinMode(Constants::LEFT_QRD_PIN, INPUT);
     pinMode(Constants::RIGHT_QRD_PIN, INPUT);
     pinMode(Constants::EDGE_QRD_PIN, INPUT);
+    ii = 0;
     this->previousError = previousError_;
 }
 void LineFollower::start() {
@@ -30,6 +31,7 @@ void LineFollower::start(int leftStopThreshold_, int rightStopThreshold_, int ed
     counter = 0;
     lastG = 0;
     state = 0;
+    ii=0;
     movingState = true;
 }
 void LineFollower::stop() {
@@ -110,8 +112,8 @@ bool LineFollower::poll(){
     }
 
     int32_t p = (int32_t)Constants::PROPORTIONAL.getVal()*error;
-    int32_t i = (int32_t)Constants::INTEGRAL.getVal()*error*now+i;
-    i = min(max(i, -64), 64);
+    ii = (int32_t)Constants::INTEGRAL.getVal()*error*now+ii;
+    ii = min(max(ii, -64), 64);
 
     if(error == previousError) {
         ++counter;
@@ -120,7 +122,7 @@ bool LineFollower::poll(){
     }
     int32_t d = (int32_t)Constants::DERIVATIVE.getVal() * (error-previousError) / (deltaT*counter);
 
-    g = p+i/16+d;
+    g = p+ii/16+d;
 
     motor.speed(Constants::MOTOR_LEFT, max(0, Constants::BASE_SPEED.getVal()-g));
     motor.speed(Constants::MOTOR_RIGHT, max(0, Constants::BASE_SPEED.getVal()+g));

@@ -79,6 +79,8 @@ bool moveForwardToEwok(int threshold, int maxDistance) {
     return foundEwok;
 }
 
+
+
 void initialLineFollow(Encoder& leftEnc, Encoder& rightEnc) {
     leftEnc.reset();
     rightEnc.reset();
@@ -129,6 +131,7 @@ void initialLineFollow(Encoder& leftEnc, Encoder& rightEnc) {
     delay(25);
     motor.speed(Constants::MOTOR_LEFT, 0);
     motor.speed(Constants::MOTOR_RIGHT, 0);
+    delay(2);
     oled.print("!!", 0, 10);
     oled.update();
 }
@@ -147,12 +150,14 @@ void handleFirstEwok(Encoder& leftEnc, Encoder& rightEnc) {
     oled.printNumI(foundEwok,0,0);
     oled.update();
     //delay(2000);
+    delay(2);
 
     if(foundEwok) {
         // TODO add the method to move foward to toward the
         bool foundEwok2 = moveForwardToEwok(Constants::pickUpInfraredThreshold1, 6);
         mvt.start(1,1,1,1,80);
         while(mvt.poll()){}
+        delay(2);
         claw.pickEwok();
 
         oled.clrScr();
@@ -164,7 +169,11 @@ void handleFirstEwok(Encoder& leftEnc, Encoder& rightEnc) {
         oled.print("Picked up ewok",0,20);
         oled.update();
 
-        mvt.move(1,1,9,9,110);
+        //9 for outside track
+        // mvt.move(1,1,9,9,110);
+        mvt.move(1,1,11,11,110);
+        // mvt.move(-1,-1,13,13,90);
+        delay(2);
     }
 
     //turn off leds
@@ -256,15 +265,18 @@ void deployBridge(){
     //turn around (left)
     //mvt.start(-1,1,35,35,80);
     //while(mvt.poll()){}
-    mvt.start(1,-1,25,25,80);
+    //Should be 25 for track outside
+    // mvt.start(1,-1,25,25,80);
+    mvt.start(1,-1,28,28,80);
     while(mvt.poll()){}
     delay(250);
     mvt.start(-1,-1,7,7,80);
     while(mvt.poll()){}
     delay(250);
-    motor.speed(Constants::MOTOR_LEFT, 255);
-    motor.speed(Constants::MOTOR_RIGHT, -255);
-    delay(30);
+    //Add wiggle for track outside
+    // motor.speed(Constants::MOTOR_LEFT, 255);
+    // motor.speed(Constants::MOTOR_RIGHT, -255);
+    // delay(30);
     motor.speed(Constants::MOTOR_LEFT, 0);
     motor.speed(Constants::MOTOR_RIGHT, 0);
 
@@ -299,7 +311,9 @@ void handleSecondEwok(){
     while(mvt.poll()){}
     delay(500);
 
-    mvt.start(1,1,7,7,80);
+    //Should be 7 for track outside
+    mvt.start(1,1,4,4,80);
+    // mvt.start(1,1,7,7,80);
     while(mvt.poll()){}
 
     bool foundEwok = lookForEwok(Constants::distantInfraredThreshold2, 18, -1);
@@ -550,7 +564,6 @@ void maneuverToSecondBridge() {
         if(t < millis()) break;
     }
     // delay(5000);
-    motor.speed(Constants::MOTOR_LEFT, 0);
     motor.speed(Constants::MOTOR_RIGHT, 0);
     delay(2);
 
