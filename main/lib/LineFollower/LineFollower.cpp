@@ -92,12 +92,14 @@ bool LineFollower::poll(){
     }
 
     if(sensorLeftReading < leftThreshold
-    && sensorRightReading < rightThreshold)
+    && sensorRightReading < rightThreshold
+    && abs(sensorLeftReading-sensorRightReading) > 600)
     {
         error = 0;
     }
     else if(sensorLeftReading < leftThreshold
-         && sensorRightReading >= rightThreshold)
+         && sensorRightReading >= rightThreshold
+         && abs(sensorLeftReading-sensorRightReading) > 600)
     {
         error = 1;
     }
