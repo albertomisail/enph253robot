@@ -82,6 +82,7 @@ bool moveForwardToEwok(int threshold, int maxDistance, Movement& mvt) {
     }
     motor.speed(Constants::MOTOR_LEFT, 0);
     motor.speed(Constants::MOTOR_RIGHT, 0);
+    delay(2);
     return foundEwok;
 }
 
@@ -97,7 +98,7 @@ void initialLineFollow(Encoder& leftEnc, Encoder& rightEnc) {
     lineFollower.start(0,0,0);
     for(int32_t i=0;lineFollower.poll();++i) {
         Encoder::poll();
-        if(rightEnc.getPosition()>=136) {
+        if(rightEnc.getPosition()>=135) {
             oled.clrScr();
             oled.print("!! 135", 0, 0);
             oled.update();
@@ -339,7 +340,7 @@ void handleSecondEwok(){
     if(foundEwok) {
         // TODO add the method to move foward to toward the ewok
         bool foundEwok2 = moveForwardToEwok(Constants::pickUpInfraredThreshold2, 10);
-        mvt.start(1,1,1,1,80);
+        mvt.start(1,1,2,2,80);
         while(mvt.poll()){}
 
         oled.clrScr();
@@ -454,9 +455,9 @@ void maneuverToSecondDropLocation(Encoder& leftEnc, Encoder& rightEnc){
     motor.speed(Constants::MOTOR_RIGHT, 0);
     delay(250);
 
-    int32_t timeLimit = millis()+2000;
+    int32_t timeLimit = millis()+2500;
 
-    mvt.start(1,1,8,8,80);
+    mvt.start(1,1,15,15,80);
     while(mvt.poll()){
         if(millis() > timeLimit) break;
     }
@@ -513,8 +514,8 @@ void handleThirdEwok(){
     motor.speed(Constants::MOTOR_RIGHT,0);
     delay(2);
 
-    mvt.start(1, 1, 8, 8, 80);
-    int32_t timeout = millis()+1500;
+    mvt.start(1, 1, 15, 15, 80);
+    int32_t timeout = millis()+2000;
     while(mvt.poll()){
         if(timeout < millis()) break;
     }
@@ -676,7 +677,12 @@ void maneuverToSecondBridge() {
         if(timeout < millis()) break;
     }
 
-    mvt.move(-1, -1, 35, 35, 150);
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+
+    mvt.move(1, 1, 8, 8, 80);
+
+    mvt.move(-1, -1, 39, 39, 160);
 
 }
 
@@ -716,11 +722,16 @@ void handleFourthEwok() {
 
     mvt.move(reverseLook);
     mvt.move(initialTurnReverse);
-    mvt.move(1, 1, 50, 50, 80);
-    mvt.move(1, -1, 2, 2, 80);
-    int timeout = millis() + 3500;
-    mvt.start(1, 1, 50, 50, 80);
-    while(mvt.poll() && timeout > millis()) {}
+    mvt.move(1, 1, 70, 70, 80);
+    lineFollower.findLine(LineFollower::DIR_RIGHT, 80);
+    delay(2);
+    lineFollower.start();
+    while(lineFollower.poll());
+    mvt.move(-1, -1, 8, 8, 80);
+    mvt.move(-1, 1, 16, 16, 80);
+    int timeout = millis() + 2000;
+    mvt.start(1, 1, 30, 30, 80);
+    while(mvt.poll() && millis() < timeout) {}
     motor.speed(Constants::MOTOR_LEFT, 0);
     motor.speed(Constants::MOTOR_RIGHT, 0);
     delay(2);
@@ -787,7 +798,7 @@ void mainRun() {
     //delay(1000);
 
     IRBeacon();
-    //delay(5000);
+    // delay(5000);
 
     maneuverToSecondDropLocation(leftEnc, rightEnc);
 

@@ -47,6 +47,7 @@ bool LineFollower::poll(){
     if(movingState == false) {
         digitalWrite(Constants::QRD_POWER_PIN, LOW);
         return false;
+        // return true;
     }
     int32_t now = millis();
     if(state == 0) {
@@ -89,6 +90,7 @@ bool LineFollower::poll(){
             motor.speed(Constants::MOTOR_RIGHT, 0);
             movingState = false;
             return false;
+            // return true;
         }
     } else {
         consec = 0;
@@ -100,30 +102,23 @@ bool LineFollower::poll(){
         error = 0;
     }
     else if(sensorLeftReading < leftThreshold
-         && sensorRightReading >= rightThreshold
-         && abs(sensorLeftReading-sensorRightReading) > 600)
+         && sensorRightReading >= rightThreshold)
     {
         error = 1;
     }
     else if(sensorLeftReading >= leftThreshold
-         && sensorRightReading < rightThreshold
-         && abs(sensorLeftReading-sensorRightReading) > 600)
+         && sensorRightReading < rightThreshold)
     {
         error = -1;
     }
-    else if(sensorLeftReading >= leftThreshold
-         && sensorRightReading >= rightThreshold)
+    else
     {
         error = max(min(previousError*4, 4), -4);
     }
-    else
-    {
-        error = 0;
-    }
 
     int32_t p = (int32_t)Constants::PROPORTIONAL.getVal()*error;
-    ii = (int32_t)Constants::INTEGRAL.getVal()*error*now+ii;
-    ii = min(max(ii, -64), 64);
+    int32_t i = (int32_t)Constants::INTEGRAL.getVal()*error*now+i;
+    i = min(max(i, -((1L)<<12)), (1L)<<12);
 
     if(error == previousError) {
         ++counter;
@@ -132,7 +127,7 @@ bool LineFollower::poll(){
     }
     int32_t d = (int32_t)Constants::DERIVATIVE.getVal() * (error-previousError) / (deltaT*counter);
 
-    g = p+ii/16+d;
+    g = p+i+d;
 
     motor.speed(Constants::MOTOR_LEFT, max(0, Constants::BASE_SPEED.getVal()-g));
     motor.speed(Constants::MOTOR_RIGHT, max(0, Constants::BASE_SPEED.getVal()+g));
