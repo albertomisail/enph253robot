@@ -37,6 +37,8 @@ public:
     constexpr static int16_t pickUpInfraredThreshold2 = 3300;
     constexpr static int16_t distantInfraredThreshold3 = 1500;
     constexpr static int16_t pickUpInfraredThreshold3 = 3300;
+    constexpr static int16_t distantInfraredThreshold4 = 1500;
+    constexpr static int16_t pickUpInfraredThreshold4 = 3300;
     constexpr static int16_t ewokPulseDuration = 15; // m
     constexpr static int8_t CLAW_ARM_PIN = PA2;
     constexpr static int8_t CLAW_PIN = PA8;

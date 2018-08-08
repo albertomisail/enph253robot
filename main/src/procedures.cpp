@@ -274,7 +274,7 @@ void deployBridge(){
     mvt.start(1,-1,28,28,80);
     while(mvt.poll()){}
     delay(250);
-    mvt.start(-1,-1,7,7,80);
+    mvt.start(-1,-1,5,5,80);
     while(mvt.poll()){}
     delay(250);
     //Add wiggle for track outside
@@ -407,8 +407,6 @@ void IRBeacon() {
 }
 void maneuverToIR(){
     lineFollower.findLine(LineFollower::DIR_LEFT, 80);
-    Movement mvt;
-    mvt.move(-1, 1, 1, 1, 120);
 }
 
 void maneuverToSecondDropLocation(Encoder& leftEnc, Encoder& rightEnc){
@@ -550,7 +548,7 @@ void maneuverToSecondBridge() {
     motor.speed(Constants::MOTOR_RIGHT, 0);
     delay(2);
 
-    mvt.move(-1, 1, 17, 17, 90);
+    mvt.move(-1, 1, 12, 12, 90);
     delay(2);
     motor.speed(Constants::MOTOR_LEFT, 0);
     motor.speed(Constants::MOTOR_RIGHT, 0);
@@ -672,6 +670,36 @@ void maneuverToSecondBridge() {
 
 }
 
+void handleFourthEwok() {
+    Movement mvt;
+    mvt.move(1,-1,15,15,80);
+
+    bool foundEwok = lookForEwok(Constants::distantInfraredThreshold4, 12, 1);
+    oled.clrScr();
+    oled.printNumI(foundEwok,0,0);
+    oled.update();
+    //delay(2000);
+    delay(2);
+
+    if(foundEwok) {
+        // TODO add the method to move foward to toward the
+        bool foundEwok2 = moveForwardToEwok(Constants::pickUpInfraredThreshold4, 6);
+        mvt.start(1,1,1,1,80);
+        while(mvt.poll()){}
+        delay(2);
+        claw.pickEwok();
+
+        oled.clrScr();
+        oled.printNumI(foundEwok2,0,10);
+        oled.update();
+
+        //claw.pickEwok();
+        oled.clrScr();
+        oled.print("Picked up ewok",0,20);
+        oled.update();
+    }
+}
+
 void mainRun() {
     bridgeServo.attach(Constants::BRIDGE_SERVO_PIN);
     bridgeServo.write(Constants::positionLock);
@@ -732,7 +760,7 @@ void mainRun() {
     //delay(1000);
 
     IRBeacon();
-    // delay(5000);
+    //delay(5000);
 
     maneuverToSecondDropLocation(leftEnc, rightEnc);
 
@@ -747,6 +775,8 @@ void mainRun() {
     claw.dropEwok();
 
     maneuverToSecondBridge();
+
+    handleFourthEwok();
 
     delay(10000);
 }

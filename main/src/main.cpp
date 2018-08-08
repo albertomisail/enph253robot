@@ -34,6 +34,7 @@ void loop() {
     //         infrared.startMeasurement();
     //     }
     // }
+    pinMode(PB5, OUTPUT);
 
     digitalWrite(PB5, HIGH);
     delay(5000);

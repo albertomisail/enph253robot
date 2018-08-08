@@ -118,6 +118,7 @@ void Movement::move(int8_t dirl, int8_t dirr, int16_t leftdist, int16_t rightdis
 {
     start(dirl, dirr, leftdist, rightdist, speed);
     while(poll()) {}
+    delay(2);
 }
 
 void Movement::move(MovementInstruction instruction) {
