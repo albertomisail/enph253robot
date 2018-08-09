@@ -730,7 +730,7 @@ void handleFourthEwok() {
         // TODO add the method to move foward to toward the
         bool foundEwok2 = moveForwardToEwok(Constants::pickUpInfraredThreshold4, 6, mvt);
         MovementInstruction reverseFromEwok = mvt.reverseLast();
-        mvt.start(1,1,-2,-2,80);
+        mvt.start(-1,-1,2,2,80);
         while(mvt.poll()){}
         delay(2);
         claw.pickEwok();
@@ -751,7 +751,7 @@ void handleFourthEwok() {
     // mvt.move(1,1,35,35,80);
     //
 
-    mvt.move(1, 1, 8, 8, 80);
+    mvt.move(1, 1, 10, 10, 80);
 
     reverseLook.leftAmt--;
     reverseLook.rightAmt--;
@@ -765,7 +765,7 @@ void handleFourthEwok() {
     motor.speed(Constants::MOTOR_RIGHT, 0);
     delay(2);
 
-    mvt.move(1, 1, 80, 80, 90);
+    mvt.move(1, 1, 85, 85, 90);
     lineFollower.findLine(LineFollower::DIR_RIGHT, 80);
     delay(2);
     lineFollower.start();
