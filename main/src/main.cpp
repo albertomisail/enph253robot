@@ -25,6 +25,11 @@ void setup() {
 }
 
 void loop() {
+    // while(true) {
+    //     IRBeacon();
+    // }
+
+
     // infrared.startMeasurement();
     // while(true) {
     //     if(!infrared.poll()) {
@@ -37,7 +42,7 @@ void loop() {
     pinMode(PB5, OUTPUT);
 
     digitalWrite(PB5, HIGH);
-    delay(5000);
+    //delay(5000);
 
     mainRun();
     //delay(10000);

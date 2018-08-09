@@ -29,16 +29,16 @@ public:
     // TODO: Assign real pin values
     constexpr static int8_t infraredLeds[] = {PB3};
     constexpr static int8_t infraredReceiver = PA1;
-    constexpr static int16_t distantInfraredThreshold = 1500;
+    constexpr static int16_t distantInfraredThreshold = 1600;
     constexpr static int16_t pickUpInfraredThreshold = 4096;
-    constexpr static int16_t distantInfraredThreshold1 = 1500;
-    constexpr static int16_t pickUpInfraredThreshold1 = 3300;
-    constexpr static int16_t distantInfraredThreshold2 = 1500;
-    constexpr static int16_t pickUpInfraredThreshold2 = 3300;
-    constexpr static int16_t distantInfraredThreshold3 = 1500;
-    constexpr static int16_t pickUpInfraredThreshold3 = 3300;
-    constexpr static int16_t distantInfraredThreshold4 = 1500;
-    constexpr static int16_t pickUpInfraredThreshold4 = 3300;
+    constexpr static int16_t distantInfraredThreshold1 = 1600;
+    constexpr static int16_t pickUpInfraredThreshold1 = 3200;
+    constexpr static int16_t distantInfraredThreshold2 = 1600;
+    constexpr static int16_t pickUpInfraredThreshold2 = 3200;
+    constexpr static int16_t distantInfraredThreshold3 = 1600;
+    constexpr static int16_t pickUpInfraredThreshold3 = 3200;
+    constexpr static int16_t distantInfraredThreshold4 = 1600;
+    constexpr static int16_t pickUpInfraredThreshold4 = 3200;
     constexpr static int16_t ewokPulseDuration = 15; // m
     constexpr static int8_t CLAW_ARM_PIN = PA2;
     constexpr static int8_t CLAW_PIN = PA8;
@@ -46,14 +46,14 @@ public:
     constexpr static int16_t angleIn = 80;
     constexpr static int16_t angleOpen = 20;
     constexpr static int16_t angleDrop = 20;
-    constexpr static int16_t angleClose = 135;
+    constexpr static int16_t angleClose = 150;
     constexpr static int16_t numSteps = 10;
     constexpr static int8_t buttonSwitchPin = PA15;
 
     constexpr static uint8_t IR_BEACON_PIN = PA1;
     constexpr static int32_t FFT_THRESHOLD_TOTAL = 2;
-    constexpr static float FFT_THRESHOLD_1K_FACTOR = 1;
-    constexpr static float FFT_THRESHOLD_10K_FACTOR = 1;
+    constexpr static float FFT_THRESHOLD_1K_FACTOR = 2;
+    constexpr static float FFT_THRESHOLD_10K_FACTOR = 3;
 
     constexpr static uint8_t LEFT_QRD_PIN = PA4;
     constexpr static uint8_t RIGHT_QRD_PIN = PA7; //PA3;

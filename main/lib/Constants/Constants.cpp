@@ -25,11 +25,15 @@ void Constants::init() {
     LEFT_THRESHOLD = MenuItem("LT", 0, 4096, 1024);
     RIGHT_THRESHOLD = MenuItem("RT", 0, 4096, 1024);
     */
+    // PROPORTIONAL = MenuItem("P", 0, 256, 27);
+    // INTEGRAL = MenuItem("I", 0, 20, 0);
+    // DERIVATIVE = MenuItem("D", 0, 40, 4);
+    // BASE_SPEED = MenuItem("BS", 0, 256, 145);
     PROPORTIONAL = MenuItem("P", 0, 256, 24);
     INTEGRAL = MenuItem("I", 0, 20, 0);
     DERIVATIVE = MenuItem("D", 0, 40, 4);
     BASE_SPEED = MenuItem("BS", 0, 256, 130);
     LEFT_THRESHOLD = MenuItem("LT", 0, 4096, 3100);
     RIGHT_THRESHOLD = MenuItem("RT", 0, 4096, 3100);
-    EDGE_THRESHOLD = MenuItem("ET", 0, 4096, 1600);
+    EDGE_THRESHOLD = MenuItem("ET", 0, 4096, 1500);
 }

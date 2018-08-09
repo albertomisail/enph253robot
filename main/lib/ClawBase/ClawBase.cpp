@@ -24,7 +24,7 @@ void ClawBase::startPickEwok() {
     for(int i=arm.read();abs(arm.read()-Constants::angleOut) > 0;i += step_dir)
     {
         arm.write(i);
-        delay(10);
+        delay(5);
     }
 }
 
@@ -34,12 +34,12 @@ void ClawBase::finishPickEwok(){
     int step2 = (Constants::angleOut - Constants::angleIn) / Constants::numSteps;
     while((ClawBase::claw).read() < Constants::angleClose){
         (ClawBase::claw).write((ClawBase::claw).read() + step);
-        delay(70);
+        delay(40);
     }
     delay(250);
     while((ClawBase::arm).read() < Constants::angleIn) {
         (ClawBase::arm).write((ClawBase::arm).read() + step2);
-        delay(140);
+        delay(100);
     }
     (ClawBase::arm).write(Constants::angleIn);
     delay(500);
