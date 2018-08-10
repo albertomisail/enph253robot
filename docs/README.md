@@ -1,9 +1,7 @@
-# TEAM IV - [robot name]
-## 2018 UBC ENGINEERING PHYSICS ROBOT SUMMER
+# TEAM IV - (robot name)
+## 2018 UBC ENGINEERING PHYSICS ROBOT SUMMER - 3RD PLACE
 
-## Course Description
-
-...
+Course Description
 
 ## Our robot
 
@@ -24,11 +22,18 @@ description with our names and roles
 ### Second design
 
 
+
 ### Third design
 
 - say something about the open chassis and how it helped us in the end (reducing noise, etc)
 
 ## Electrical Components
+
+H-bridges
+
+Encoders
+
+IR Beacon
 
 maybe we can actually draw out the circuits?
 
@@ -44,8 +49,10 @@ our "FFT" class maybe
 
 PID on movements
 
+Pulsing IR
+
 weird shakes and shit like that
 
 unit testing at the end
 
-
+Dylan says something about state diagrams but tbh I don't feel like that's particularly relevant...
