@@ -54,6 +54,7 @@ void Encoder::poll() {
 
 void Encoder::reset() {
     distances[ind] = 0;
+	lastPoll = 0;
 }
 
 int16_t Encoder::getPosition() const {

@@ -10,7 +10,7 @@ private:
     int16_t previousError = 0;
     int32_t deltaT = 0,
             previousTime = 0;
-    uint8_t consec = 0;
+    uint8_t consec = 0, consecFindLine = 0;
     int16_t counter = 0;
     int16_t lastG = 0;
     uint8_t state = 0;
@@ -18,13 +18,13 @@ private:
 
     bool isQRDReading = false, hasQRDStarted = false;
 
-	int leftStopThreshold, rightStopThreshold, edgeStopThreshold;
+	int leftStopThreshold, rightStopThreshold, edgeStopThreshold, leftThreshold, rightThreshold;
 
 public:
     int32_t sensorLeftReading, sensorRightReading, sensorEdgeReading, g;
     int32_t sensorLeftReadingAmb, sensorRightReadingAmb, sensorEdgeReadingAmb;
     int32_t sensorLeftReadingPow, sensorRightReadingPow, sensorEdgeReadingPow;
-    int16_t error;
+    int16_t error, ii;
     int32_t lastCompTime;
 
     int32_t nextAvailableQRDTime=0;
@@ -43,10 +43,13 @@ public:
     void init(int);
     void start();
 	void start(int, int, int);
+    void start(int, int, int, int, int);
     void stop();
     bool poll();
     bool isMoving() const;
     void findLine(const int8_t&, const int16_t&);
+    void alignWithEdge();
+    void powerOffLeds();
 };
 
 extern LineFollower lineFollower;

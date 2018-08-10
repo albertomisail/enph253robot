@@ -8,6 +8,7 @@ constexpr int8_t MotorBase::size() {
 }
 void MotorBase::init() {
     for(const auto& x : Constants::highPwmPins) {
+        analogWrite(x, 0);
         pinMode(x, OUTPUT);
         analogWrite(x, 0);
     }
@@ -15,6 +16,7 @@ void MotorBase::init() {
     // if both pins are set to output at the same time then the MOSFETS short
     delay(20);
     for(const auto& x : Constants::lowPwmPins) {
+        analogWrite(x, 0);
         pinMode(x, OUTPUT);
         analogWrite(x, 0);
     }
@@ -41,6 +43,11 @@ void MotorBase::stop(const int8_t& motorNum) {
     MotorBase::speed(motorNum, 0);
     speeds[motorNum] = 0;
 }
+// void MotorBase::hardStop() {
+//     for(int i=0;i<sizeof speeds;++i) {
+//         speeds[i]/abs(speeds[i])
+//     }
+// }
 void MotorBase::shut_down(){
     for(int8_t i = 0; i < MotorBase::size(); i++){
         MotorBase::stop(i);

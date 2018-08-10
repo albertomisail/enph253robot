@@ -26,6 +26,7 @@ void InfraredBase::performStartMeasurement() {
 
 void InfraredBase::startMeasurement() {
     isMeasuring = true;
+    digitalWrite(Constants::MULTIPLEXER_PIN, HIGH);
 }
 
 bool InfraredBase::isDone() const {

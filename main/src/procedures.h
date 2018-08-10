@@ -1,10 +1,11 @@
 #pragma once
 #include <Encoder.h>
+#include <Constants.h>
 
 void mainRun();
 void oneEwokRun();
 
-bool lookForEwok(int, int, int, int);
+bool lookForEwok(int, int, int);
 bool moveForwardToEwok(int, int);
 void initialLineFollow(Encoder&, Encoder&);
 
@@ -14,6 +15,9 @@ void handleFirstEwok(Encoder& leftEnc, Encoder& rightEnc);
 
 void getToSecondEwok();
 
-bool handleSecondEwok();
+void handleSecondEwok();
 
-void crossArch();
+void IRBeacon();
+void maneuverToIR();
+void maneuverToSecondDropLocation(Encoder&, Encoder&);
+void handleThirdEwok();

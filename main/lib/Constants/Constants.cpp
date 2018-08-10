@@ -12,9 +12,9 @@ constexpr int8_t Constants::highPwmPins[];
 constexpr int8_t Constants::lowPwmPins[];
 constexpr uint8_t Constants::LEFT_ENC_PIN;
 constexpr uint8_t Constants::RIGHT_ENC_PIN;
-constexpr uint16_t Constants::voltageUpFront, Constants::voltageDownFront;
-constexpr uint8_t Constants::frontLift;
-constexpr uint16_t Constants::voltageIRFront;
+constexpr int8_t Constants::infraredLeds[];
+constexpr int8_t Constants::infraredReceiver;
+constexpr uint8_t Constants::MOTOR_LEFT, Constants::MOTOR_RIGHT;
 
 void Constants::init() {
     /*
@@ -25,11 +25,15 @@ void Constants::init() {
     LEFT_THRESHOLD = MenuItem("LT", 0, 4096, 1024);
     RIGHT_THRESHOLD = MenuItem("RT", 0, 4096, 1024);
     */
+    // PROPORTIONAL = MenuItem("P", 0, 256, 27);
+    // INTEGRAL = MenuItem("I", 0, 20, 0);
+    // DERIVATIVE = MenuItem("D", 0, 40, 4);
+    // BASE_SPEED = MenuItem("BS", 0, 256, 145);
     PROPORTIONAL = MenuItem("P", 0, 256, 24);
     INTEGRAL = MenuItem("I", 0, 20, 0);
     DERIVATIVE = MenuItem("D", 0, 40, 4);
     BASE_SPEED = MenuItem("BS", 0, 256, 130);
     LEFT_THRESHOLD = MenuItem("LT", 0, 4096, 3100);
     RIGHT_THRESHOLD = MenuItem("RT", 0, 4096, 3100);
-    EDGE_THRESHOLD = MenuItem("ET", 0, 4096, 1600);
+    EDGE_THRESHOLD = MenuItem("ET", 0, 4096, 1500);
 }

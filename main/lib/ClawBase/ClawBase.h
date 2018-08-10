@@ -2,7 +2,6 @@
 #include <Arduino.h>
 #include <Servo.h>
 #include <Constants.h>
-#include <ZiplineLiftBase.h>
 
 class ClawBase{
 private:
@@ -15,6 +14,8 @@ public:
     ClawBase();
     void init();
     void deployBridge();
+    void startPickEwok();
+    void finishPickEwok();
     bool pickEwok();
     void dropEwok();
 };

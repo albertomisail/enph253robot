@@ -1,6 +1,11 @@
 #include "Movement.h"
 #include "OLED_I2C.h"
+
 Movement::Movement() : leftEnc(Constants::LEFT_ENC_PIN), rightEnc(Constants::RIGHT_ENC_PIN) {}
+
+void Movement::start(MovementInstruction instruction) {
+    start(instruction.leftDir, instruction.rightDir, instruction.leftAmt, instruction.rightAmt, instruction.correctionSpeed);
+}
 
 void Movement::start(int8_t leftDir_, int8_t rightDir_, int16_t leftAmt_, int16_t rightAmt_, int16_t correctionSpeed_)
 {
@@ -44,7 +49,7 @@ bool Movement::oneSideFinished(int16_t leftPos, int16_t rightPos) {
 
 int cnt = 0;
 bool Movement::poll() {
-    
+
     cnt++;
     /*if(cnt%2) {
         oled.clrPixel(50, 50);
@@ -108,4 +113,27 @@ bool Movement::poll() {
     previousError = error;
     previousTime = now;
     return true;
+}
+
+void Movement::move(int8_t dirl, int8_t dirr, int16_t leftdist, int16_t rightdist, int16_t speed)
+{
+    start(dirl, dirr, leftdist, rightdist, speed);
+    while(poll()) {}
+    delay(2);
+}
+
+void Movement::move(MovementInstruction instruction) {
+    move(instruction.leftDir, instruction.rightDir, instruction.leftAmt, instruction.rightAmt, instruction.correctionSpeed);
+}
+
+
+MovementInstruction Movement::reverseLast()
+{
+    MovementInstruction ans;
+    ans.leftDir = -leftDir;
+    ans.rightDir = -rightDir;
+    ans.leftAmt = leftEnc.getPosition()-leftInit;
+    ans.rightAmt = rightEnc.getPosition()-rightInit;
+    ans.correctionSpeed = correctionSpeed;
+    return ans;
 }
