@@ -3,7 +3,6 @@
 #include <Arduino.h>
 #include <Constants.h>
 
-// Currently, this does not handle direction.
 class Encoder {
 public:
     constexpr static uint8_t MAX_ENCODERS = 4;
@@ -19,11 +18,6 @@ public:
     Encoder(const uint8_t& pin);
     ~Encoder();
     static void poll();
-    //void init();
-    //constexpr static int8_t size();
     int16_t getPosition() const;
     void reset();
-    //long getPositionChange(const int8_t&);
 };
-
-//extern EncoderBase encoder;

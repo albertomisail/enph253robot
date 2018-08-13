@@ -2,7 +2,7 @@
 
 int32_t fftcnt;
 
-constexpr float FFT::sampleRate; // to be set later
+constexpr float FFT::sampleRate;
 constexpr float FFT::loFreq, FFT::hiFreq;
 constexpr int16_t FFT::loAngDelta;
 constexpr int16_t FFT::hiAngDelta;

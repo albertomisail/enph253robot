@@ -63,20 +63,6 @@ int InfraredBase::lastMeasurement() const {
     return lastResult;
 }
 
-/*
-int InfraredBase::makeMeasurement(){
-    delay(15);
-    int after = analogRead(Constants::infraredReceiver);
-    for(int i = 0; i < size(); i++){
-        digitalWrite(Constants::infraredLeds[i], LOW);
-    }
-    oled.clrScr();
-    oled.printNumI(base - after, 0, 0);
-    oled.update();
-    delay(15);
-    return base - after;
-} */
-
 bool InfraredBase::objectDetected(int16_t infraredThreshold){
     return (lastMeasurement() >= infraredThreshold);
 }

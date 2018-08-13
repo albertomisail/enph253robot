@@ -28,10 +28,9 @@ public:
     int32_t lastCompTime;
 
     int32_t nextAvailableQRDTime=0;
-    //constexpr static int8_t infraredReceiver = PA5;
 
     constexpr static int8_t DIR_LEFT = -1;
-    constexpr static int8_t DIR_RIGHT = 1; // TODO assign useful values of left, right
+    constexpr static int8_t DIR_RIGHT = 1;
     constexpr static int16_t A_LOT_OF_TURNS = 999;
 
     void startQRD();

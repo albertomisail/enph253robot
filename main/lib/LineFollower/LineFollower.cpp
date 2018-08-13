@@ -79,14 +79,7 @@ bool LineFollower::poll(){
     && sensorRightReading < rightStopThreshold
     && sensorEdgeReading < edgeStopThreshold) {
         if(++consec > 1) {
-            motor.speed(Constants::MOTOR_LEFT, 0);
-            motor.speed(Constants::MOTOR_RIGHT, 0);
-            delay(2);
-            motor.speed(Constants::MOTOR_LEFT, -255);
-            motor.speed(Constants::MOTOR_RIGHT, -255);
-            delay(40);
-            motor.speed(Constants::MOTOR_LEFT, 0);
-            motor.speed(Constants::MOTOR_RIGHT, 0);
+            motor.suddenBreak(40);
             movingState = false;
             return false;
         }
@@ -227,14 +220,7 @@ void LineFollower::findLine(const int8_t& dir, const int16_t& spd) {
             this->startQRD();
         }
     }
-    motor.speed(Constants::MOTOR_LEFT, 0);
-    motor.speed(Constants::MOTOR_RIGHT, 0);
-    delay(2);
-    motor.speed(Constants::MOTOR_RIGHT, dir*255);
-    motor.speed(Constants::MOTOR_LEFT, -dir*255);
-    delay(15);
-    motor.speed(Constants::MOTOR_LEFT, 0);
-    motor.speed(Constants::MOTOR_RIGHT, 0);
+    motor.suddenBreak(15);
 }
 void LineFollower::alignWithEdge(){
     Movement mvt;
@@ -251,14 +237,7 @@ void LineFollower::alignWithEdge(){
             this->startQRD();
         }
     }
-    motor.speed(Constants::MOTOR_LEFT, 0);
-    motor.speed(Constants::MOTOR_RIGHT, 0);
-    delay(2);
-    motor.speed(Constants::MOTOR_RIGHT, -255);
-    motor.speed(Constants::MOTOR_LEFT, -255);
-    delay(25);
-    motor.speed(Constants::MOTOR_LEFT, 0);
-    motor.speed(Constants::MOTOR_RIGHT, 0);
+    motor.suddenBreak(25);
 
     if(this->QRDMeasurement('e')<=edgeStopThreshold){
         Movement mvt;
@@ -274,15 +253,6 @@ void LineFollower::alignWithEdge(){
                 this->startQRD();
             }
         }
-
-        motor.speed(Constants::MOTOR_LEFT, 0);
-        motor.speed(Constants::MOTOR_RIGHT, 0);
-        delay(2);
-        motor.speed(Constants::MOTOR_RIGHT, -255);
-        motor.speed(Constants::MOTOR_LEFT, 255);
-        delay(25);
-        motor.speed(Constants::MOTOR_LEFT, 0);
-        motor.speed(Constants::MOTOR_RIGHT, 0);
     }else{
         Movement mvt;
         mvt.start(1,-1,LineFollower::A_LOT_OF_TURNS, LineFollower::A_LOT_OF_TURNS, 80);
@@ -296,16 +266,8 @@ void LineFollower::alignWithEdge(){
                 this->startQRD();
             }
         }
-
-        motor.speed(Constants::MOTOR_LEFT, 0);
-        motor.speed(Constants::MOTOR_RIGHT, 0);
-        delay(2);
-        motor.speed(Constants::MOTOR_RIGHT, 255);
-        motor.speed(Constants::MOTOR_LEFT, -255);
-        delay(25);
-        motor.speed(Constants::MOTOR_LEFT, 0);
-        motor.speed(Constants::MOTOR_RIGHT, 0);
     }
+    motor.suddenBreak(25);
 }
 
 LineFollower lineFollower;

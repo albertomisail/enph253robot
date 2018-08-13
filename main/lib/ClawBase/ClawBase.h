@@ -7,8 +7,6 @@ class ClawBase{
 private:
     Servo arm;
     Servo claw;
-    bool buttonSwitch;
-    bool bridge;
 
 public:
     ClawBase();

@@ -3,13 +3,13 @@
 
 class Constants {
 public:
-    static MenuItem PROPORTIONAL;//("P", 0, 256, 40);
-    static MenuItem INTEGRAL;//("I", 0, 20, 0);
-    static MenuItem DERIVATIVE;//("D", 0, 40, 5);
-    static MenuItem BASE_SPEED;//("BS", 0, 256, 150);
-    static MenuItem LEFT_THRESHOLD;//("LT", 0, 4096, 1024);
-    static MenuItem RIGHT_THRESHOLD;//("RT", 0, 4096, 1024);
-    static MenuItem EDGE_THRESHOLD;//("RT", 0, 4096, 1024);
+    static MenuItem PROPORTIONAL;
+    static MenuItem INTEGRAL;
+    static MenuItem DERIVATIVE;
+    static MenuItem BASE_SPEED;
+    static MenuItem LEFT_THRESHOLD;
+    static MenuItem RIGHT_THRESHOLD;
+    static MenuItem EDGE_THRESHOLD;
 
     constexpr static int16_t PROPORTIONAL_MOVEMENT = 30;
     constexpr static int16_t DERIVATIVE_MOVEMENT = 3;
@@ -26,11 +26,8 @@ public:
 
     constexpr static int16_t ENCODER_POLL_TIME = 2; // milliseconds
 
-    // TODO: Assign real pin values
     constexpr static int8_t infraredLeds[] = {PB3};
     constexpr static int8_t infraredReceiver = PA1;
-    constexpr static int16_t distantInfraredThreshold = 1500;
-    constexpr static int16_t pickUpInfraredThreshold = 4096;
     constexpr static int16_t distantInfraredThreshold1 = 1500;
     constexpr static int16_t pickUpInfraredThreshold1 = 3300;
     constexpr static int16_t distantInfraredThreshold2 = 1500;
@@ -56,8 +53,8 @@ public:
     constexpr static float FFT_THRESHOLD_10K_FACTOR = 1;
 
     constexpr static uint8_t LEFT_QRD_PIN = PA4;
-    constexpr static uint8_t RIGHT_QRD_PIN = PA7; //PA3;
-    constexpr static uint8_t EDGE_QRD_PIN = PA5; //PA2;
+    constexpr static uint8_t RIGHT_QRD_PIN = PA7;
+    constexpr static uint8_t EDGE_QRD_PIN = PA5;
     constexpr static uint8_t QRD_POWER_PIN = PB4;
 
     constexpr static uint8_t MOTOR_LEFT = 1;
@@ -69,7 +66,7 @@ public:
 
     constexpr static uint8_t MULTIPLEXER_PIN = PB5;
     constexpr static uint8_t BRIDGE_SERVO_PIN = PA3;
-    constexpr static int16_t positionLock = 200; //TODO change this
+    constexpr static int16_t positionLock = 200;
     constexpr static int16_t positionUnlock = 90;
     constexpr static int16_t positionSecondUnlock = 0;
 

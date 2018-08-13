@@ -6,7 +6,6 @@
 #include <ClawBase.h>
 #include <MotorBase.h>
 #include <Movement.h>
-#include "testAll.h"
 #include <procedures.h>
 
 extern uint8_t SmallFont[];
@@ -25,20 +24,10 @@ void setup() {
 }
 
 void loop() {
-    // infrared.startMeasurement();
-    // while(true) {
-    //     if(!infrared.poll()) {
-    //         oled.clrScr();
-    //         oled.printNumI(infrared.lastMeasurement(), 0, 0);
-    //         oled.update();
-    //         infrared.startMeasurement();
-    //     }
-    // }
     pinMode(PB5, OUTPUT);
 
     digitalWrite(PB5, HIGH);
-    delay(5000);
+    delay(500);
     
-    mainRun();
-    //delay(10000);
+    mainRun();  
 }

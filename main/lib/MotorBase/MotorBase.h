@@ -13,6 +13,7 @@ public:
     void speed(const int8_t&, int16_t);
     void stop(const int8_t&);
     void shut_down();
+    void suddenBreak(const int16_t&);
 };
 
 extern MotorBase motor;

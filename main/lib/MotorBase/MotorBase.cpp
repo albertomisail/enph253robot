@@ -38,20 +38,25 @@ void MotorBase::speed(const int8_t& motorNum, int16_t velocity) {
         analogWrite(Constants::highPwmPins[motorNum], 0);
         analogWrite(Constants::lowPwmPins[motorNum], -velocity);
     }
+    speeds[motorNum] = velocity;
 }
 void MotorBase::stop(const int8_t& motorNum) {
     MotorBase::speed(motorNum, 0);
     speeds[motorNum] = 0;
 }
-// void MotorBase::hardStop() {
-//     for(int i=0;i<sizeof speeds;++i) {
-//         speeds[i]/abs(speeds[i])
-//     }
-// }
 void MotorBase::shut_down(){
     for(int8_t i = 0; i < MotorBase::size(); i++){
         MotorBase::stop(i);
     }
+}
+void MotorBase::suddenBreak(const int16_t& breakTime){
+    MotorBase::shut_down();
+    delay(2);
+    for(int8_t i = 0; i < MotorBase::size(); i++){
+        MotorBase::speed(i, -255*(speeds[i]/abs(speeds[i])));
+    }
+    delay(breakTime);
+    MotorBase::shut_down();
 }
 
 MotorBase motor;

@@ -17,14 +17,6 @@ constexpr int8_t Constants::infraredReceiver;
 constexpr uint8_t Constants::MOTOR_LEFT, Constants::MOTOR_RIGHT;
 
 void Constants::init() {
-    /*
-    PROPORTIONAL = MenuItem("P", 0, 256, 40);
-    INTEGRAL = MenuItem("I", 0, 20, 0);
-    DERIVATIVE = MenuItem("D", 0, 40, 5);
-    BASE_SPEED = MenuItem("BS", 0, 256, 150);
-    LEFT_THRESHOLD = MenuItem("LT", 0, 4096, 1024);
-    RIGHT_THRESHOLD = MenuItem("RT", 0, 4096, 1024);
-    */
     PROPORTIONAL = MenuItem("P", 0, 256, 24);
     INTEGRAL = MenuItem("I", 0, 20, 0);
     DERIVATIVE = MenuItem("D", 0, 40, 4);

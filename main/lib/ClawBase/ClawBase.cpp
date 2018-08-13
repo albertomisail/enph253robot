@@ -1,7 +1,6 @@
 #include "ClawBase.h"
 #include "OLED_I2C.h"
 ClawBase::ClawBase(){
-    //ClawBase::init();
 }
 
 void ClawBase::init(){
@@ -9,13 +8,9 @@ void ClawBase::init(){
     (ClawBase::arm).write(Constants::angleIn);
     (ClawBase::claw).attach(Constants::CLAW_PIN);
     (ClawBase::claw).write(Constants::angleClose);
-    ClawBase::buttonSwitch = true;
-    ClawBase::bridge = true;
-    pinMode(Constants::buttonSwitchPin, INPUT);
 }
 
 void ClawBase::startPickEwok() {
-
     (ClawBase::claw).write(Constants::angleOpen);
     delay(500);
 
@@ -29,7 +24,6 @@ void ClawBase::startPickEwok() {
 }
 
 void ClawBase::finishPickEwok(){
-
     int step = (Constants::angleClose - Constants::angleOpen) / Constants::numSteps;
     int step2 = (Constants::angleOut - Constants::angleIn) / Constants::numSteps;
     while((ClawBase::claw).read() < Constants::angleClose){
