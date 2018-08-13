@@ -24,10 +24,34 @@ void setup() {
 }
 
 void loop() {
+<<<<<<< HEAD
     pinMode(PB5, OUTPUT);
 
     digitalWrite(PB5, HIGH);
     delay(500);
     
     mainRun();  
+=======
+    // while(true) {
+    //     IRBeacon();
+    // }
+
+
+    // infrared.startMeasurement();
+    // while(true) {
+    //     if(!infrared.poll()) {
+    //         oled.clrScr();
+    //         oled.printNumI(infrared.lastMeasurement(), 0, 0);
+    //         oled.update();
+    //         infrared.startMeasurement();
+    //     }
+    // }
+    pinMode(PB5, OUTPUT);
+
+    digitalWrite(PB5, HIGH);
+    //delay(5000);
+
+    mainRun();
+    //delay(10000);
+>>>>>>> 81bf4a01c3e803b90707d7bfad92f0b1446aa325
 }

@@ -14,7 +14,7 @@ Servo bridgeServo;
 bool lookForEwok(int threshold, int movementRange, int direction) {
     Movement mvt;
     bool foundEwok = false;
-    mvt.start(direction, -direction, movementRange, movementRange, 100);
+    mvt.start(direction, -direction, movementRange, movementRange, 80);
     infrared.startMeasurement();
     //do one sweep
     while(mvt.poll()) {
@@ -70,7 +70,8 @@ void initialLineFollow(Encoder& leftEnc, Encoder& rightEnc) {
     lineFollower.start(0,0,0);
     for(int32_t i=0;lineFollower.poll();++i) {
         Encoder::poll();
-        if(rightEnc.getPosition()>=136) {
+        // if(rightEnc.getPosition()>=130) {
+        if(rightEnc.getPosition()>=133) {
             oled.clrScr();
             oled.print("!! 135", 0, 0);
             oled.update();
@@ -132,9 +133,9 @@ void handleFirstEwok(Encoder& leftEnc, Encoder& rightEnc) {
         delay(2);
         claw.pickEwok();
 
-        oled.clrScr();
+        /*oled.clrScr();
         oled.printNumI(foundEwok2,0,10);
-        oled.update();
+        oled.update(); */
 
         oled.clrScr();
         oled.print("Picked up ewok",0,20);
@@ -229,7 +230,6 @@ void deployBridge(){
     
     motor.shut_down();
 
-    bridgeServo.write(Constants::positionUnlock);
     delay(100);
     
     //Go forward so that bridge drops
@@ -332,7 +332,7 @@ void maneuverToSecondDropLocation(Encoder& leftEnc, Encoder& rightEnc){
     lineFollower.start(0,0,0);
     while(lineFollower.poll()) {
         Encoder::poll();
-        if(leftEnc.getPosition() > 155) {
+        if(leftEnc.getPosition() > 175) {
             break;
         }
     }
@@ -360,9 +360,9 @@ void maneuverToSecondDropLocation(Encoder& leftEnc, Encoder& rightEnc){
     motor.speed(Constants::MOTOR_RIGHT, 0);
     delay(250);
 
-    int32_t timeLimit = millis()+2000;
+    int32_t timeLimit = millis()+1500;
 
-    mvt.start(1,1,8,8,80);
+    mvt.start(1,1,15,15,80);
     while(mvt.poll()){
         if(millis() > timeLimit) break;
     }
@@ -377,9 +377,11 @@ void handleThirdEwok(){
     motor.speed(Constants::MOTOR_LEFT, 0);
     motor.speed(Constants::MOTOR_RIGHT, 0);
 
-    delay(200);
+    delay(2);
 
     lineFollower.findLine(LineFollower::DIR_RIGHT, 90);
+
+    mvt.move(-1, -1, 6, 6, 80);
 
     // mvt.start(1,-1,5,5,80);
     // while(mvt.poll()){}
@@ -396,7 +398,7 @@ void handleThirdEwok(){
 
     if(foundEwok) {
         // TODO add the method to move foward to toward the ewok
-        bool foundEwok2 = moveForwardToEwok(Constants::pickUpInfraredThreshold3, 10);
+        bool foundEwok2 = moveForwardToEwok(Constants::pickUpInfraredThreshold3, 0);
         mvt.start(1,1,1,1,80);
         while(mvt.poll()){}
         oled.clrScr();
@@ -409,6 +411,8 @@ void handleThirdEwok(){
         oled.update();
     }
 
+    mvt.move(-1, -1, 5, 5, 80);
+
     //turn off leds
     digitalWrite(Constants::infraredLeds[0], LOW);
 
@@ -419,8 +423,8 @@ void handleThirdEwok(){
     motor.speed(Constants::MOTOR_RIGHT,0);
     delay(2);
 
-    mvt.start(1, 1, 8, 8, 80);
-    int32_t timeout = millis()+1500;
+    mvt.start(1, 1, 20, 20, 80);
+    int32_t timeout = millis()+1000;
     while(mvt.poll()){
         if(timeout < millis()) break;
     }
@@ -498,13 +502,18 @@ void maneuverToSecondBridge() {
 
     delay(1000);
 
-    int32_t timeout = millis() + 2000;
-    mvt.start(-1,-1,20,20,80);
+    int32_t timeout = millis() + 1500;
+    mvt.start(-1,-1,8,8,80);
     while(mvt.poll()) {
         if(timeout < millis()) break;
     }
 
-    mvt.move(-1, -1, 35, 35, 150);
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+
+    mvt.move(1, 1, 8, 8, 80);
+
+    mvt.move(-1, -1, 43, 43, 170);
 
 }
 
@@ -525,7 +534,7 @@ void handleFourthEwok() {
         // TODO add the method to move foward to toward the
         bool foundEwok2 = moveForwardToEwok(Constants::pickUpInfraredThreshold4, 6);
         MovementInstruction reverseFromEwok = mvt.reverseLast();
-        mvt.start(1,1,1,1,80);
+        mvt.start(-1,-1,2,2,80);
         while(mvt.poll()){}
         delay(2);
         claw.pickEwok();
@@ -541,14 +550,35 @@ void handleFourthEwok() {
 
         mvt.move(reverseFromEwok);
     }
+    // mvt.move(1,-1,24,24,80);
+    // delay(1000);
+    // mvt.move(1,1,35,35,80);
+    //
 
+    mvt.move(1, 1, 10, 10, 80);
+
+    reverseLook.leftAmt--;
+    reverseLook.rightAmt--;
     mvt.move(reverseLook);
     mvt.move(initialTurnReverse);
-    mvt.move(1, 1, 50, 50, 80);
-    mvt.move(1, -1, 2, 2, 80);
-    int timeout = millis() + 3500;
-    mvt.start(1, 1, 50, 50, 80);
-    while(mvt.poll() && timeout > millis()) {}
+
+    motor.speed(Constants::MOTOR_LEFT, -initialTurnReverse.leftDir*255);
+    motor.speed(Constants::MOTOR_RIGHT, -initialTurnReverse.rightDir*255);
+    delay(15);
+    motor.speed(Constants::MOTOR_LEFT, 0);
+    motor.speed(Constants::MOTOR_RIGHT, 0);
+    delay(2);
+
+    mvt.move(1, 1, 85, 85, 90);
+    lineFollower.findLine(LineFollower::DIR_RIGHT, 80);
+    delay(2);
+    lineFollower.start();
+    while(lineFollower.poll());
+    mvt.move(-1, -1, 8, 8, 80);
+    mvt.move(-1, 1, 16, 16, 80);
+    int timeout = millis() + 2000;
+    mvt.start(1, 1, 30, 30, 80);
+    while(mvt.poll() && millis() < timeout) {}
     motor.speed(Constants::MOTOR_LEFT, 0);
     motor.speed(Constants::MOTOR_RIGHT, 0);
     delay(2);
@@ -563,6 +593,9 @@ void mainRun() {
     Encoder rightEnc(Constants::RIGHT_ENC_PIN);
 
     oled.invertText(false);
+
+    // handleFirstEwok(leftEnc, rightEnc);
+    // while(true) {}
 
     initialLineFollow(leftEnc, rightEnc);
 

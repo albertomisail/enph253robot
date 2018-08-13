@@ -23,5 +23,5 @@ void Constants::init() {
     BASE_SPEED = MenuItem("BS", 0, 256, 130);
     LEFT_THRESHOLD = MenuItem("LT", 0, 4096, 3100);
     RIGHT_THRESHOLD = MenuItem("RT", 0, 4096, 3100);
-    EDGE_THRESHOLD = MenuItem("ET", 0, 4096, 1600);
+    EDGE_THRESHOLD = MenuItem("ET", 0, 4096, 1500);
 }
