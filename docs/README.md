@@ -20,7 +20,7 @@ description with our names and roles
 ### First Design 
 INSERT PHOTO OF FIRST CHASSIS
 
-![First Chassis with Lift](first_chassis.jpg)
+![First Chassis with Lift](first_chassis.JPG)
 
 The first iteration of our design was composed of a dual scissor lift and pulley with a basket in the middle. The lift and pulley mechanism would allow us to go up and down the two ziplines on the course, allowing us to complete the competition in a non-linear fashion. 
 
