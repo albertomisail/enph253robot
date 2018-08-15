@@ -20,6 +20,8 @@ description with our names and roles
 ### First Design 
 INSERT PHOTO OF FIRST CHASSIS
 
+![First Chassis with Lift](first_chassis.jpg)
+
 The first iteration of our design was composed of a dual scissor lift and pulley with a basket in the middle. The lift and pulley mechanism would allow us to go up and down the two ziplines on the course, allowing us to complete the competition in a non-linear fashion. 
 
 This was the strategy that would allow us to retain flexibility and target ewoks selectively, which would give us a competitive advantage in certain situations. We worked on this first iteration extensively but discovered that the engineering challenge was too difficult in the given time-frame. This realization forced us to pivot to a simpler design that was much more reliable but less flexible. Nevertheless, we were able to design and build all modular components of this first design.
@@ -124,3 +126,12 @@ weird shakes and shit like that
 unit testing at the end
 
 Dylan says something about state diagrams but tbh I don't feel like that's particularly relevant...
+
+## Reflections and Lessons Learned
+
+One of the most important lessons we learned throughtout this course is that a simple and consistent design is key to a great engineering project. Initially, our design was much more complex and therefore had more points of failure. By reducing the 
+
+If we were to do this again, we can definitely improve on our documentation. Though we attempted to use Trello to keep track of our development and progress, things got very messy on our Trello board quickly. It is very important for a well functioning team to have an organized structure to document the development process.
+
+One of the major mistakes that slowed down our progress was that we were too slow to adapt to changes in the rules. Originally, Chewy was worth 3 times as much as a single Ewok, therefore we believed that if we were able to bring back the first Ewok, go up the Zipline and bring back Chewy and the Ewok inside the stronghold, we would be in a very good position to win the competition. However, when the rules changed and Chewy was worth 5 points inside of 9 in total, we did not adapt to this change quickly and stuck to our original plan. Had we re-evaluated the situation, we could have changed our design earlier and had more time to improve on our final design. 
+
