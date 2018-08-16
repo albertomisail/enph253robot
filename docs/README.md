@@ -83,6 +83,8 @@ The basic chassis was large enough to hold the motors, wheels, axles, and one cl
 
 ![Final Claw System Design](res/small_chassis_claw.JPG)
 
+[Claw System CAD - Onshape] (https://cad.onshape.com/documents/ba80560c7ad54f163c77a1c2/w/127cfb8a319be0fdb18ce1d3/e/1f57a8d6266c7a1f6b8fe82e)
+
 Given the relative inaccuracy of IR object sensing (Attributed mostly by the changing ambient light conditions) and the intention to hold ewoks for extended amounts of time (instead of dropping them into a basket), our claw needed to be forgiving and relatively strong. We opted for a "serrated" claw design with a hook-like structure at the end. The serrated design would help hold ewoks in place during travel, and the hook-like structure would help scoop any ewoks in if they were slightly too far. This entire mechanism was driven by a small servo, geared to increase grip torque. 
 
 The entire claw assembly was attached to a rotating base, so that we could hold the claw up when it is gripping an ewok or when it is not in use.
@@ -97,6 +99,8 @@ Simplicity and reliability allowed us to perform so well on competition day. Our
 
 ### STM32 "Blue Pill" Board
 
+TODO: Insert Picture of Blue Pill 
+
 The STM32F106... board has a 72MHz processor, a fast analog digital converter, and three timers in a $2 tiny form factor. The small size and high speed were extremely useful, but the board had never been used in ENPH253 before; we learned a lot when developing a lot of software from scratch, learning along with the instructors.
 
 ### H-bridges
@@ -107,15 +111,21 @@ H-bridges are circuits that can amplify the small signals from our microcontroll
 
 ### Line Following with Infrared Sensors
 
-A black line running across the competition surface acts as a guide for our robots to follow. In order to sense this line, we pulse infrared light from LEDs at the ground, and measure the amount of reflected light with infrared sensors. The black surface reflects less light than the white surface, providing a sense of where we are.
+TODO Add Picture of QRD Holder 
 
-### IR Beacon
+A black line running across the competition surface acts as a guide for our robots to follow. In order to sense this line, we used a sensor called QRD1114. The QRD sensor is essentially a phototransistor with an Infrared LED. Most teams simply keep the LED on and take readings from the output of the phototransistor. The black surface reflects less light than the white surface, providing a sense of where we are. 
 
-Inspired by our line-following sensors, we mounted a high-powered equivalent at the front of our robot. In order to account for different ambient infrared amounts, we pulse the LEDs in order to get readings with only ambient light, and readings that include light reflected off the surroundings. Using this method, we were able to sense detect from over half a meter away!
+However, sensors like the QRD is very sensitive to ambient light, therefore most teams have to calibrate to different ambient conditions and their line following results can greatly differ in different conditions depending on the calibrated thresholds. In an attempt to solve this issue, we pulse infrared light from LEDs at the ground, and measure the amount of reflected light with the phototransistor. We then compared the values from when the LED is on and when the LED is off. This did improve the overall performance and accuracy of our sensors, allowing us to perform better in a wider range of ambient lighting at the cost of speed of data reading. 
+
+### Ewok Sensor
+
+Inspired by our line-following sensors, we mounted a high-powered equivalent at the front of our robot. Instead of using QRDs, we used 6 Infrared LEDs and a single phototransistor. We used CAD and 3D printed a container to mount this sensor to the front of our robot. In order to account for different ambient infrared amounts, we pulse the LEDs in order to get readings with only ambient light, and readings that include light reflected off the surroundings. Using this method, we were able to sense detect from over half a meter away! Often times people thought our Ewok Sensor was a camera because it was very quick and precise at detecting objects from from a distance. 
+
+TODO: Insert Picture of Ewok Sensor and Explain how it works 
 
 ### Encoders
 
-To provide more control over our robot, we added encoders on our wheels. These sensors allow us to know how many rotations our wheels have had. This allows our robot to make precise movements which will always work as expected. A simpler time-based control is much more dependent on battery voltage or small changes in mass distribution.
+To provide more control over our robot, we added rotary encoders on our wheels. These sensors allow us to know how many rotations our wheels have had. This allows our robot to make precise movements which will always work as expected. A simpler time-based control is much more dependent on battery voltage or small changes in mass distribution.
 
 ### Form Factor
 
@@ -163,3 +173,4 @@ One of the major mistakes that slowed down our progress was that we were too slo
 
 This project allowed us to go through the entire development engineering development phase, from brainstorming, to designing, to fabricating and testing. We learned a lot about iteration
 
+TODO Add section on how we could have improved our mechanical design 
