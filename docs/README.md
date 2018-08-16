@@ -77,7 +77,7 @@ The STM32F106... board has a 72MHz processor, a fast analog digital converter, a
 
 ### H-bridges
 
-![H-Bridge Schematic](small_chassis_bridges.JPG)
+![H-Bridge Schematic](hbridge.png)
 
 H-bridges are circuits that can amplify the small signals from our microcontroller and allow our motors to run both in forward and reverse at high power. The MOSFET transistors in this circuit act as switches, providing power in either forward or reverse through the motor. Teams historically have a difficult time building and testing this circuit, and our team was no exception; we learned a lot about noise, microcontroller timers, and cable management while debugging this circuit.
 
