@@ -1,4 +1,4 @@
-# TEAM IV - Lil Bot: A New Hope 
+# Lil Bot: Team IV - A New Hope 
 ## 2018 UBC ENGINEERING PHYSICS ROBOT SUMMER - 3RD PLACE
 
 # Table of Contents 
@@ -25,17 +25,37 @@ UBC Engineering Physics is an intense, five-year undergraduate engineering / phy
 
 To offset the intensity and difficulty of the course, the engineering content to be tackled by the students has been framed in the context of an autonomous robot competition. Each year students spend six weeks in a series of labs and lectures to learn some basic elements of electromechanical design, and then form teams of four to embark on seven weeks of full-time robot design and construction. Time commitment during this phase is at the students’ discretion but often reaches 50 – 70 hrs/week. The course culminates in a publicly attended robot competition that also serves as the final exam. Past competitions have included one-on-one hockey, volleyball, and search and rescue challenges.
 
+## The Challenge
+
+[Detailed Rules](https://docs.google.com/document/d/18rYIVlMZeD559deR7-5YjfQzZz4BeeS6pr8FI5Qlm8Q/edit)
+
+![Competition Course](res/competition_course.png)
+
+The theme of this year's competition is Star Wars, we have been tasked to build fully autonomous robots to rescue Ewoks and Chewbacca from the Empire's Stronghold. There are various difficult challenges on the way to Chewbacca, the robots have to, without human interaction, navigate the course, find and pick up Ewoks, cross gaps, detect and distinguish between different infrared frequencies and most importantly, return the rescued Ewoks and Chewbacca back to the startingg location. Picking up an Ewok is worth 1 point and succesfully returning an Ewok earns the team 2 additional points. Picking up Chewbacca is worth 2 points, and returning Chewbacca earns the team 3 additional points. 
+
+There are various objects to assist and guide the robots such as the black electrical tape found throughout most of the course, as well as metal pipes serving as ziplines for robots to return rescued Ewoks. However, mistakes are costly, if the robot fails to detect the correct infrared frequency, the alarms will be triggered and a platform at the center of the course will begin to rotate, which can disorient the robots and result in a failed rescue attempt.   
+
 ## Our robot
 
 ![Final Chassis After Competition](res/final_robot_after_comp.jpg)
 
-description
+FUN FACT: Our robot had gone through various iterations, four to be exact. With us being Team 4, we therefore dubbed our final iteration "A New Hope", the fourth episode in the Star Wars series. 
+
+The final design of our robot is based around consistency and simplicity. Many designs in the competition aimed to store picked up Ewoks in a basket and return the basket when it reaches the end of the course via the zipline. However, we felt this was too ambitious and risky. If the robot is unable to reach the end of the course for whatever reason then it would not be able to return the already picked up Ewoks and would lose out on the majority of the points. 
+
+Therefore, our design focused on picking up and returning each of the Ewoks individually to the starting area. Using encoders, we were able to precisely and accurately maneuver our robot and returned the Ewoks by placing them in the start area as well as dropping them over the ledge into the starting area. 
 
 ## Our team
 
 ![Team Photo: Frank Jia, Charles Qian, David Berard, Alberto Misail](res/team_4_photo.jpg)
 
-description with our names and roles
+Frank Jia - Mechanical Design and Fabrication, Testing and Optimization
+
+Charles Qian - Mechanical Design and Fabrication, Testing and Optimization
+
+David Berard - Electrical Design and Fabrication, Software Development, Testing and Optimization
+
+Alberto Misail - Electrical Design and Fabrication, Software Development, Testing and Optimization
 
 ## Mechanical Design + Strategy
 
