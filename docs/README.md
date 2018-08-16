@@ -2,9 +2,9 @@
 ## 2018 UBC ENGINEERING PHYSICS ROBOT SUMMER - 3RD PLACE
 
 # Table of Contents 
-1. [Course Description](#coursedescription)
+1. [Course Description](#course-description-)
 
-## Course Description <a name="Course Description"></a> 
+## Course Description
 From [course website:](https://projectlab.engphys.ubc.ca/enph253_2018/)
 
 ENPH 253 – Introduction to Instrument Design. Practical laboratory exposure to instrument bread-boarding including simple mechanical and electrical design, and communications with sensors, actuators. Micro-controller implementation and design.    Credits: [5]        Pre-reqs: One of ENPH 259, PHYS 259, PHYS 209.
