@@ -139,7 +139,7 @@ In a final product design, the loose wires found on our robot would be unaccepta
 
 ### Frequency Sensing: 1kHz vs 10kHz
 
-(graph thing)
+TODO: (graph thing)
 
 One of the obstacles of the course was made easier by a shortcut provided by the instructors; if our robot could sense the difference between an infrared signal pulsing at 1kHz, and a signal pulsing at 10kHz, we would be able to skip the obstacle. Most teams used a solution discussed in class; using resistors, capacitors and op-amps, an analog filter can be built that will determine the frequency. We built this circuit, but ultimately we decided to use a much simpler circuit and determine the frequency using software. This solution allowed us to fine-tune and debug our frequency sensor much faster.
 
@@ -148,20 +148,6 @@ In order to filter frequencies, we convoluted our signal against reference signa
 ### Proportional Integral Derivative Control
 
 During almost all of our movements, we used a control technique called Proportional Integral Derivative - or PID. This control technique allows for accurate control over movement by adjusting to any errors that are sensed. During line following, motor power is adjusted based on our distance off of the line. Unique to our team was the use of PID during encoder-controlled movements. This allowed for accuracy and consistency that very few other teams were able to achieve.
-
-idk write down some buzzwords. or maybe some of the software components that gave us an advantage
-
-our "FFT" class maybe
-
-PID on movements
-
-Pulsing IR
-
-weird shakes and shit like that
-
-unit testing at the end
-
-Dylan says something about state diagrams but tbh I don't feel like that's particularly relevant...
 
 ## Reflections
 
