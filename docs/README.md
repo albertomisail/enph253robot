@@ -18,7 +18,6 @@ description with our names and roles
 ## Our Design + Strategy
 
 ### First Design 
-INSERT PHOTO OF FIRST CHASSIS
 
 ![First Chassis with Lift](first_chassis.JPG)
 
@@ -27,19 +26,20 @@ The first iteration of our design was composed of a dual scissor lift and pulley
 This was the strategy that would allow us to retain flexibility and target ewoks selectively, which would give us a competitive advantage in certain situations. We worked on this first iteration extensively but discovered that the engineering challenge was too difficult in the given time-frame. This realization forced us to pivot to a simpler design that was much more reliable but less flexible. Nevertheless, we were able to design and build all modular components of this first design.
 
 #### Lift System
-INSERT PHOTO OF LIFT
+
+![Lift System Design](first_chassis_lift.JPG)
 
 Our first design features a dual scissor lift, driven by a standard DC motor and geared down with a transmission. The transmission is coupled to a lead screw which would lift up and down the upper platform. Initial prototypes were constructed using laser-cut hardboard pieces and 3D printed mounts.
 
 #### Pulley System
-INSERT PHOTO OF PULLEY
+![Pulley System Design](first_chassis_pulley.JPG)
 
 The pulley to allow our robot to go up and down the ziplines needed to be light (to keep the center of mass low to the ground), yet powerful enough to drive a 5kg+ load up an inclined zipline. Using these design restrictions, we opted for a relatively simple and lightweight structure, built using 0.8mm aluminum that was waterjet cut to fit specifications. We used a DC motor which was geared down for increased torque
 
 ### Pivot in Strategy + Final Design
 As mentioned, our initial strategy was too time intensive to execute. In addition to fabricating all the designs, we found that we had very little time to iterate for reliability. In addition, the weight of a dual lift and pulley system put our robot at a speed disadvantage. To address these issues, we stripped our design of all parts that were non-critical to the competition flow. Our final chassis was extremely light, agile, and reliable, which gave us a significant advantage during the time-limited competition runs.
 
-INSERT PHOTO OF FINAL CHASSIS
+![Final Chassis Design](Final Chassis with Circuit Holder.png)
 
 Our final chassis was a dual-layered and had support for the following:
 - A claw system for holding and picking up ewoks and chewbacca
@@ -51,13 +51,13 @@ We stripped even the functionality of having a basket, opting to rescue each ewo
 
 #### Basic Chassis Design
 
-INSERT PHOTO OF FINAL BASE CHASSIS
+![Final Basic Chassis Design](small_chassis_base.JPG)
 
 The basic chassis was large enough to hold the motors, wheels, axles, and one claw. The first layer of the chassis was constructed out of laser-cut hardboard, and was dual-layered to reduce any possible flex. The rigidity of the chassis allowed us to make quick adjustments in speed and direction. 
 
 #### Claw System
 
-INSERT PHOTO OF CLAW
+![Final Claw System Design](small_chassis_claw.JPG)
 
 Given the relative inaccuracy of IR object sensing (Attributed mostly by the changing ambient light conditions) and the intention to hold ewoks for extended amounts of time (instead of dropping them into a basket), our claw needed to be forgiving and relatively strong. We opted for a "serrated" claw design with a hook-like structure at the end. The serrated design would help hold ewoks in place during travel, and the hook-like structure would help scoop any ewoks in if they were slightly too far. This entire mechanism was driven by a small servo, geared to increase grip torque. 
 
@@ -65,7 +65,7 @@ The entire claw assembly was attached to a rotating base, so that we could hold 
 
 #### Bridge Laying Mechanism
 
-INSERT PHOTO OF BRIDGES
+![Second (L) and First (R) Bridge Design](small_chassis_bridges.JPG)
 
 Simplicity and reliability allowed us to perform so well on competition day. Our bridge laying mechanism was a simple servo that would rotate to drop one bridge, but not the other. Iterating many times, we found the above bridge designs to fall into position the most reliably. The flanges within the bridges themselves acted as a guiding mechanism for the bridges to fall properly. 
 
@@ -76,6 +76,8 @@ Simplicity and reliability allowed us to perform so well on competition day. Our
 The STM32F106... board has a 72MHz processor, a fast analog digital converter, and three timers in a $2 tiny form factor. The small size and high speed were extremely useful, but the board had never been used in ENPH253 before; we learned a lot when developing a lot of software from scratch, learning along with the instructors.
 
 ### H-bridges
+
+![H-Bridge Schematic](small_chassis_bridges.JPG)
 
 H-bridges are circuits that can amplify the small signals from our microcontroller and allow our motors to run both in forward and reverse at high power. The MOSFET transistors in this circuit act as switches, providing power in either forward or reverse through the motor. Teams historically have a difficult time building and testing this circuit, and our team was no exception; we learned a lot about noise, microcontroller timers, and cable management while debugging this circuit.
 
