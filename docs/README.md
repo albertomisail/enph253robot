@@ -1,4 +1,4 @@
-# Lil Bot: Team IV - A New Hope 
+﻿# Lil Bot: Team IV - A New Hope 
 ## 2018 UBC ENGINEERING PHYSICS ROBOT SUMMER - 3RD PLACE
 
 # Table of Contents 
@@ -17,7 +17,7 @@
 ## Course Description
 From [course website:](https://projectlab.engphys.ubc.ca/enph253_2018/)
 
-ENPH 253 – Introduction to Instrument Design. Practical laboratory exposure to instrument bread-boarding including simple mechanical and electrical design, and communications with sensors, actuators. Micro-controller implementation and design.    Credits: [5]        Pre-reqs: One of ENPH 259, PHYS 259, PHYS 209.
+ENPH 253 – Introduction to Instrument Design. Practical laboratory exposure to instrument bread-boarding including simple mechanical and electrical design, and communications with sensors, actuators. Micro-controller implementation and design.
 
 Background on the course:
 
@@ -41,7 +41,7 @@ There are various objects to assist and guide the robots such as the black elect
 
 FUN FACT: Our robot had gone through various iterations, four to be exact. With us being Team 4, we therefore dubbed our final iteration "A New Hope", the fourth episode in the Star Wars series. 
 
-The final design of our robot is based around consistency and simplicity. Many designs in the competition aimed to store picked up Ewoks in a basket and return the basket when it reaches the end of the course via the zipline. However, we felt this was too ambitious and risky. If the robot is unable to reach the end of the course for whatever reason then it would not be able to return the already picked up Ewoks and would lose out on the majority of the points. 
+The final design of our robot is based around consistency and simplicity. Many designs in the competition aimed to store picked up Ewoks in a basket and return the basket when it reaches the end of the course via the zipline. However, we felt this was too risky. If the robot is unable to reach the end of the course for whatever reason then it would not be able to return the already picked up Ewoks and would lose out on the majority of the points. 
 
 Therefore, our design focused on picking up and returning each of the Ewoks individually to the starting area. Using encoders, we were able to precisely and accurately maneuver our robot and returned the Ewoks by placing them in the start area as well as dropping them over the ledge into the starting area. 
 
@@ -161,13 +161,33 @@ In a final product design, the loose wires found on our robot would be unaccepta
 
 TODO: (graph thing)
 
-One of the obstacles of the course was made easier by a shortcut provided by the instructors; if our robot could sense the difference between an infrared signal pulsing at 1kHz, and a signal pulsing at 10kHz, we would be able to skip the obstacle. Most teams used a solution discussed in class; using resistors, capacitors and op-amps, an analog filter can be built that will determine the frequency. We built this circuit, but ultimately we decided to use a much simpler circuit and determine the frequency using software. This solution allowed us to fine-tune and debug our frequency sensor much faster.
+One of the obstacles of the course implied detecting the difference between a 1kHz and a 10kHz signal, emmited by an infrared beacon. Most teams used a band-pass filter circuit that only allows signals with frequency in a particular range to go through. With two of these circuits, one for 1kHz and the other one for 10kHz, one can compare the intensity of both signals and determine which one is the predominant. Although we built this circuit, we found potential problems with it. For example the resistor have to be adjusted so the amplification in the op-amps is enough to detect the difference on intensity. Furthermore, if not taken the appropiate care the op-amps might saturate disturbing the readings. We decided to se a much simpler circuit and determine the frequency using software. This solution allowed us to fine-tune and debug our frequency sensor much faster.
 
-In order to filter frequencies, we convoluted our signal against reference signals of 1kHz and 10kHz sine waves.... [todo]
+We got readings from the signals with an infrared detector. The obtained signal was convoluted against reference signals of 1kHz and 10kHz. The two possible values for the emmited signal, sinusoidal at either 1kHz or 10kHz, are orthogonal to each other. Therefore, when convoluting the emmited signal with the two reference signals, the convolution that resulted in the higher value would be the frequency of the emmited frequency. The phase of the emmited frequency was not known, therefore the convolution was made on both the sine and the cosine of the sinusoidals.
 
 ### Proportional Integral Derivative Control
 
-During almost all of our movements, we used a control technique called Proportional Integral Derivative - or PID. This control technique allows for accurate control over movement by adjusting to any errors that are sensed. During line following, motor power is adjusted based on our distance off of the line. Unique to our team was the use of PID during encoder-controlled movements. This allowed for accuracy and consistency that very few other teams were able to achieve.
+Most of the movements, were controlled with the PID technique, Proportional Integral Derivative. PID is a control loop that continuously calculates an error value as the difference between a desired setpoint and a measured process variable and applies a correction based on proportional, integral, and derivative terms.
+
+As far as line following is concerned, our desired point were the two QRDs being in the black tape. There were five possible states as shown in the table below, but the readings from the QRDs only gave us for different states, they cannot differentiate when both QRDs are white to which side of the tape the robot is. For this reason we had to always cache the previous state in order to determine the difference between the two states where both QRDs are on white. This is the table of possible states that we used:
+
+|State  |Error   |
+|---|---|
+|Both in black   |  0 |
+| Left in black, right in white  | 1 |
+| Both in white but left was in black last  | 5  |
+|  Right in balck, left in white | -1  |
+|  Both in white but right was in black last | -5  |
+
+For the fine maneuvering of our robot we used encoders. When doing turns, we realized that if we moved each wheel independently and counted the corresponding encoder steps, the movements were very inaccurate. To solve this, we implemented PID on our encoders. The error in this case was the difference between the desired ratio of movement of the wheel and the actual ratio of movement. For example, if we wanted the left wheel to move by 6 steps and the left one to move 3 steps, desired ratio 2. If the left wheel had move 3 steps and the right one 1, actual ratio 3, we would reduce the speed of the left wheel and increase the one of the right one.
+
+### Multi-threading
+
+At some points our robot had to do multiple actions at the same time, such as turning the wheels and flashing leds in order to look for ewoks. In order to simulate a multi-threaded processor we used a polling technique. Polling is the continuous checking of other programs or devices by one progam or device to see what state they are in, usually to see whether they are still connected or want to communicate. We modelled the different physical components, such as the encoders, with cygwin. With this unit testing framework, we were able to test our code and make sure there were no bugs before flashing our microprocessors.
+
+### Unit testing framework
+
+In order to be able to test our code, we wanted to write unit tests. 
 
 ## Reflections
 
@@ -178,5 +198,7 @@ If we were to do this again, we can definitely improve on our documentation. Tho
 One of the major mistakes that slowed down our progress was that we were too slow to adapt to changes in the rules. Originally, Chewy was worth 3 times as much as a single Ewok, therefore we believed that if we were able to bring back the first Ewok, go up the Zipline and bring back Chewy and the Ewok inside the stronghold, we would be in a very good position to win the competition. However, when the rules changed and Chewy was worth 5 points inside of 9 in total, we did not adapt to this change quickly and stuck to our original plan. Had we re-evaluated the situation, we could have changed our design earlier and had more time to improve on our final design. 
 
 This project allowed us to go through the entire development engineering development phase, from brainstorming, to designing, to fabricating and testing. We learned a lot about iteration
+
+Considering software improvements, we believe that our biggest error was to assume that writing firmware was almost the same as writing high-level software. We found out that in firmware, if you do not have a unit testing framework is very hard to find bugs and correct them. In the future, we will make the physical design of our robot less software dependant. Althoug some software solutions really helped us have a very good control of our robot, we realize that some of our software could be simplified with a better physical design.
 
 TODO Add section on how we could have improved our mechanical design 
