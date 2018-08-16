@@ -5,10 +5,10 @@
 1. [Course Description](#course-description)
 2. [Our Robot](#our-robot)
 3. [Our Team](#our-team)
-4. [Our Design + Strategy](#our-design-+-strategy)
-  4.1 [First Design](#first-design)
-    4.1.1 [Lift System](#lift-system)
-    4.1.2 [Pulley System](#pulley-system) 
+4. [Our Design + Strategy](#our-design--strategy)
+  4.1. [First Design](#first-design)
+    4.1.1. [Lift System](#lift-system)
+    4.1.2. [Pulley System](#pulley-system) 
 
 ## Course Description
 From [course website:](https://projectlab.engphys.ubc.ca/enph253_2018/)
