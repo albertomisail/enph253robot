@@ -4,7 +4,7 @@
 ### Course Description
 From [course website:](https://projectlab.engphys.ubc.ca/enph253_2018/)
 
-ENPH 253 – Introduction to Instrument Design. Practical laboratory exposure to instrument bread-boarding including simple mechanical and electrical design, and communications with sensors, actuators. Micro-controller implementation and design.    Credits: 3        Pre-reqs: One of ENPH 259, PHYS 259, PHYS 209.
+ENPH 253 – Introduction to Instrument Design. Practical laboratory exposure to instrument bread-boarding including simple mechanical and electrical design, and communications with sensors, actuators. Micro-controller implementation and design.    Credits: [5]        Pre-reqs: One of ENPH 259, PHYS 259, PHYS 209.
 
 Background on the course:
 
