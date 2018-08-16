@@ -14,13 +14,13 @@ To offset the intensity and difficulty of the course, the engineering content to
 
 ## Our robot
 
-photo
+![Final Chassis After Competition](res/final_robot_after_comp.jpg)
 
 description
 
 ## Our team
 
-photo (maybe the one in front of the "this just might work" sign?)
+![Team Photo: Frank Jia, Charles Qian, David Berard, Alberto Misail](res/team_4_photo.jpg)
 
 description with our names and roles
 
