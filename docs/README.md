@@ -2,7 +2,7 @@
 ## 2018 UBC ENGINEERING PHYSICS ROBOT SUMMER - 3RD PLACE
 
 # Table of Contents 
-1. [Course Description](#course-description-)
+1. [Course Description](#course-description)
 
 ## Course Description
 From [course website:](https://projectlab.engphys.ubc.ca/enph253_2018/)
