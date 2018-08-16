@@ -39,7 +39,7 @@ The pulley to allow our robot to go up and down the ziplines needed to be light 
 ### Pivot in Strategy + Final Design
 As mentioned, our initial strategy was too time intensive to execute. In addition to fabricating all the designs, we found that we had very little time to iterate for reliability. In addition, the weight of a dual lift and pulley system put our robot at a speed disadvantage. To address these issues, we stripped our design of all parts that were non-critical to the competition flow. Our final chassis was extremely light, agile, and reliable, which gave us a significant advantage during the time-limited competition runs.
 
-![Final Chassis Design](Final Chassis with Circuit Holder.png)
+![Final Chassis Design](small_chassis_with_circuit_holder.png)
 
 Our final chassis was a dual-layered and had support for the following:
 - A claw system for holding and picking up ewoks and chewbacca
