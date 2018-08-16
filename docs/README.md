@@ -1,4 +1,4 @@
-# TEAM IV - (robot name)
+# TEAM IV - Lil Bot: A New Hope 
 ## 2018 UBC ENGINEERING PHYSICS ROBOT SUMMER - 3RD PLACE
 
 Course Description
@@ -40,6 +40,8 @@ The pulley to allow our robot to go up and down the ziplines needed to be light 
 As mentioned, our initial strategy was too time intensive to execute. In addition to fabricating all the designs, we found that we had very little time to iterate for reliability. In addition, the weight of a dual lift and pulley system put our robot at a speed disadvantage. To address these issues, we stripped our design of all parts that were non-critical to the competition flow. Our final chassis was extremely light, agile, and reliable, which gave us a significant advantage during the time-limited competition runs.
 
 ![Final Chassis Design](small_chassis_with_circuit_holder.png)
+
+[Final Chassis CAD - OnShape](https://cad.onshape.com/documents/e5c3377a8716b8da60088099/w/010801819196a53872331fb3/e/1dbbbb5ea80693d58eb4c532 "Lil Bot CAD") 
 
 Our final chassis was a dual-layered and had support for the following:
 - A claw system for holding and picking up ewoks and chewbacca
