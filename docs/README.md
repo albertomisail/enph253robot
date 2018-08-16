@@ -161,3 +161,5 @@ If we were to do this again, we can definitely improve on our documentation. Tho
 
 One of the major mistakes that slowed down our progress was that we were too slow to adapt to changes in the rules. Originally, Chewy was worth 3 times as much as a single Ewok, therefore we believed that if we were able to bring back the first Ewok, go up the Zipline and bring back Chewy and the Ewok inside the stronghold, we would be in a very good position to win the competition. However, when the rules changed and Chewy was worth 5 points inside of 9 in total, we did not adapt to this change quickly and stuck to our original plan. Had we re-evaluated the situation, we could have changed our design earlier and had more time to improve on our final design. 
 
+This project allowed us to go through the entire development engineering development phase, from brainstorming, to designing, to fabricating and testing. We learned a lot about iteration
+
