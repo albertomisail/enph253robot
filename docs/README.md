@@ -8,6 +8,11 @@
 4. [Mechanical Design + Strategy](#mechanical-design--strategy)
 
 	4.1. [First Design](#first-design)
+	
+	4.2. [Pivot in Strategy + Final Design](#pivot-in-strategy--final-design)
+5. [Electrical Components](#electrical-components)
+6. [Software](#software)
+7. [Reflections](#reflections)
 
 ## Course Description
 From [course website:](https://projectlab.engphys.ubc.ca/enph253_2018/)
@@ -148,7 +153,7 @@ unit testing at the end
 
 Dylan says something about state diagrams but tbh I don't feel like that's particularly relevant...
 
-## Reflections and Lessons Learned
+## Reflections
 
 One of the most important lessons we learned throughtout this course is that a simple and consistent design is key to a great engineering project. Initially, our design was much more complex and therefore had more points of failure. By reducing the 
 
