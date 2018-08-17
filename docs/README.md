@@ -45,6 +45,14 @@ The final design of our robot is based around consistency and simplicity. Many d
 
 Therefore, our design focused on picking up and returning each of the Ewoks individually to the starting area. Using encoders, we were able to precisely and accurately maneuver our robot and returned the Ewoks by placing them in the start area as well as dropping them over the ledge into the starting area. 
 
+### Lil' Bot in Action
+
+Lil' Bot in the Competition
+[![Lil' Bot in the Competition](http://img.youtube.com/vi/LhxuCqqayqA/0.jpg)](https://www.youtube.com/watch?v=LhxuCqqayqA)
+
+Lil' Bot Test Run (9 points)
+[![Lil' Bot Test Run](http://img.youtube.com/vi/c9KOxD8mEFE/0.jpg)](https://www.youtube.com/watch?v=c9KOxD8mEFE)
+
 ## Our team
 
 ![Team Photo: Frank Jia, Charles Qian, David Berard, Alberto Misail](res/team_4_photo.jpg)
@@ -119,7 +127,7 @@ Simplicity and reliability allowed us to perform so well on competition day. Our
 
 ### STM32 "Blue Pill" Board
 
-TODO: Insert Picture of Blue Pill 
+![Blue Pill](res/STM32_Blue_Pill_perspective.jpg)
 
 The STM32F106... board has a 72MHz processor, a fast analog digital converter, and three timers in a $2 tiny form factor. The small size and high speed were extremely useful, but the board had never been used in ENPH253 before; we learned a lot when developing a lot of software from scratch, learning along with the instructors.
 
@@ -131,8 +139,6 @@ H-bridges are circuits that can amplify the small signals from our microcontroll
 
 ### Line Following with Infrared Sensors
 
-TODO Add Picture of QRD Holder 
-
 A black line running across the competition surface acts as a guide for our robots to follow. In order to sense this line, we used a sensor called QRD1114. The QRD sensor is essentially a phototransistor with an Infrared LED. Most teams simply keep the LED on and take readings from the output of the phototransistor. The black surface reflects less light than the white surface, providing a sense of where we are. 
 
 However, sensors like the QRD is very sensitive to ambient light, therefore most teams have to calibrate to different ambient conditions and their line following results can greatly differ in different conditions depending on the calibrated thresholds. In an attempt to solve this issue, we pulse infrared light from LEDs at the ground, and measure the amount of reflected light with the phototransistor. We then compared the values from when the LED is on and when the LED is off. This did improve the overall performance and accuracy of our sensors, allowing us to perform better in a wider range of ambient lighting at the cost of speed of data reading. 
@@ -141,7 +147,9 @@ However, sensors like the QRD is very sensitive to ambient light, therefore most
 
 Inspired by our line-following sensors, we mounted a high-powered equivalent at the front of our robot. Instead of using QRDs, we used 6 Infrared LEDs and a single phototransistor. We used CAD and 3D printed a container to mount this sensor to the front of our robot. In order to account for different ambient infrared amounts, we pulse the LEDs in order to get readings with only ambient light, and readings that include light reflected off the surroundings. Using this method, we were able to sense detect from over half a meter away! Often times people thought our Ewok Sensor was a camera because it was very quick and precise at detecting objects from from a distance. 
 
-TODO: Insert Picture of Ewok Sensor and Explain how it works 
+The following is a CAD model of our Ewok Sensor. The 6 infrared LEDs form a ring around the phototransistor in the center and is mounted to the front of the chassis with fasteners. 
+
+![Ewok Sensor CAD](res/ewok_sensor.png)
 
 ### Encoders
 
@@ -151,6 +159,9 @@ To provide more control over our robot, we added rotary encoders on our wheels. 
 
 In our first design, we did not reserve any space for our circuitry, leading to makeshift mounting solutions and extremely messy wiring. Learning from our mistakes, we designed an enclosure which isolated our circuits to one location, and relied on high-quality JST connectors for any sensor input. This solution allowed for easy replacement of electronic components, easy access to circuitry, and one of the most compact electronics systems in this year's competition.
 
+The following is an early design sketch of our circuit board design.
+![Circuit Board Design](res/circuit_board_rough_design.png) 
+
 ### Loose Wires
 
 In a final product design, the loose wires found on our robot would be unacceptable; free wires can become detached at connection points when they move. However, hidden, completely secured wires are difficult to replace or move. We found a balance on our final design; we used good connectors, and we made sure to zip-tie our wires in place once we finalized our circuitry. The free wires saved us hours when we fine-tuned and replaced our sensors.
@@ -158,8 +169,6 @@ In a final product design, the loose wires found on our robot would be unaccepta
 ## Software
 
 ### Frequency Sensing: 1kHz vs 10kHz
-
-TODO: (graph thing)
 
 One of the obstacles of the course implied detecting the difference between a 1kHz and a 10kHz signal, emmited by an infrared beacon. Most teams used a band-pass filter circuit that only allows signals with frequency in a particular range to go through. With two of these circuits, one for 1kHz and the other one for 10kHz, one can compare the intensity of both signals and determine which one is the predominant. Although we built this circuit, we found potential problems with it. For example the resistor have to be adjusted so the amplification in the op-amps is enough to detect the difference on intensity. Furthermore, if not taken the appropiate care the op-amps might saturate disturbing the readings. We decided to se a much simpler circuit and determine the frequency using software. This solution allowed us to fine-tune and debug our frequency sensor much faster.
 
@@ -191,14 +200,16 @@ In order to be able to test our code, we wanted to write unit tests.
 
 ## Reflections
 
+### Areas to Improve in Design
+
 One of the most important lessons we learned throughtout this course is that a simple and consistent design is key to a great engineering project. Initially, our design was much more complex and therefore had more points of failure. By reducing the 
 
 If we were to do this again, we can definitely improve on our documentation. Though we attempted to use Trello to keep track of our development and progress, things got very messy on our Trello board quickly. It is very important for a well functioning team to have an organized structure to document the development process.
 
-One of the major mistakes that slowed down our progress was that we were too slow to adapt to changes in the rules. Originally, Chewy was worth 3 times as much as a single Ewok, therefore we believed that if we were able to bring back the first Ewok, go up the Zipline and bring back Chewy and the Ewok inside the stronghold, we would be in a very good position to win the competition. However, when the rules changed and Chewy was worth 5 points inside of 9 in total, we did not adapt to this change quickly and stuck to our original plan. Had we re-evaluated the situation, we could have changed our design earlier and had more time to improve on our final design. 
+A major mistake that slowed down our progress was that we were too slow to adapt to changes in the rules. Our original plan hinged on the fact that rescuing Chewbacca is worth rescuing 3 Ewoks. When the points for Chewbacca was lowered, we did not adapt to this change quickly. This large portion of our time could have been used to further improve our final design. 
 
 This project allowed us to go through the entire development engineering development phase, from brainstorming, to designing, to fabricating and testing. We learned a lot about iteration
 
 Considering software improvements, we believe that our biggest error was to assume that writing firmware was almost the same as writing high-level software. We found out that in firmware, if you do not have a unit testing framework is very hard to find bugs and correct them. In the future, we will make the physical design of our robot less software dependant. Althoug some software solutions really helped us have a very good control of our robot, we realize that some of our software could be simplified with a better physical design.
 
-TODO Add section on how we could have improved our mechanical design 
+ 
