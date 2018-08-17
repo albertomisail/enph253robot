@@ -48,9 +48,11 @@ Therefore, our design focused on picking up and returning each of the Ewoks indi
 ### Lil' Bot in Action
 
 Lil' Bot in the Competition
+
 [![Lil' Bot in the Competition](http://img.youtube.com/vi/LhxuCqqayqA/0.jpg)](https://www.youtube.com/watch?v=LhxuCqqayqA)
 
 Lil' Bot Test Run (9 points)
+
 [![Lil' Bot Test Run](http://img.youtube.com/vi/c9KOxD8mEFE/0.jpg)](https://www.youtube.com/watch?v=c9KOxD8mEFE)
 
 ## Our team
@@ -196,20 +198,14 @@ At some points our robot had to do multiple actions at the same time, such as tu
 
 ### Unit testing framework
 
-In order to be able to test our code, we wanted to write unit tests. 
+Often times, the mechanical team wanted to make mechanical changes and the electrical/software team wanted to test the robot at the same time. In order to be able to test our code, we wrote a unit testing framework to verify the correctness of our code without needing the robot. This greatly improved our efficiency and allowed us to parallelize more work. 
 
 ## Reflections
 
-### Areas to Improve in Design
-
-One of the most important lessons we learned throughtout this course is that a simple and consistent design is key to a great engineering project. Initially, our design was much more complex and therefore had more points of failure. By reducing the 
-
-If we were to do this again, we can definitely improve on our documentation. Though we attempted to use Trello to keep track of our development and progress, things got very messy on our Trello board quickly. It is very important for a well functioning team to have an organized structure to document the development process.
-
-A major mistake that slowed down our progress was that we were too slow to adapt to changes in the rules. Our original plan hinged on the fact that rescuing Chewbacca is worth rescuing 3 Ewoks. When the points for Chewbacca was lowered, we did not adapt to this change quickly. This large portion of our time could have been used to further improve our final design. 
-
-This project allowed us to go through the entire development engineering development phase, from brainstorming, to designing, to fabricating and testing. We learned a lot about iteration
+A major mistake that slowed down our progress was that we were too slow to adapt to changes in the rules. Our original plan hinged on the fact that rescuing Chewbacca is worth rescuing 3 Ewoks. When the points for Chewbacca was lowered, we did not adapt to this change quickly. This large portion of our time could have been used to further improve our final design. A specific change that would have improved the control of the robot would be to mount our encoders elsewhere. Our final design had our encoders mounted in-line with our rear axle. Since the encoder is limited to 24 steps per rotation, had we geared up the encoder relative to the wheel, we would have had a much higher resolution and thus control of our movements.
 
 Considering software improvements, we believe that our biggest error was to assume that writing firmware was almost the same as writing high-level software. We found out that in firmware, if you do not have a unit testing framework is very hard to find bugs and correct them. In the future, we will make the physical design of our robot less software dependant. Althoug some software solutions really helped us have a very good control of our robot, we realize that some of our software could be simplified with a better physical design.
 
- 
+If we were to do this again, we can definitely improve on our documentation. Though we attempted to use Trello to keep track of our development and progress, things got very messy on our Trello board quickly. It is very important for a well functioning team to have an organized structure to document the development process.
+
+One of the most important lessons we learned throughtout this course is that a simple and consistent design is key to a great engineering project. Initially, our design was much more complex and therefore had more possible points of failure. By reducing the overall complexity, we were able to maintain a consistent performance and that allowed us to achieve a great result in the competition.
