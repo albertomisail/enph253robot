@@ -113,7 +113,7 @@ The basic chassis was large enough to hold the motors, wheels, axles, and one cl
 
 ![Final Claw System Design](res/small_chassis_claw.JPG)
 
-[Claw System CAD - Onshape] (https://cad.onshape.com/documents/ba80560c7ad54f163c77a1c2/w/127cfb8a319be0fdb18ce1d3/e/1f57a8d6266c7a1f6b8fe82e)
+[Claw System CAD - Onshape](https://cad.onshape.com/documents/ba80560c7ad54f163c77a1c2/w/127cfb8a319be0fdb18ce1d3/e/1f57a8d6266c7a1f6b8fe82e)
 
 Given the relative inaccuracy of IR object sensing (Attributed mostly by the changing ambient light conditions) and the intention to hold ewoks for extended amounts of time (instead of dropping them into a basket), our claw needed to be forgiving and relatively strong. We opted for a "serrated" claw design with a hook-like structure at the end. The serrated design would help hold ewoks in place during travel, and the hook-like structure would help scoop any ewoks in if they were slightly too far. This entire mechanism was driven by a small servo, geared to increase grip torque. 
 
