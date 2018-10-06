@@ -29,7 +29,7 @@ To offset the intensity and difficulty of the course, the engineering content to
 
 [Detailed Rules](https://docs.google.com/document/d/18rYIVlMZeD559deR7-5YjfQzZz4BeeS6pr8FI5Qlm8Q/edit)
 
-![Competition Course](res/competition_course.png)
+![Competition Course](docs/res/competition_course.png)
 
 The theme of this year's competition is Star Wars, we have been tasked to build fully autonomous robots to rescue Ewoks and Chewbacca from the Empire's Stronghold. There are various difficult challenges on the way to Chewbacca, the robots have to, without human interaction, navigate the course, find and pick up Ewoks, cross gaps, detect and distinguish between different infrared frequencies and most importantly, return the rescued Ewoks and Chewbacca back to the startingg location. Picking up an Ewok is worth 1 point and succesfully returning an Ewok earns the team 2 additional points. Picking up Chewbacca is worth 2 points, and returning Chewbacca earns the team 3 additional points. 
 
@@ -37,7 +37,7 @@ There are various objects to assist and guide the robots such as the black elect
 
 ## Our robot
 
-![Final Chassis After Competition](res/final_robot_after_comp.jpg)
+![Final Chassis After Competition](docs/res/final_robot_after_comp.jpg)
 
 FUN FACT: Our robot had gone through various iterations, four to be exact. With us being Team 4, we therefore dubbed our final iteration "A New Hope", the fourth episode in the Star Wars series. 
 
@@ -57,7 +57,7 @@ Lil' Bot Test Run (9 points)
 
 ## Our team
 
-![Team Photo: Frank Jia, Charles Qian, David Berard, Alberto Misail](res/team_4_photo.jpg)
+![Team Photo: Frank Jia, Charles Qian, David Berard, Alberto Misail](docs/res/team_4_photo.jpg)
 
 Frank Jia - Mechanical Design and Fabrication, Testing and Optimization
 
@@ -71,7 +71,7 @@ Alberto Misail - Electrical Design and Fabrication, Software Development, Testin
 
 ### First Design 
 
-![First Chassis with Lift](res/first_chassis.JPG)
+![First Chassis with Lift](docs/res/first_chassis.JPG)
 
 The first iteration of our design was composed of a dual scissor lift and pulley with a basket in the middle. The lift and pulley mechanism would allow us to go up and down the two ziplines on the course, allowing us to complete the competition in a non-linear fashion. 
 
@@ -79,19 +79,19 @@ This was the strategy that would allow us to retain flexibility and target ewoks
 
 #### Lift System
 
-![Lift System Design](res/first_chassis_lift.JPG)
+![Lift System Design](docs/res/first_chassis_lift.JPG)
 
 Our first design features a dual scissor lift, driven by a standard DC motor and geared down with a transmission. The transmission is coupled to a lead screw which would lift up and down the upper platform. Initial prototypes were constructed using laser-cut hardboard pieces and 3D printed mounts.
 
 #### Pulley System
-![Pulley System Design](res/first_chassis_pulley.JPG)
+![Pulley System Design](docs/res/first_chassis_pulley.JPG)
 
 The pulley to allow our robot to go up and down the ziplines needed to be light (to keep the center of mass low to the ground), yet powerful enough to drive a 5kg+ load up an inclined zipline. Using these design restrictions, we opted for a relatively simple and lightweight structure, built using 0.8mm aluminum that was waterjet cut to fit specifications. We used a DC motor which was geared down for increased torque
 
 ### Pivot in Strategy + Final Design
 As mentioned, our initial strategy was too time intensive to execute. In addition to fabricating all the designs, we found that we had very little time to iterate for reliability. In addition, the weight of a dual lift and pulley system put our robot at a speed disadvantage. To address these issues, we stripped our design of all parts that were non-critical to the competition flow. Our final chassis was extremely light, agile, and reliable, which gave us a significant advantage during the time-limited competition runs.
 
-![Final Chassis Design](res/small_chassis_with_circuit_holder.png)
+![Final Chassis Design](doc/res/small_chassis_with_circuit_holder.png)
 
 [Final Chassis CAD - OnShape](https://cad.onshape.com/documents/e5c3377a8716b8da60088099/w/010801819196a53872331fb3/e/1dbbbb5ea80693d58eb4c532 "Lil Bot CAD") 
 
@@ -105,13 +105,13 @@ We stripped even the functionality of having a basket, opting to rescue each ewo
 
 #### Basic Chassis Design
 
-![Final Basic Chassis Design](res/small_chassis_base.JPG)
+![Final Basic Chassis Design](docs/res/small_chassis_base.JPG)
 
 The basic chassis was large enough to hold the motors, wheels, axles, and one claw. The first layer of the chassis was constructed out of laser-cut hardboard, and was dual-layered to reduce any possible flex. The rigidity of the chassis allowed us to make quick adjustments in speed and direction. 
 
 #### Claw System
 
-![Final Claw System Design](res/small_chassis_claw.JPG)
+![Final Claw System Design](docs/res/small_chassis_claw.JPG)
 
 [Claw System CAD - Onshape](https://cad.onshape.com/documents/ba80560c7ad54f163c77a1c2/w/127cfb8a319be0fdb18ce1d3/e/1f57a8d6266c7a1f6b8fe82e)
 
@@ -121,7 +121,7 @@ The entire claw assembly was attached to a rotating base, so that we could hold 
 
 #### Bridge Laying Mechanism
 
-![Second (L) and First (R) Bridge Design](res/small_chassis_bridges.JPG)
+![Second (L) and First (R) Bridge Design](docs/res/small_chassis_bridges.JPG)
 
 Simplicity and reliability allowed us to perform so well on competition day. Our bridge laying mechanism was a simple servo that would rotate to drop one bridge, but not the other. Iterating many times, we found the above bridge designs to fall into position the most reliably. The flanges within the bridges themselves acted as a guiding mechanism for the bridges to fall properly. 
 
@@ -129,13 +129,13 @@ Simplicity and reliability allowed us to perform so well on competition day. Our
 
 ### STM32 "Blue Pill" Board
 
-![Blue Pill](res/STM32_Blue_Pill_perspective.jpg)
+![Blue Pill](docs/res/STM32_Blue_Pill_perspective.jpg)
 
 The STM32F106... board has a 72MHz processor, a fast analog digital converter, and three timers in a $2 tiny form factor. The small size and high speed were extremely useful, but the board had never been used in ENPH253 before; we learned a lot when developing a lot of software from scratch, learning along with the instructors.
 
 ### H-bridges
 
-![H-Bridge Schematic](res/hbridge.png)
+![H-Bridge Schematic](docs/res/hbridge.png)
 
 H-bridges are circuits that can amplify the small signals from our microcontroller and allow our motors to run both in forward and reverse at high power. The MOSFET transistors in this circuit act as switches, providing power in either forward or reverse through the motor. Teams historically have a difficult time building and testing this circuit, and our team was no exception; we learned a lot about noise, microcontroller timers, and cable management while debugging this circuit.
 
@@ -151,7 +151,7 @@ Inspired by our line-following sensors, we mounted a high-powered equivalent at 
 
 The following is a CAD model of our Ewok Sensor. The 6 infrared LEDs form a ring around the phototransistor in the center and is mounted to the front of the chassis with fasteners. 
 
-![Ewok Sensor CAD](res/ewok_sensor.png)
+![Ewok Sensor CAD](docs/res/ewok_sensor.png)
 
 ### Encoders
 
@@ -162,7 +162,7 @@ To provide more control over our robot, we added rotary encoders on our wheels. 
 In our first design, we did not reserve any space for our circuitry, leading to makeshift mounting solutions and extremely messy wiring. Learning from our mistakes, we designed an enclosure which isolated our circuits to one location, and relied on high-quality JST connectors for any sensor input. This solution allowed for easy replacement of electronic components, easy access to circuitry, and one of the most compact electronics systems in this year's competition.
 
 The following is an early design sketch of our circuit board design.
-![Circuit Board Design](res/circuit_board_rough_design.png) 
+![Circuit Board Design](docs/res/circuit_board_rough_design.png) 
 
 ### Loose Wires
 
